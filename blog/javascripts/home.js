@@ -38,7 +38,7 @@ document.observe("dom:loaded", function() {
     $('result_count').update('(' + results.length + ')');
 
     $('search_results').update(results.collect(function(post) {
-      return('<li><a href="' + post.url + '">' + post.title + '</a><p>' + post.summary + '</p></li>');
+      return('<li><a href="/blog/' + post.url + '">' + post.title + '</a><p>' + post.summary + '</p></li>');
     }).join(''));
   };
 

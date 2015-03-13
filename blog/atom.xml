@@ -4,7 +4,7 @@
  <title>TRAVISO Blog</title>
  <link href="http://thejqr.com/atom.xml" rel="self"/>
  <link href="http://thejqr.com/"/>
- <updated>2015-03-13T11:07:50+00:00</updated>
+ <updated>2015-03-13T11:13:09+00:00</updated>
  <id>http://www.travisojs.com/</id>
  <author>
    <name>TRAVISO Blog</name>
@@ -710,7 +710,7 @@ thor rspec:rename_to_dotspec&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
 &lt;span class=&quot;gp&quot;&gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;
 &lt;span class=&quot;go&quot;&gt;=&amp;gt; {}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Voila!&lt;/p&gt;
 &lt;h3&gt;The how and why&lt;/h3&gt;
-&lt;p&gt;If you&amp;#8217;re curious about how this works, I&amp;#8217;ve written a simple post describing the &lt;a href=&quot;/2009/02/01/the-making-of-typed-serialize.html&quot;&gt;the making of typed_serialize&lt;/a&gt;, or you can &lt;a href=&quot;http://github.com/jqr/typed_serialize&quot;&gt;browse the code&lt;/a&gt;.&lt;/p&gt;</content>
+&lt;p&gt;If you&amp;#8217;re curious about how this works, I&amp;#8217;ve written a simple post describing the &lt;a href=&quot;/blog/2009/02/01/the-making-of-typed-serialize.html&quot;&gt;the making of typed_serialize&lt;/a&gt;, or you can &lt;a href=&quot;http://github.com/jqr/typed_serialize&quot;&gt;browse the code&lt;/a&gt;.&lt;/p&gt;</content>
    </entry>
  
    <entry>
