@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>TRAVISO Blog</title>
- <link href="http://thejqr.com/atom.xml" rel="self"/>
- <link href="http://thejqr.com/"/>
- <updated>2015-03-13T12:07:10+00:00</updated>
- <id>http://www.travisojs.com/</id>
+ <link href="http://travisojs.com/blog/atom.xml" rel="self"/>
+ <link href="http://travisojs.com/blog/"/>
+ <updated>2015-03-13T12:10:24+00:00</updated>
+ <id>http://www.travisojs.com/blog/</id>
  <author>
    <name>TRAVISO Blog</name>
    <email>karlidag@gmail.com</email>

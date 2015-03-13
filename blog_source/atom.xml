@@ -5,10 +5,10 @@ layout: nil
 <feed xmlns="http://www.w3.org/2005/Atom">
 
  <title>TRAVISO Blog</title>
- <link href="http://thejqr.com/atom.xml" rel="self"/>
- <link href="http://thejqr.com/"/>
+ <link href="http://travisojs.com/blog/atom.xml" rel="self"/>
+ <link href="http://travisojs.com/blog/"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
- <id>http://www.travisojs.com/</id>
+ <id>http://www.travisojs.com/blog/</id>
  <author>
    <name>TRAVISO Blog</name>
    <email>karlidag@gmail.com</email>
