@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
- <title>Elijah Miller</title>
+ <title>TRAVISO Blog</title>
  <link href="http://thejqr.com/atom.xml" rel="self"/>
  <link href="http://thejqr.com/"/>
- <updated>2015-03-13T10:42:48+00:00</updated>
- <id>http://thejqr.com/</id>
+ <updated>2015-03-13T11:02:22+00:00</updated>
+ <id>http://www.travisojs.com/</id>
  <author>
-   <name>Elijah Miller</name>
-   <email>elijah.miller@gmail.com</email>
+   <name>TRAVISO Blog</name>
+   <email>karlidag@gmail.com</email>
  </author>
 
  
    <entry>
      <title>Selfless Ruby</title>
-     <link href="http://thejqr.com/2013/10/14/selfless-ruby.html"/>
+     <link href="http://travisojs.com/blog/2013/10/14/selfless-ruby.html"/>
      <updated>2013-10-14T00:00:00+01:00</updated>
-     <id>http://thejqr.com/2013/10/14/selfless-ruby</id>
+     <id>http://travisojs.com/blog/2013/10/14/selfless-ruby</id>
      <content type="html">&lt;p&gt;There are only a few occasions when you need to use self prefix in Ruby. Understanding these only takes a few minutes and can help you avoid some pretty common bugs and wasteful debugging attempts.&lt;/p&gt;
 &lt;h3&gt;Avoiding local variable assignment&lt;/h3&gt;
 &lt;p&gt;Calling a writer in the current scope, as in:&lt;/p&gt;
@@ -66,9 +66,9 @@
  
    <entry>
      <title>Automatically Generated Maps with Microformats</title>
-     <link href="http://thejqr.com/2013/09/09/automatically-generated-maps-with-microformats.html"/>
+     <link href="http://travisojs.com/blog/2013/09/09/automatically-generated-maps-with-microformats.html"/>
      <updated>2013-09-09T00:00:00+01:00</updated>
-     <id>http://thejqr.com/2013/09/09/automatically-generated-maps-with-microformats</id>
+     <id>http://travisojs.com/blog/2013/09/09/automatically-generated-maps-with-microformats</id>
      <content type="html">&lt;p&gt;
   Got a few addresses and want to show them on a map without writing any javascript?
   It turns out, there&#39;s an incredibly easy way: mark up your addresses as
@@ -141,9 +141,9 @@
  
    <entry>
      <title>Easy Heroku Deploys with Heroku San</title>
-     <link href="http://thejqr.com/2010/08/27/easy-heroku-deploys-with-heroku-san.html"/>
+     <link href="http://travisojs.com/blog/2010/08/27/easy-heroku-deploys-with-heroku-san.html"/>
      <updated>2010-08-27T00:00:00+01:00</updated>
-     <id>http://thejqr.com/2010/08/27/easy-heroku-deploys-with-heroku-san</id>
+     <id>http://travisojs.com/blog/2010/08/27/easy-heroku-deploys-with-heroku-san</id>
      <content type="html">&lt;p&gt;We deploy a great deal of our apps to &lt;a href=&quot;http://heroku.com&quot;&gt;Heroku&lt;/a&gt;, but maintaining multiple environments (staging, production, demo) was traditionally &lt;a href=&quot;/2009/04/25/deploying-multiple-environments-on-heroku.html&quot;&gt;very painful&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://github.com/fastestforward/heroku_san&quot;&gt;heroku_san&lt;/a&gt; is a simple set of rake tasks to make standard Rails deployment easy. Multiple apps, environments, branches and users are handled with the minimum of effort.&lt;/p&gt;
 &lt;h3&gt;Initial Setup&lt;/h3&gt;
@@ -182,9 +182,9 @@ rake console                   &lt;span class=&quot;c&quot;&gt;# open a console 
  
    <entry>
      <title>iPhone Toggle Switches</title>
-     <link href="http://thejqr.com/2009/08/05/iphone-toggle-switches.html"/>
+     <link href="http://travisojs.com/blog/2009/08/05/iphone-toggle-switches.html"/>
      <updated>2009-08-05T00:00:00+01:00</updated>
-     <id>http://thejqr.com/2009/08/05/iphone-toggle-switches</id>
+     <id>http://travisojs.com/blog/2009/08/05/iphone-toggle-switches</id>
      <content type="html">&lt;p&gt;
   Way back in June, &lt;a href=&quot;http://awardwinningfjords.com/&quot;&gt;Thomas Reynolds&lt;/a&gt;
   released &lt;a
@@ -283,9 +283,9 @@ handle and label.
  
    <entry>
      <title>Deploying Multiple Environments on Heroku</title>
-     <link href="http://thejqr.com/2009/04/25/deploying-multiple-environments-on-heroku.html"/>
+     <link href="http://travisojs.com/blog/2009/04/25/deploying-multiple-environments-on-heroku.html"/>
      <updated>2009-04-25T00:00:00+01:00</updated>
-     <id>http://thejqr.com/2009/04/25/deploying-multiple-environments-on-heroku</id>
+     <id>http://travisojs.com/blog/2009/04/25/deploying-multiple-environments-on-heroku</id>
      <content type="html">&lt;p class=&quot;update&quot;&gt;UPDATE: This post is outdated, check out &lt;a href=&quot;/2010/08/27/easy-heroku-deploys-with-heroku-san.html&quot;&gt;Easy Deploys with Heroku San&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;So you followed yesterday&#39;s guide on &lt;a href=&quot;/2009/04/24/deploy-your-rails-application-in-2-minutes-with-heroku.html&quot;&gt;getting your application deployed to
@@ -371,9 +371,9 @@ your application deployed to Heroku&lt;/a&gt;.&lt;/p&gt;
  
    <entry>
      <title>Deploy Your Rails Application in 2 Minutes with Heroku</title>
-     <link href="http://thejqr.com/2009/04/24/deploy-your-rails-application-in-2-minutes-with-heroku.html"/>
+     <link href="http://travisojs.com/blog/2009/04/24/deploy-your-rails-application-in-2-minutes-with-heroku.html"/>
      <updated>2009-04-24T00:00:00+01:00</updated>
-     <id>http://thejqr.com/2009/04/24/deploy-your-rails-application-in-2-minutes-with-heroku</id>
+     <id>http://travisojs.com/blog/2009/04/24/deploy-your-rails-application-in-2-minutes-with-heroku</id>
      <content type="html">&lt;p&gt;&lt;a href=&quot;http://heroku.com/&quot;&gt;Heroku&lt;/a&gt;, Instant Ruby Platform. We&#39;ve been using Heroku&#39;s free service for hosting staging servers for a few weeks now. It takes just a moment to setup and it couldn&#39;t be any easier to use.&lt;/p&gt;
 
 &lt;p&gt;Today Heroku announced a &lt;a href=&quot;http://heroku.com/pricing&quot;&gt;pricing model&lt;/a&gt; and we should be using them for more than staging servers in the near future.&lt;/p&gt;
@@ -415,9 +415,9 @@ heroku open     &lt;span class=&quot;c&quot;&gt;# some error messages show on th
  
    <entry>
      <title>Use Instant Debugger on Rare Exceptions</title>
-     <link href="http://thejqr.com/2009/03/02/use-instant-debugger-on-rare-exceptions.html"/>
+     <link href="http://travisojs.com/blog/2009/03/02/use-instant-debugger-on-rare-exceptions.html"/>
      <updated>2009-03-02T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/03/02/use-instant-debugger-on-rare-exceptions</id>
+     <id>http://travisojs.com/blog/2009/03/02/use-instant-debugger-on-rare-exceptions</id>
      <content type="html">&lt;p&gt;Most of the time a backtrace can help you zero in on a bug in your code quickly, but sometimes the issue is not your code but the data your code is processing. In these cases, a backtrace is just a clue to your problems, you really need to see what data your code was processing to get a feel for the issue.&lt;/p&gt;
 &lt;p&gt;You could throw in some statements to print out certain variables to &amp;#8220;see&amp;#8221; what your code &amp;#8220;sees&amp;#8221; at that point in time, but there is a far easier way.&lt;/p&gt;
 &lt;h3&gt;Your friend: debugger&lt;/h3&gt;
@@ -439,9 +439,9 @@ heroku open     &lt;span class=&quot;c&quot;&gt;# some error messages show on th
  
    <entry>
      <title>ActiveRecord::Base#find_each Now in Rails</title>
-     <link href="http://thejqr.com/2009/02/23/active-record-each-now-in-edge-rails.html"/>
+     <link href="http://travisojs.com/blog/2009/02/23/active-record-each-now-in-edge-rails.html"/>
      <updated>2009-02-23T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/02/23/active-record-each-now-in-edge-rails</id>
+     <id>http://travisojs.com/blog/2009/02/23/active-record-each-now-in-edge-rails</id>
      <content type="html">&lt;p&gt;&lt;strong&gt;Updated to reflect Rails 2.3 release implementation&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;When you absolutely need to traverse a large number of objects in a table and have the ActiveRecord instance available, Rails now has a Model.find_each method that makes this safe and easy.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_each&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:conditions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;last_login_at &amp;lt; ?&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;days&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ago&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
@@ -453,9 +453,9 @@ heroku open     &lt;span class=&quot;c&quot;&gt;# some error messages show on th
  
    <entry>
      <title>Ruby's Rescue Statement Can Has Value?</title>
-     <link href="http://thejqr.com/2009/02/19/rubys-rescue-statement-can-has-value.html"/>
+     <link href="http://travisojs.com/blog/2009/02/19/rubys-rescue-statement-can-has-value.html"/>
      <updated>2009-02-19T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/02/19/rubys-rescue-statement-can-has-value</id>
+     <id>http://travisojs.com/blog/2009/02/19/rubys-rescue-statement-can-has-value</id>
      <content type="html">&lt;p&gt;I just discovered something interesting about Ruby&amp;#8217;s exception rescuing. Check out these two example methods that differ only by exception assignment.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;return_nil_on_error&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
@@ -479,9 +479,9 @@ heroku open     &lt;span class=&quot;c&quot;&gt;# some error messages show on th
  
    <entry>
      <title>Passing Data With Ruby Exceptions</title>
-     <link href="http://thejqr.com/2009/02/11/passing-data-with-ruby-exceptions.html"/>
+     <link href="http://travisojs.com/blog/2009/02/11/passing-data-with-ruby-exceptions.html"/>
      <updated>2009-02-11T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/02/11/passing-data-with-ruby-exceptions</id>
+     <id>http://travisojs.com/blog/2009/02/11/passing-data-with-ruby-exceptions</id>
      <content type="html">&lt;p&gt;Have you ever needed more than the exception class, error message and back-trace when handling an exception?&lt;/p&gt;
 &lt;p&gt;I&amp;#8217;ve run into this situation a few times, most recently while adding some automatic cache expiry to &lt;a href=&quot;http://github.com/jqr/stale_object_destroyer&quot;&gt;stale_object_destroyer&lt;/a&gt; when it rescues a ActiveRecord::StaleObjectError.&lt;/p&gt;
 &lt;p&gt;First we subclass an exception and add an accessor for the data we&amp;#8217;d like to pass and add it to the initialize method for easy construction.&lt;/p&gt;
@@ -529,9 +529,9 @@ heroku open     &lt;span class=&quot;c&quot;&gt;# some error messages show on th
  
    <entry>
      <title>TextMate, Rspec and Dot Spec Party</title>
-     <link href="http://thejqr.com/2009/02/06/textmate-rspec-and-dot-spec-party.html"/>
+     <link href="http://travisojs.com/blog/2009/02/06/textmate-rspec-and-dot-spec-party.html"/>
      <updated>2009-02-06T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/02/06/textmate-rspec-and-dot-spec-party</id>
+     <id>http://travisojs.com/blog/2009/02/06/textmate-rspec-and-dot-spec-party</id>
      <content type="html">&lt;p&gt;I&amp;#8217;m going to show you how to get a great looking RSpec runner window and not go insane while trying to use it.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/images/posts/rspec_runner.jpg&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;Beautiful passing green specs, easy to read failing red specs, a clickable backtrace and the failing spec block for good measure.&lt;/p&gt;
@@ -580,9 +580,9 @@ thor rspec:rename_to_dotspec&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
  
    <entry>
      <title>Basic Iso World</title>
-     <link href="http://thejqr.com/2009/02/03/global-git-ignore.html"/>
+     <link href="http://travisojs.com/blog/2009/02/03/global-git-ignore.html"/>
      <updated>2009-02-03T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/02/03/global-git-ignore</id>
+     <id>http://travisojs.com/blog/2009/02/03/global-git-ignore</id>
      <content type="html">&lt;p&gt;Creating an isometric world with Traviso is pretty straightforward. Here is what u need:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Visuals for tiles and objects.&lt;/li&gt;
@@ -606,9 +606,9 @@ thor rspec:rename_to_dotspec&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
  
    <entry>
      <title>The Making of typed_serialize</title>
-     <link href="http://thejqr.com/2009/02/01/the-making-of-typed-serialize.html"/>
+     <link href="http://travisojs.com/blog/2009/02/01/the-making-of-typed-serialize.html"/>
      <updated>2009-02-01T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/02/01/the-making-of-typed-serialize</id>
+     <id>http://travisojs.com/blog/2009/02/01/the-making-of-typed-serialize</id>
      <content type="html">&lt;p&gt;My &lt;a href=&quot;http://github.com/jqr/typed_serialize&quot;&gt;typed_serialize plugin&lt;/a&gt; came from the repetition of code just like this.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;serialize&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Hash&lt;/span&gt;
 
@@ -678,9 +678,9 @@ thor rspec:rename_to_dotspec&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
  
    <entry>
      <title>Making Rails' Serialize Even Better</title>
-     <link href="http://thejqr.com/2009/02/01/making-rails-serialize-even-better.html"/>
+     <link href="http://travisojs.com/blog/2009/02/01/making-rails-serialize-even-better.html"/>
      <updated>2009-02-01T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/02/01/making-rails-serialize-even-better</id>
+     <id>http://travisojs.com/blog/2009/02/01/making-rails-serialize-even-better</id>
      <content type="html">&lt;p&gt;Rails has this handy method that allows you store almost any object in the database with ease. Most often I end up using it for storing optional attributes in a hash.&lt;/p&gt;
 &lt;p&gt;Here is the proper syntax for telling Rails that there is an options attribute that should only store Hash values.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
@@ -715,9 +715,9 @@ thor rspec:rename_to_dotspec&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
  
    <entry>
      <title>All My Code Are Belong to Us</title>
-     <link href="http://thejqr.com/2009/01/31/all-my-code-are-belong-to-us.html"/>
+     <link href="http://travisojs.com/blog/2009/01/31/all-my-code-are-belong-to-us.html"/>
      <updated>2009-01-31T00:00:00+00:00</updated>
-     <id>http://thejqr.com/2009/01/31/all-my-code-are-belong-to-us</id>
+     <id>http://travisojs.com/blog/2009/01/31/all-my-code-are-belong-to-us</id>
      <content type="html">&lt;p&gt;I&amp;#8217;ve really been pushing myself to move as much code as possible into the public space. &lt;a href=&quot;http://github.com&quot;&gt;GitHub&lt;/a&gt; has come at a perfect time to encourage this behavior. It makes the tedious process of sharing code so easy you&amp;#8217;d be stupid not to.&lt;/p&gt;
 &lt;p&gt;I put all of it &lt;a href=&quot;http://github.com/jqr&quot;&gt;directly on GitHub&lt;/a&gt; as a Rails plugin and a Ruby gem. Learning how to do this is a few hours of investment, but it&amp;#8217;s an investment you only need to make once. I&amp;#8217;m using &lt;a href=&quot;http://blog.evanweaver.com/files/doc/fauna/echoe/files/README.html&quot;&gt;Echoe&lt;/a&gt; right now, but I&amp;#8217;ll probably switch to &lt;a href=&quot;http://technicalpickles.com/posts/craft-the-perfect-gem-with-jeweler&quot;&gt;Jeweler&lt;/a&gt; for even simpler releases.&lt;/p&gt;
 &lt;p&gt;I am certain that making code reusable is one of the best ways to gain a solid understanding of how a software developer&amp;#8217;s tools should be used. Polishing up code for public release encourages a ton of good behavior that makes even personal reuse easier and as a side benefit, other people will improve my code for free!&lt;/p&gt;
