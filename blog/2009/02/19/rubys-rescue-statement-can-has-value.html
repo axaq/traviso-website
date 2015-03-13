@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Ruby's Rescue Statement Can Has Value? //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="An interesting way to catch and return an exception with very little code." />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">19 Feb 2009</div>
+  <h2>Ruby's Rescue Statement Can Has Value?</h2>
+  <p>I just discovered something interesting about Ruby&#8217;s exception rescuing. Check out these two example methods that differ only by exception assignment.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">return_nil_on_error</span>
+  <span class="k">begin</span>
+    <span class="k">yield</span>
+  <span class="k">rescue</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">return_exception_on_error</span>
+  <span class="k">begin</span>
+    <span class="k">yield</span>
+  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">err</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nb">puts</span> <span class="n">return_nil_on_error</span> <span class="p">{</span> <span class="k">raise</span> <span class="s2">&quot;error!&quot;</span> <span class="p">}</span><span class="o">.</span><span class="n">inspect</span>
+<span class="nb">puts</span> <span class="n">return_exception_on_error</span> <span class="p">{</span> <span class="k">raise</span> <span class="s2">&quot;error!&quot;</span> <span class="p">}</span><span class="o">.</span><span class="n">inspect</span></code></pre></div><p>Running the code above and this is what you will see.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">nil</span>
+<span class="c1">#&lt;RuntimeError: error!&gt;</span></code></pre></div><p>It&#8217;s interesting to see that Ruby treats the a rescue block as a value expression if it assigns the exception to a variable. Is there a valid use for this oddity?</p>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

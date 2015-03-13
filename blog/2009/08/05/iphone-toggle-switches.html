@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         iPhone Toggle Switches //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="A big improvement over boring HTML checkboxes." />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+       <link rel="stylesheet" href="/stylesheets/posts/iphone-toggle-switches-vendor.css" type="text/css" />
+     
+       <link rel="stylesheet" href="/stylesheets/posts/iphone-toggle-switches.css" type="text/css" />
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">05 Aug 2009</div>
+  <h2>iPhone Toggle Switches</h2>
+  <p>
+  Way back in June, <a href="http://awardwinningfjords.com/">Thomas Reynolds</a>
+  released <a
+  href="http://awardwinningfjords.com/2009/06/16/iphone-style-checkboxes.html">iPhone-style-checkboxes
+  for jQuery</a>, a progressive enhancement for checkboxes which makes them into
+  the beautiful iPhone toggle switches. I really like these switches on the
+  iPhone so I went about finishing up his version for the Prototype framework.
+  Of course, I couldn't help but add some new features along the way!
+</p>
+
+<p class="rss_only">
+  <strong>
+    You definitely need to <a href="http://thejqr.com/2009/08/05/iphone-toggle-switches.html">read
+    this article on my site</a> to see all the cool JavaScript effects I'm
+    talking about!
+  </strong>
+</p>
+
+<h3>Variable sizes</h3>
+
+<p>
+  The initial version supported changing the ON/OFF label text, but if you made
+the text longer than a few characters, it would be hidden under the handle. I
+set about making the handle and label sizes automatic based on the actual
+label text, giving a really nice
+<a href="http://shop.o2.co.uk/new-iphone/index.html">iphone 4</a> look to the
+handle and label.
+</p>
+
+<p>
+  <div><label class="left" for="variable_size_male_female">Sex</label> <input type="checkbox" id="variable_size_male_female"/></div>
+  <div><label class="left" for="variable_size_a_b">Path</label> <input type="checkbox" id="variable_size_a_b"/></div>
+</p>
+
+<p>
+  As a bonus, you can also specify that no automatic resizing should be done and
+  do the control and handle sizing with CSS to make a group of controls uniform.
+</p>
+
+<div style="width: 400px;">
+  <div><label class="left" for="static_size_a">Be you robot?</label> <input type="checkbox" id="static_size_a"/></div>
+  <div><label class="left" for="static_size_b">Comments</label> <input type="checkbox" id="static_size_b"/></div>
+  <div><label class="left" for="static_size_c">Option C</label> <input type="checkbox" id="static_size_c"/></div>
+</div>
+
+<h3>Draggable</h3>
+
+<p>
+  They certainly looked like the iPhone switches, but they didn't feel like
+  them. You could only click them to toggle, we needed to add support for
+  dragging the control.
+</p>
+
+<div><label class="left" for="variable_size_male_female">Do it</label> <input type="checkbox" id="draggable" checked="checked"/></div>
+
+<h3>Sliding labels</h3>
+
+<p>
+  A quick check through the network graph revealed <a
+  href="http://github.com/mlangenberg">Matthijs Langenberg</a> had devised a
+  clever way to slide the labels along with the handle. This was the final
+  piece, now the our JavaScript was nearly indistinguishable from the native
+  iPhone one.
+</p>
+
+<p>
+  <div><label class="left" for="sliding_labels">Go man go!</label> <input type="checkbox" id="sliding_labels" /></div>
+</p>
+
+<h3>iPhone compatibility</h3>
+
+<p>
+  Last but not least, our checkboxes didn't support dragging on the iPhone!
+  Since the iPhone sends out touch events instead of mouse ones, all of our
+  cool dragging code would need to be updated. As of today, both
+  versions of this plugin now fully support the iPhone.
+</p>
+
+<h3>Thanks</h3>
+
+<p>
+  A huge thanks to Thomas Reynolds for his development on this awesome plugin
+  and giving me the ability to add these improvements.
+</p>
+
+<h3>Download</h3>
+
+<p>
+  The <a href="http://github.com/tdreyno/iphone-style-checkboxes">source code</a> is available on GitHub
+  or you can download a <a href="http://github.com/tdreyno/iphone-style-checkboxes/zipball/master">zip</a> /
+  <a href="http://github.com/tdreyno/iphone-style-checkboxes/tarball/master">tar.gz</a>
+  archive.
+</p>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+      <script type="text/javascript" src="http://github.com/tdreyno/iphone-style-checkboxes/raw/6580bf0770490c16323de039debba77c6454ffed/prototype/scriptaculous-effects-1.8.2.js"></script>
+    
+      <script type="text/javascript" src="http://github.com/tdreyno/iphone-style-checkboxes/raw/6580bf0770490c16323de039debba77c6454ffed/prototype/iphone-style-checkboxes.js"></script>
+    
+      <script type="text/javascript" src="/javascripts/posts/iphone-toggle-switches.js"></script>
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

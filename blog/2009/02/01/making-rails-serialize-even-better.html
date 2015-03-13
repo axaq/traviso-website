@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Making Rails' Serialize Even Better //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="An improved pattern for Rails attribute serializing." />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">01 Feb 2009</div>
+  <h2>Making Rails' Serialize Even Better</h2>
+  <p>Rails has this handy method that allows you store almost any object in the database with ease. Most often I end up using it for storing optional attributes in a hash.</p>
+<p>Here is the proper syntax for telling Rails that there is an options attribute that should only store Hash values.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">serialize</span> <span class="ss">:options</span><span class="p">,</span> <span class="no">Hash</span>
+<span class="k">end</span></code></pre></div><h3>The problem</h3>
+<p>The options attribute will start off as nil, and remain nil until you set it to something else. Setting the class_name to Hash only affects what you can write to this attribute.</p>
+<div class="highlight"><pre><code class="language-irb" data-lang="irb"><span class="gp">&gt;&gt; </span><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
+<span class="go">=&gt; #&lt;User id: nil, name: nil, options: nil&gt;</span>
+<span class="gp">&gt;&gt; </span><span class="n">user</span><span class="o">.</span><span class="n">options</span><span class="o">[</span><span class="ss">:theme</span><span class="o">]</span>
+<span class="go">NoMethodError: You have a nil object when you didn&#39;t expect it!</span>
+<span class="go">You might have expected an instance of ActiveRecord::Base.</span>
+<span class="go">The error occurred while evaluating nil.[]</span>
+<span class="go">	from (irb):2</span>
+<span class="go">=&gt; nil</span></code></pre></div><h3>The solution</h3>
+<p>What we really need is to automatically return an empty Hash on this new object so we can go on our merry way.</p>
+<p>Add this to your environment.rb.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">config</span><span class="o">.</span><span class="n">gem</span> <span class="s1">&#39;jqr-typed_serialize&#39;</span><span class="p">,</span>
+  <span class="ss">:lib</span> <span class="o">=&gt;</span> <span class="s1">&#39;typed_serialize&#39;</span><span class="p">,</span>
+  <span class="ss">:source</span> <span class="o">=&gt;</span> <span class="s1">&#39;http://gems.github.com&#39;</span></code></pre></div><p>Now run this command to install the gem.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>rake gems:install</code></pre></div><p>A quick change of our model will fix all of our woes.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">typed_serialize</span> <span class="ss">:options</span><span class="p">,</span> <span class="no">Hash</span>
+<span class="k">end</span></code></pre></div><div class="highlight"><pre><code class="language-irb" data-lang="irb"><span class="gp">&gt;&gt; </span><span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
+<span class="go">=&gt; #&lt;User id: nil, name: nil, options: nil&gt;</span>
+<span class="gp">&gt;&gt; </span><span class="n">user</span><span class="o">.</span><span class="n">options</span><span class="o">[</span><span class="ss">:theme</span><span class="o">]</span>
+<span class="go">=&gt; nil</span>
+<span class="gp">&gt;&gt; </span><span class="n">user</span><span class="o">.</span><span class="n">options</span>
+<span class="go">=&gt; {}</span></code></pre></div><p>Voila!</p>
+<h3>The how and why</h3>
+<p>If you&#8217;re curious about how this works, I&#8217;ve written a simple post describing the <a href="/2009/02/01/the-making-of-typed-serialize.html">the making of typed_serialize</a>, or you can <a href="http://github.com/jqr/typed_serialize">browse the code</a>.</p>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

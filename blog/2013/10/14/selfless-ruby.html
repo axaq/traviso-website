@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Selfless Ruby //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="When, Where and Why you should use Ruby's self method." />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">14 Oct 2013</div>
+  <h2>Selfless Ruby</h2>
+  <p>There are only a few occasions when you need to use self prefix in Ruby. Understanding these only takes a few minutes and can help you avoid some pretty common bugs and wasteful debugging attempts.</p>
+<h3>Avoiding local variable assignment</h3>
+<p>Calling a writer in the current scope, as in:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span>
+  <span class="k">def</span> <span class="nf">verify</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">verified</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">verified</span><span class="o">=</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="vi">@verified</span> <span class="o">=</span> <span class="n">value</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>If you didn&#8217;t prefix self to that assignment, you would be making a new local variable and setting it to true. This variable has a lifetime of 1 statement, probably not what you were looking for and an easy bug to miss.</p>
+<h3>Side-stepping reserved words</h3>
+<p>Occasionally you need to call a method in the current scope that has the same name as a Ruby keyword. An instance wanting to introspect its its own class is a very common use.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Song</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nf">find_dupliactes</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>In this case you are explicitly side-stepping the global behavior of the keyword. If you omit self, Ruby thinks you&#8217;re about to define a new class, and is going to give you a syntax error.</p>
+<h3>Defining class methods</h3>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Store</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">locate_by_zip_code</span><span class="p">(</span><span class="n">zip_code</span><span class="p">)</span>
+    <span class="c1"># some fancy searching code</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>The use of self in this example tells Ruby that we&#8217;re making methods on the Store class and not its instances.</p>
+<h3>That&#8217;s it!</h3>
+<p>3 simple cases where you need to use self. All other uses are just being overly explicit.</p>
+<h3>Gotcha: Tricky sub-objects</h3>
+<p>Sub-objects only need to use the self prefix when you want to assign the whole object at a time. For example when initializing or setting an entire Hash, Array, or some other object.</p>
+<p>If you&#8217;re actually just manipulating the other object, you don&#8217;t need to call self, because you&#8217;re really calling two methods. In this case one is the reader, the other is the [] method on a Hash.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Server</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:options</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="c1"># required, we want to call Server#options=</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">toggle_warnings</span>
+    <span class="c1"># not required, options[:warnings] is actually two method calls:</span>
+    <span class="c1">#  * Server#options</span>
+    <span class="c1">#  * Hash#[]</span>
+    <span class="n">options</span><span class="o">[</span><span class="ss">:warnings</span><span class="o">]</span> <span class="o">=</span> <span class="o">!</span><span class="n">options</span><span class="o">[</span><span class="ss">:warnings</span><span class="o">]</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+      <li><a href="/2009/08/05/iphone-toggle-switches.html">iPhone Toggle Switches</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

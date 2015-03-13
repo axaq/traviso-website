@@ -1,12 +1,75 @@
----
-layout: default
-javascript:
-  - /javascripts/json_search.0.9.0.js
-  - /javascripts/home.js
----
+<!DOCTYPE html>
 
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
 
-<div id="search_results_area">
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="search_results_area">
   <h2>Posts <span id="result_count"></span></h2>
   <ul id="search_results" class="posts">
   </ul>
@@ -15,12 +78,82 @@ javascript:
 <div id="home">
   <h2>Tutorials</h2>
   <ul class="posts">
-    {% for post in site.posts %}
+    
       <li>
-        <a href="{{ post.url }}">{{ post.title }}</a>
-        <p>{{ post.summary }}</p>
+        <a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a>
+        <p>When, Where and Why you should use Ruby's self method.</p>
       </li>
-    {% endfor %}
+    
+      <li>
+        <a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a>
+        <p>Javascript-free google maps integration</p>
+      </li>
+    
+      <li>
+        <a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a>
+        <p>Deploy and maintain multiple Heroku apps with ease.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/08/05/iphone-toggle-switches.html">iPhone Toggle Switches</a>
+        <p>A big improvement over boring HTML checkboxes.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/04/25/deploying-multiple-environments-on-heroku.html">Deploying Multiple Environments on Heroku</a>
+        <p>Run multiple branches/environments of the same code on Heroku.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/04/24/deploy-your-rails-application-in-2-minutes-with-heroku.html">Deploy Your Rails Application in 2 Minutes with Heroku</a>
+        <p>The simplest possible application deployment for Rails applications.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/03/02/use-instant-debugger-on-rare-exceptions.html">Use Instant Debugger on Rare Exceptions</a>
+        <p>A novel use of the ruby debugger to handle rare exceptions.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/02/23/active-record-each-now-in-edge-rails.html">ActiveRecord::Base#find_each Now in Rails</a>
+        <p>Smart record iteration for large tables.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/02/19/rubys-rescue-statement-can-has-value.html">Ruby's Rescue Statement Can Has Value?</a>
+        <p>An interesting way to catch and return an exception with very little code.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/02/11/passing-data-with-ruby-exceptions.html">Passing Data With Ruby Exceptions</a>
+        <p>Do more than raise an exception with a message!</p>
+      </li>
+    
+      <li>
+        <a href="/2009/02/06/textmate-rspec-and-dot-spec-party.html">TextMate, Rspec and Dot Spec Party</a>
+        <p>Getting all your friends to play nice.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/02/03/global-git-ignore.html">Basic Iso World</a>
+        <p>Creating a simple isometric world.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/02/01/the-making-of-typed-serialize.html">The Making of typed_serialize</a>
+        <p>The design process of a Rails pattern.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/02/01/making-rails-serialize-even-better.html">Making Rails' Serialize Even Better</a>
+        <p>An improved pattern for Rails attribute serializing.</p>
+      </li>
+    
+      <li>
+        <a href="/2009/01/31/all-my-code-are-belong-to-us.html">All My Code Are Belong to Us</a>
+        <p>A blog is born.</p>
+      </li>
+    
   </ul>
 
   <h2>Tweets</h2>
@@ -30,14 +163,112 @@ javascript:
 
   <script type="text/javascript" charset="utf-8">
     var posts = [
-      {% for post in site.posts %}
+      
         {
-          title:   unescape('{{ post.title   | strip_html | cgi_escape }}').gsub(/\+/, ' '),
-          summary: unescape('{{ post.summary | strip_html | cgi_escape }}').gsub(/\+/, ' '),
-          content: unescape('{{ post.content | strip_html | cgi_escape }}').gsub(/\+/, ' '),
-          url:     unescape('{{ post.url     | strip_html | cgi_escape }}').gsub(/\+/, ' '),
+          title:   unescape('Selfless+Ruby').gsub(/\+/, ' '),
+          summary: unescape('When%2C+Where+and+Why+you+should+use+Ruby%27s+self+method.').gsub(/\+/, ' '),
+          content: unescape('There+are+only+a+few+occasions+when+you+need+to+use+self+prefix+in+Ruby.+Understanding+these+only+takes+a+few+minutes+and+can+help+you+avoid+some+pretty+common+bugs+and+wasteful+debugging+attempts.%0AAvoiding+local+variable+assignment%0ACalling+a+writer+in+the+current+scope%2C+as+in%3A%0Aclass+User%0A++def+verify%0A++++self.verified+%3D+true%0A++end%0A%0A++def+verified%3D%28value%29%0A++++%40verified+%3D+value%0A++end%0AendIf+you+didn%26%238217%3Bt+prefix+self+to+that+assignment%2C+you+would+be+making+a+new+local+variable+and+setting+it+to+true.+This+variable+has+a+lifetime+of+1+statement%2C+probably+not+what+you+were+looking+for+and+an+easy+bug+to+miss.%0ASide-stepping+reserved+words%0AOccasionally+you+need+to+call+a+method+in+the+current+scope+that+has+the+same+name+as+a+Ruby+keyword.+An+instance+wanting+to+introspect+its+its+own+class+is+a+very+common+use.%0Aclass+Song+%26lt%3B+ActiveRecord%3A%3ABase%0A++def+find_dupliactes%0A++++self.class.find_by_name%28name%29%0A++end%0AendIn+this+case+you+are+explicitly+side-stepping+the+global+behavior+of+the+keyword.+If+you+omit+self%2C+Ruby+thinks+you%26%238217%3Bre+about+to+define+a+new+class%2C+and+is+going+to+give+you+a+syntax+error.%0ADefining+class+methods%0Aclass+Store+%26lt%3B+ActiveRecord%3A%3ABase%0A++def+self.locate_by_zip_code%28zip_code%29%0A++++%23+some+fancy+searching+code%0A++end%0AendThe+use+of+self+in+this+example+tells+Ruby+that+we%26%238217%3Bre+making+methods+on+the+Store+class+and+not+its+instances.%0AThat%26%238217%3Bs+it%21%0A3+simple+cases+where+you+need+to+use+self.+All+other+uses+are+just+being+overly+explicit.%0AGotcha%3A+Tricky+sub-objects%0ASub-objects+only+need+to+use+the+self+prefix+when+you+want+to+assign+the+whole+object+at+a+time.+For+example+when+initializing+or+setting+an+entire+Hash%2C+Array%2C+or+some+other+object.%0AIf+you%26%238217%3Bre+actually+just+manipulating+the+other+object%2C+you+don%26%238217%3Bt+need+to+call+self%2C+because+you%26%238217%3Bre+really+calling+two+methods.+In+this+case+one+is+the+reader%2C+the+other+is+the+%5B%5D+method+on+a+Hash.%0Aclass+Server%0A++attr_accessor+%3Aoptions%0A%0A++def+initialize%0A++++%23+required%2C+we+want+to+call+Server%23options%3D%0A++++self.options+%3D+%7B%7D%0A++end%0A%0A++def+toggle_warnings%0A++++%23+not+required%2C+options%5B%3Awarnings%5D+is+actually+two+method+calls%3A%0A++++%23++%2A+Server%23options%0A++++%23++%2A+Hash%23%5B%5D%0A++++options%5B%3Awarnings%5D+%3D+%21options%5B%3Awarnings%5D%0A++end%0Aend').gsub(/\+/, ' '),
+          url:     unescape('%2F2013%2F10%2F14%2Fselfless-ruby.html').gsub(/\+/, ' '),
         },
-      {% endfor %}
+      
+        {
+          title:   unescape('Automatically+Generated+Maps+with+Microformats').gsub(/\+/, ' '),
+          summary: unescape('Javascript-free+google+maps+integration').gsub(/\+/, ' '),
+          content: unescape('%0A++Got+a+few+addresses+and+want+to+show+them+on+a+map+without+writing+any+javascript%3F%0A++It+turns+out%2C+there%27s+an+incredibly+easy+way%3A+mark+up+your+addresses+as%0A++hCards+and+use+the%0A++simple-maps+javascript+library.%0A%0A%0AMicroformats+to+the+Rescue%21%0A%0A++Microformats+are+a+simple+way+to+attach+meaning+to+standard+HTML+tags+by%0A++using+classes.+Here+is+an+example+I+made+with+the%0A++hCard+Creator.%0A%0A%0A%26lt%3Bdiv+id%3D%26quot%3Bhcard-starbucks%26quot%3B+class%3D%26quot%3Bvcard%26quot%3B%26gt%3B%0A++%26lt%3Ba+class%3D%26quot%3Burl+fn%26quot%3B+href%3D%26quot%3Bhttp%3A%2F%2Fstarbucks.com%26quot%3B%26gt%3BStarbucks%26lt%3B%2Fa%26gt%3B%0A++%26lt%3Bdiv+class%3D%26quot%3Badr%26quot%3B%26gt%3B%0A++++%26lt%3Bspan+class%3D%26quot%3Bstreet-address%26quot%3B%26gt%3B854+Broad+Ripple+Ave%26lt%3B%2Fspan%26gt%3B%26lt%3Bbr%2F%26gt%3B%0A++++%26lt%3Bspan+class%3D%26quot%3Blocality%26quot%3B%26gt%3BIndianapolis%26lt%3B%2Fspan%26gt%3B%2C%0A++++%26lt%3Bspan+class%3D%26quot%3Bregion%26quot%3B%26gt%3BIN%26lt%3B%2Fspan%26gt%3B%2C%0A++++%26lt%3Bspan+class%3D%26quot%3Bpostal-code%26quot%3B%26gt%3B46220%26lt%3B%2Fspan%26gt%3B%0A++++%26lt%3Bspan+class%3D%26quot%3Bcountry-name%26quot%3B%26gt%3BUSA%26lt%3B%2Fspan%26gt%3B%0A++%26lt%3B%2Fdiv%26gt%3B%0A%26lt%3B%2Fdiv%26gt%3B%0A%0A%0A++Rendered+as+HTML+using+default+styling%2C+this+looks+like%3A%0A%0A%0A%0A++%0A++++Starbucks%0A++++%0A++++++854+Broad+Ripple+Ave%0A++++++Indianapolis%2C%0A++++++IN%2C%0A++++++46220%0A++++++USA%0A++++%0A++%0A%0A%0A%0A++Pretty+simple%2C+it+usually+means+adding+some+classes+to+data+that%27s%0A++already+on+the+page.+We+can+style+this+however+we+like%2C+including%0A++completely+hiding+elements+with+display%3A+none+for+things%0A++that+may+be+obvious+%28country+name%3F%29.%0A%0A%0A%0A++To+display+the+map+we+just+use+an+element+with+id%3D%22map%22%0A%0A%0A%0A%26lt%3Bdiv+id%3D%26quot%3Bmap%26quot%3B+style%3D%26quot%3Bwidth%3A+100%25%3B+height%3A+400px%26quot%3B%26gt%3B%26lt%3B%2Fdiv%26gt%3B%0A%0AMap+would+be+here+if+you+had+javascript+enabled.%0A%0A%0A++There+are+two+pins+because+it+also+picks+up+my+hCard+from+the+site+layout.%0A%0A%0AAutomatic+Geocoding%0A%0A++You+may+have+noticed+I+didn%27t+specify+longitude+or+latitude+anywhere%0A++in+the+hCard.+simple-maps+detects+and+computes+geocodes+when+they%27re+not+given.%0A%0A').gsub(/\+/, ' '),
+          url:     unescape('%2F2013%2F09%2F09%2Fautomatically-generated-maps-with-microformats.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Easy+Heroku+Deploys+with+Heroku+San').gsub(/\+/, ' '),
+          summary: unescape('Deploy+and+maintain+multiple+Heroku+apps+with+ease.').gsub(/\+/, ' '),
+          content: unescape('We+deploy+a+great+deal+of+our+apps+to+Heroku%2C+but+maintaining+multiple+environments+%28staging%2C+production%2C+demo%29+was+traditionally+very+painful.%0Aheroku_san+is+a+simple+set+of+rake+tasks+to+make+standard+Rails+deployment+easy.+Multiple+apps%2C+environments%2C+branches+and+users+are+handled+with+the+minimum+of+effort.%0AInitial+Setup%0AI+won%26%238217%3Bt+bore+you+with+the+details+of+installing+the+gem+and+including+the+rake+tasks%2C+but+you+need+to+know+that+heroku_san+works+by+using+a+YAML+file+with+shorthand+versions+of+your+Heroku+application+names.+It+looks+like+this%3A%0Aapps%3A%0A++%23+shorthand%3A+heroku+app%0A++production%3A+awesomeapp%0A++staging%3A+awesomeapp-staging%0A++demo%3A+awesomeapp-demoFirst+Time%0AIf+this+app+has+never+been+deployed+to+Heroku%2C+you+will+need+to+create+the+remote+applications.+heroku_san+can+do+this+for+you%2C+using+the+data+in+config%2Fheroku.yml.%0Arake+all+heroku%3AcreateMost+multi-app+deployments+change+the+environment+to+something+different+for+each+app%2C+allowing+you+to+override+things+like+S3+buckets%2C+email+policies%2C+etc.+heroku_san+is+happy+to+handle+this+too%2C+it+assumes+you+want+the+RACK_ENV+set+to+the+shorthand+name+of+the+application.%0A%23+set+RACK_ENV+on+each+application+to+the+shorthand%3A%0A%23+++awesomeapp-staging+%3D%26gt%3B+staging%0A%23+++awesomeapp-demo++++%3D%26gt%3B+demo%0Arake+all+heroku%3Arack_envThe+old+Heroku+stack+%28aspen%29+requires+you+to+use+a+Gem+manifest+%28.gems%29+to+list+the+gems+your+application+depends+on.+heroku_san+can+auto-populate+this+using+config.gem+requirements+for+Rails+2+applications.%0Arake+heroku%3AgemsEveryday+Use%0Arake+staging+deploy++++++++++++%23+deploy+staging+and+migrate%0Arake+production+console++++++++%23+open+a+console+for+production%0Arake+demo+staging+heroku%3Ashare+%23+add+a+new+developer+to+demo+and+staging%0Arake+all+heroku%3Aunshare++++++++%23+remove+a+developer+from+all+appsBranches%0ADeploying+always+uses+the+current+branch%2C+so+be+careful%21+Occasionally+you+might+need+to+force+a+deploy%2C+especially+if+you%26%238217%3Bre+deploying+multiple+feature+branches+to+the+same+app.%0Arake+staging+deploy++++++++++++%23+deploy+current+branch+to+staging%0Arake+staging+force_deploy++++++%23+force+deploy+current+branch+to+stagingOnly+One+App%3F%0AIf+you%26%238217%3Bre+only+using+one+app%2C+you+can+skip+the+server+names+and+just+issue+the+commands+directly.%0Arake+deploy++++++++++++++++++++%23+deploy+the+only+app+you+have+configured%0Arake+console+++++++++++++++++++%23+open+a+console+on+your+single+appCurious%3F%0Aheroku_san+works+entirely+by+using+the+git+and+heroku+binaries.+So+if+you%26%238217%3Bre+ever+curious+about+how+a+command+works+or+need+to+debug+something+you+can+just+watch+the+screen+as+you+run+a+command+to+see+exactly+what+it%26%238217%3Bs+up+to.%0Arake+staging+deploy%0A%23+git+push+git%40heroku.com%3Aawesomeapp-staging.git++master%3Amaster+%26amp%3B%26amp%3B+%5C%0A%23+heroku+rake+--app+awesomeapp-staging+db%3Amigrate+%26amp%3B%26amp%3B+%5C%0A%23+heroku+restart+--app+awesomeapp-stagingEven+More%21%0AA+full+list+of+commands+heroku_san+provides+is+available+in+the+README.%0ASpecial+Thanks%0AThanks+to+Glenn+Roberts%2C+who+was+kind+enough+to+convert+heroku_san+from+a+Rails+plugin+into+a+gem%2C+making+updates+a+breeze.').gsub(/\+/, ' '),
+          url:     unescape('%2F2010%2F08%2F27%2Feasy-heroku-deploys-with-heroku-san.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('iPhone+Toggle+Switches').gsub(/\+/, ' '),
+          summary: unescape('A+big+improvement+over+boring+HTML+checkboxes.').gsub(/\+/, ' '),
+          content: unescape('%0A++Way+back+in+June%2C+Thomas+Reynolds%0A++released+iPhone-style-checkboxes%0A++for+jQuery%2C+a+progressive+enhancement+for+checkboxes+which+makes+them+into%0A++the+beautiful+iPhone+toggle+switches.+I+really+like+these+switches+on+the%0A++iPhone+so+I+went+about+finishing+up+his+version+for+the+Prototype+framework.%0A++Of+course%2C+I+couldn%27t+help+but+add+some+new+features+along+the+way%21%0A%0A%0A%0A++%0A++++You+definitely+need+to+read%0A++++this+article+on+my+site+to+see+all+the+cool+JavaScript+effects+I%27m%0A++++talking+about%21%0A++%0A%0A%0AVariable+sizes%0A%0A%0A++The+initial+version+supported+changing+the+ON%2FOFF+label+text%2C+but+if+you+made%0Athe+text+longer+than+a+few+characters%2C+it+would+be+hidden+under+the+handle.+I%0Aset+about+making+the+handle+and+label+sizes+automatic+based+on+the+actual%0Alabel+text%2C+giving+a+really+nice%0Aiphone+4+look+to+the%0Ahandle+and+label.%0A%0A%0A%0A++Sex+%0A++Path+%0A%0A%0A%0A++As+a+bonus%2C+you+can+also+specify+that+no+automatic+resizing+should+be+done+and%0A++do+the+control+and+handle+sizing+with+CSS+to+make+a+group+of+controls+uniform.%0A%0A%0A%0A++Be+you+robot%3F+%0A++Comments+%0A++Option+C+%0A%0A%0ADraggable%0A%0A%0A++They+certainly+looked+like+the+iPhone+switches%2C+but+they+didn%27t+feel+like%0A++them.+You+could+only+click+them+to+toggle%2C+we+needed+to+add+support+for%0A++dragging+the+control.%0A%0A%0ADo+it+%0A%0ASliding+labels%0A%0A%0A++A+quick+check+through+the+network+graph+revealed+Matthijs+Langenberg+had+devised+a%0A++clever+way+to+slide+the+labels+along+with+the+handle.+This+was+the+final%0A++piece%2C+now+the+our+JavaScript+was+nearly+indistinguishable+from+the+native%0A++iPhone+one.%0A%0A%0A%0A++Go+man+go%21+%0A%0A%0AiPhone+compatibility%0A%0A%0A++Last+but+not+least%2C+our+checkboxes+didn%27t+support+dragging+on+the+iPhone%21%0A++Since+the+iPhone+sends+out+touch+events+instead+of+mouse+ones%2C+all+of+our%0A++cool+dragging+code+would+need+to+be+updated.+As+of+today%2C+both%0A++versions+of+this+plugin+now+fully+support+the+iPhone.%0A%0A%0AThanks%0A%0A%0A++A+huge+thanks+to+Thomas+Reynolds+for+his+development+on+this+awesome+plugin%0A++and+giving+me+the+ability+to+add+these+improvements.%0A%0A%0ADownload%0A%0A%0A++The+source+code+is+available+on+GitHub%0A++or+you+can+download+a+zip+%2F%0A++tar.gz%0A++archive.%0A%0A').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F08%2F05%2Fiphone-toggle-switches.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Deploying+Multiple+Environments+on+Heroku').gsub(/\+/, ' '),
+          summary: unescape('Run+multiple+branches%2Fenvironments+of+the+same+code+on+Heroku.').gsub(/\+/, ' '),
+          content: unescape('UPDATE%3A+This+post+is+outdated%2C+check+out+Easy+Deploys+with+Heroku+San.%0A%0ASo+you+followed+yesterday%27s+guide+on+getting+your+application+deployed+to%0AHeroku%2C+and+now+you%27ve+fallen+in+love+with+it.+Now+you+need+to+setup+both+a%0Aproduction+and+staging+environment+that+you+can+easily+deploy+your+application%0Ato.%0A%0ASo+far+Heroku+only+runs+code+in+one+branch%2C+so+we%27ll+work+around+this+by%0Acreating+two+remote+repositories+that+we+can+push+to.%0A%0AFor+example+simplicity%2C+we%27ll+be+pushing+all+code+out+of+the+same+git%0Abranch.+You%27ll+probably+be+pushing+staging+and+production+servers+from+different+branches%2C+adjust+accordingly.%0A%0ACreate+your+servers+and+fix+your+remotes%0A%0AApplication+names+have+to+be+unique+on+Heroku%2C+so+make+sure+to+replace+myapp+with+your+application%27s+name.+You+can+do+that+automatically+by+clicking+here.%0A%0Aheroku+create+myapp-staging+--remote+staging%0Aheroku+create+myapp-production+--remote+production%0A%0ASince+we%27ll+be+pushing+to+two+applications+we+are+using+the+--remote+argument+to+make+two+sensibly+named+remotes.%0A%0AEnvironment+specific+variables%0A%0AHeroku+has+a+nice+interface+for+setting+up+application+specific+settings%2C+but%0AI+will+assume+your+application+configures+itself+according+to+the%0ARAILS_ENV+variable.+Check+out+Heroku%27s+docs+if+you+need+more%0Acontrol.%0A%0AIf+you+run+your+staging+server+in+the+production+environment%2C+you+can+skip+this+step.%0A%0Aheroku+config%3Aadd+RACK_ENV%3Dstaging+--app+myapp-staging%0Aheroku+config%3Aadd+RACK_ENV%3Dproduction+--app+myapp-production%0A%0ADeploy+and+migrate%0A%0AYou%27ll+be+doing+this+next+command+pretty+often.+We+push+the+current+branch+to%0Athe+staging+server%27s+master+branch.+Since+this+is+the+first+deploy+we%27ll+need+to+do+the+same+thing+for+production+and+run+all+the+migrations.%0A%0Agit+push+staging+master%0Agit+push+production+master%0A%0Aheroku+rake+db%3Amigrate+--app+myapp-staging%0Aheroku+rake+db%3Amigrate+--app+myapp-production%0A%0Aheroku+open+--app+myapp-staging%0Aheroku+open+--app+myapp-production%0A%0ADone%0A%0ACelebrate%21+You+now+have+two+servers+running+on+Heroku+with+different+databases+and+accessible+through+domains.+Seriously%2C+how+long+did+that+take%3F%0A%0ACaveats%0A%0AThe+heroku+command+seems+to+detect+the+application+name+by+looking+through%0Agit%27s+remotes+for+remotes+that+are+located+at+heroku.com.+This+means+it+will%0Aget+confused+by+the+multiple+entries+we+created.+You+will+need+to+work+around%0Athis+by+passing+--app+myapp-staging+after+the+normal+heroku+command.%0A%0ATroubleshooting%0A%0AMake+sure+you+followed+my+original+guide+on+getting%0Ayour+application+deployed+to+Heroku.%0A%0A%0A').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F04%2F25%2Fdeploying-multiple-environments-on-heroku.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Deploy+Your+Rails+Application+in+2+Minutes+with+Heroku').gsub(/\+/, ' '),
+          summary: unescape('The+simplest+possible+application+deployment+for+Rails+applications.').gsub(/\+/, ' '),
+          content: unescape('Heroku%2C+Instant+Ruby+Platform.+We%27ve+been+using+Heroku%27s+free+service+for+hosting+staging+servers+for+a+few+weeks+now.+It+takes+just+a+moment+to+setup+and+it+couldn%27t+be+any+easier+to+use.%0A%0AToday+Heroku+announced+a+pricing+model+and+we+should+be+using+them+for+more+than+staging+servers+in+the+near+future.%0A%0AStart+the+clock%0A%0AFirst+timer%3F+You%27ll+need+to+do+some+minor+setup.+The+middle+command+will+ask+you+for+your+Heroku+login%2Fpassword+and+upload+your+SSH+pubkey.%0A%0Asudo+gem+install+heroku%0Aheroku+keys%3Aadd%0Aheroku+create%0A%0AHeroku+installs+gem+dependencies+for+your+app+when+you+do+a+git+push%2C+so+it+needs+to+have+a+.gems+file+in+an+easy+to+parse+format.%0A%0ARun+these+commands+to+install+a+rake+task+for+automatically+generating+a+.gems+file+from+your+Rails+gem+dependencies.+You%27ll+need+to+rerun+the+rake+task+whenever+you+change+your+dependencies.%0A%0Acurl+http%3A%2F%2Fgist.github.com%2F101101.txt+%26gt%3B+lib%2Ftasks%2Fheroku.rake%0Arake+heroku%3Agems%0Agit+add+lib%2Ftasks%2Fheroku.rake+.gems%0Agit+commit+lib%2Ftasks%2Fheroku.rake+.gems+-m+%26quot%3BAdding+gem+manifest+for+Heroku.%26quot%3B%0A%0AHere+we+go%2C+push+your+app%2C+migrate+the+database+and+open+it+in+a+web+browser%21+%0A%0Agit+push+heroku+master%0Aheroku+rake+db%3Amigrate%0Aheroku+open%0A%0ADone%0AYour+application+is+up+and+running+on+Heroku%27s+servers%2C+100%25+ready+to+use.+Check+out+the+next+guide+on+setting+up+multiple+environments+with+Heroku.%0A%0ATroubleshooting%0A%0AIf+the+application+had+any+trouble+starting+try+the+commands+below+to+get+a+better+view.%0A%0Aheroku+logs+++++%23+view+the+application+logs%0Aheroku+open+++++%23+some+error+messages+show+on+the+web%0A').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F04%2F24%2Fdeploy-your-rails-application-in-2-minutes-with-heroku.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Use+Instant+Debugger+on+Rare+Exceptions').gsub(/\+/, ' '),
+          summary: unescape('A+novel+use+of+the+ruby+debugger+to+handle+rare+exceptions.').gsub(/\+/, ' '),
+          content: unescape('Most+of+the+time+a+backtrace+can+help+you+zero+in+on+a+bug+in+your+code+quickly%2C+but+sometimes+the+issue+is+not+your+code+but+the+data+your+code+is+processing.+In+these+cases%2C+a+backtrace+is+just+a+clue+to+your+problems%2C+you+really+need+to+see+what+data+your+code+was+processing+to+get+a+feel+for+the+issue.%0AYou+could+throw+in+some+statements+to+print+out+certain+variables+to+%26%238220%3Bsee%26%238221%3B+what+your+code+%26%238220%3Bsees%26%238221%3B+at+that+point+in+time%2C+but+there+is+a+far+easier+way.%0AYour+friend%3A+debugger%0AThe+excellent+ruby-debug+gem+lets+you+open+up+an+instance+of+irb+wherever+you+put+a+call+to+debugger.+If+you+haven%26%238217%3Bt+already%2C+check+out+the+excellent+30+second+guide+to+ruby-debug.+Just+type+in+%26%238220%3Birb%26%238221%3B+when+the+debugger+triggers+to+get+a+live+irb+session+with+the+current+state.%0ANormally+this+is+more+than+enough+to+fix+the+problematic+data%2Fcode.+Today+though+I+was+iterating+through+a+rather+large+set+of+data+for+importing+from+CSV.+The+problem+data+was+something+like+5+minutes+into+the+import.+I+needed+to+open+the+debugger+at+the+instant+of+the+problem+data+and+not+on+the+thousands+of+rows+of+good+data+that+preceded+it.%0AStart+on+a+dime%0AA+light+when+off+in+my+head+after+a+few+minutes+of+stumbling+around+in+console.+Why+not+just+wrap+the+offending+bit+of+code+in+a+rescue+block+and+only+open+the+debugger+at+that+instant%3F+I+give+you+Instant+Debug.%0Arows.each+do+%7Crow%7C%0A++begin%0A++++Item.create%21%28row%29%0A++rescue+%3D%26gt%3B+err%0A++++require+%26%2339%3Bruby-debug%26%2339%3B%0A++++debugger%0A++++1+%23+no-op+so+the+debugger+can+land+in+this+context%0A++end%0AendNow+if+this+code+fails+for+any+reason%2C+we+can+see+the+exact+state+of+the+application+that+caused+this+problem.+We+are+able+to+reproduce+the+issue+easily+by+calling+Item.create%21%28row%29+and+we+can+even+modify+row+to+see+if+we+can+fix+bad+data.%0AA+helpful+hint%3A+Because+you+want+to+be+able+to+trigger+the+problem+easily%2C+you+should+wrap+the+rescue+block+as+tightly+around+the+problematic+code+as+possible.').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F03%2F02%2Fuse-instant-debugger-on-rare-exceptions.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('ActiveRecord%3A%3ABase%23find_each+Now+in+Rails').gsub(/\+/, ' '),
+          summary: unescape('Smart+record+iteration+for+large+tables.').gsub(/\+/, ' '),
+          content: unescape('Updated+to+reflect+Rails+2.3+release+implementation%0AWhen+you+absolutely+need+to+traverse+a+large+number+of+objects+in+a+table+and+have+the+ActiveRecord+instance+available%2C+Rails+now+has+a+Model.find_each+method+that+makes+this+safe+and+easy.%0AUser.find_each%28%3Aconditions+%3D%26gt%3B+%5B%26%2339%3Blast_login_at+%26lt%3B+%3F%26%2339%3B%2C+30.days.ago%5D%29+do+%7Cuser%7C%0A++%23+...%0AendThis+feature+has+been+available+for+a+while+through+the+use+of+a+few+plugins+and+snippets+floating+around%2C+but+as+of+Rails+2.3+ActiveRecord%3A%3ABase%23find_each+is+now+in+Rails+core.%0AAll+the+implementations+of+this+feature+take+roughly+the+same+route.+Grab+a+sizable+amount+of+records%2C+yield+them+individually+and+repeat.+The+key+feature+is+only+a+small+subset+of+all+rows+are+instantiated+at+any+time.+This+prevents+your+process+from+using+far+more+memory+than+is+available.+Most+implementations+even+force+the+ordering+to+the+primary+key+to+easily+ensure+all+records+are+retrieved+without+repetition+and+an+index+is+used.%0AYou+can+use+any+options+a+normal+find+call+would+take+except+for+order+or+limit.+Model.find_each+then+calls+the+find_in_batches.+The+new+batch_size+option+defaults+to+1000+objects.+Higher+number+means+less+database+calls%2C+but+also+more+memory.').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F02%2F23%2Factive-record-each-now-in-edge-rails.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Ruby%27s+Rescue+Statement+Can+Has+Value%3F').gsub(/\+/, ' '),
+          summary: unescape('An+interesting+way+to+catch+and+return+an+exception+with+very+little+code.').gsub(/\+/, ' '),
+          content: unescape('I+just+discovered+something+interesting+about+Ruby%26%238217%3Bs+exception+rescuing.+Check+out+these+two+example+methods+that+differ+only+by+exception+assignment.%0Adef+return_nil_on_error%0A++begin%0A++++yield%0A++rescue%0A++end%0Aend%0A%0Adef+return_exception_on_error%0A++begin%0A++++yield%0A++rescue+%3D%26gt%3B+err%0A++end%0Aend%0A%0Aputs+return_nil_on_error+%7B+raise+%26quot%3Berror%21%26quot%3B+%7D.inspect%0Aputs+return_exception_on_error+%7B+raise+%26quot%3Berror%21%26quot%3B+%7D.inspectRunning+the+code+above+and+this+is+what+you+will+see.%0Anil%0A%23%26lt%3BRuntimeError%3A+error%21%26gt%3BIt%26%238217%3Bs+interesting+to+see+that+Ruby+treats+the+a+rescue+block+as+a+value+expression+if+it+assigns+the+exception+to+a+variable.+Is+there+a+valid+use+for+this+oddity%3F').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F02%2F19%2Frubys-rescue-statement-can-has-value.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Passing+Data+With+Ruby+Exceptions').gsub(/\+/, ' '),
+          summary: unescape('Do+more+than+raise+an+exception+with+a+message%21').gsub(/\+/, ' '),
+          content: unescape('Have+you+ever+needed+more+than+the+exception+class%2C+error+message+and+back-trace+when+handling+an+exception%3F%0AI%26%238217%3Bve+run+into+this+situation+a+few+times%2C+most+recently+while+adding+some+automatic+cache+expiry+to+stale_object_destroyer+when+it+rescues+a+ActiveRecord%3A%3AStaleObjectError.%0AFirst+we+subclass+an+exception+and+add+an+accessor+for+the+data+we%26%238217%3Bd+like+to+pass+and+add+it+to+the+initialize+method+for+easy+construction.%0Aclass+MyException+%26lt%3B+StandardError%0A++attr_accessor+%3Aobject%0A%0A++def+initialize%28message+%3D+nil%2C+object+%3D+nil%29%0A++++super%28message%29%0A++++self.object+%3D+object%0A++end%0AendThe+only+other+important+bit+is+how+you+raise+this+new+exception.%0Araise+MyException.new%28%26quot%3BToo+Lazy%26quot%3B%2C+object%29A+realistic+example%0Aclass+CacheError+%26lt%3B+StandardError%0A++attr_accessor+%3Aobject%0A%0A++def+initialize%28message+%3D+nil%2C+object+%3D+nil%29%0A++++super%28message%29%0A++++self.object+%3D+object%0A++end%0Aend%0A%0Aclass+User+%26lt%3B+ActiveRecord%3A%3ABase%0A++attr_accessor+%3Aname%0A%0A++def+save_with_cache_update%0A++++raise+CacheError.new%28%26quot%3BObject+is+Stale%26quot%3B%2C+self%29+if+stale%3F%0A++++save%0A++end%0A%0A++def+stale%3F%0A++++%23+...%0A++end%0Aend%0A%0Abegin%0A++user+%3D+User.find_by_name%28%26quot%3BBilly+Mays%26quot%3B%29%0A++%23+...%0A++user.save_with_cache_update%0Arescue+CacheError+%3D%26gt%3B+err%0A++puts+%26quot%3BRescued+%23%7Berr.inspect%7D+on+user+named+%23%7Berr.object.name.inspect%7D%26quot%3B%0A++err.object.expire_cache%0A++retry%0Aend').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F02%2F11%2Fpassing-data-with-ruby-exceptions.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('TextMate%2C+Rspec+and+Dot+Spec+Party').gsub(/\+/, ' '),
+          summary: unescape('Getting+all+your+friends+to+play+nice.').gsub(/\+/, ' '),
+          content: unescape('I%26%238217%3Bm+going+to+show+you+how+to+get+a+great+looking+RSpec+runner+window+and+not+go+insane+while+trying+to+use+it.%0A%0ABeautiful+passing+green+specs%2C+easy+to+read+failing+red+specs%2C+a+clickable+backtrace+and+the+failing+spec+block+for+good+measure.%0APretty+sweet+right%3F+Let%26%238217%3Bs+get+started.%0AInstall+RSpec+bundle%0Amkdir+-p+%7E%2FLibrary%2FApplication%5C+Support%2FTextMate%2FBundles%2F%0Acd+%7E%2FLibrary%2FApplication%5C+Support%2FTextMate%2FBundles%2F%0Agit+clone+git%3A%2F%2Fgithub.com%2Fdchelimsky%2Frspec-tmbundle.git+RSpec.tmbundle%0Aosascript+-e+%26%2339%3Btell+app+%26quot%3BTextMate%26quot%3B+to+reload+bundles%26%2339%3BAnd+now+the+fun+begins%0A%0A++First+you+press+Shift-Control-Option+R+%28%E2%87%A7%E2%8C%83%E2%8C%A5R%29+to+select+the+RSpec+Bundle.+This+is+so+easy+it+only+takes+two+hands.%0A++++%0A++Now+we+need+to+press+Command+3+%28%E2%8C%983%29+to+select+the+RSpec+Bundle+out+of+the+list.%0A++++%0A++Command+R+%28%E2%8C%98R%29+to+run+the+spec+or+Shift+Command+R+%28%E2%87%A7%E2%8C%98R%29+to+run+an+individual+spec.%0A++Party+time%21%0A%0AThe+party%26%238217%3Bs+over%0AThe+next+time+you+open+a+spec+or+regular+Ruby+file+you%26%238217%3Bll+be+started+in+the+mode+you+last+forced.+That+means+you%26%238217%3Bll+probably+have+to+learn+to+do+that+tedious+keyboard+finger+dance+quite+often.%0A%5BAudio%5D+%26%238220%3BThis+shit%26%238217%3Bs+getting+way+too+complicated+for+me.%26%238221%3B+%26%238211%3B+Barack+Obama%0AWe+could+switch+the+Ruby+and+RSpec+shortcuts+to+a+simpler+keystroke%2C+that+would+alleviate+most+of+the+problem.+Except+we+would+still+need+to+press+some+keystroke+to+force+the+mode+upon+opening+a+new+file.%0ARunning+specs+needs+to+be+dead+simple+so+people+actually+do+it%21%0ADot+spec+has+invited+you+to+a+party%21%0AThere%26%238217%3Bs+a+far+easier+way+to+solve+this+problem.+Just+rename+all+your+spec+files+to+.spec+and+you+will+only+have+to+tell+TextMate+one+time+to+use+RSpec+mode+and+it+will+remember+forever%21%0AThe+steps+after+switching+to+dot+spec%3A%0A%0A++Command+R+%28%E2%8C%98R%29+to+run+the+spec+or+Shift+Command+R+%28%E2%87%A7%E2%8C%98R%29+to+run+an+individual+spec.%0A++Party+Time%21%0A++++%0A%0AYou%26%238217%3Bve+also+been+invited+to+a+pre-party%21%0AWho+has+time+to+rename+all+those+files%3F+Definitely+not+you%21%0AThere+is+also+a+fancy+converter+for+renaming+all+of+your+old+specs%21%0A%23+in+your+project+dir%0Agem+install+thor+%26amp%3B%26amp%3B%0Athor+install+%5C%0Ahttp%3A%2F%2Fgithub.com%2Fjqr%2Fthor_tasks%2Fraw%2Fmaster%2Frspec_rename_to_dotspec.thor+%26amp%3B%26amp%3B%0Athor+rspec%3Arename_to_dotspec').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F02%2F06%2Ftextmate-rspec-and-dot-spec-party.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Basic+Iso+World').gsub(/\+/, ' '),
+          summary: unescape('Creating+a+simple+isometric+world.').gsub(/\+/, ' '),
+          content: unescape('Creating+an+isometric+world+with+Traviso+is+pretty+straightforward.+Here+is+what+u+need%3A%0A%0A++Visuals+for+tiles+and+objects.%0A++An+XML+file+for+Traviso+to+know+what+goes+where.%0A%0ANote%3A+Traviso+is+built+on+top+of+the+pixi.js+rendering+engine.+So+if+you+haven%26%238217%3Bt+already+check+it+out+here.%0ACreating+a+tile+image%0AIsometric+tiles+are+defined+by+two+parameters+throughout+Traviso%3A%0A%0A++Iso-Angle%3A+The+height+of+a+single+tile.%0A++%09++%0A++Iso-Height%3A+The+angle+between+the+isometric+edge+and+the+isometric+%28horizontal%29+diagnal+of+the+tile.%0A++%09++%0A%0ADefault+value+for+the+Iso-Angle+is+30+degrees+and+default+height+is+%26%238230%3B..%0AGit+supports+global+ignores+just+like+any+good+SCM.%0A%24+git+config+--global+core.excludesfile+%7E%2F.gitignore%0A%24+printf+%26quot%3B.DS_Store%5CnThumbs.db%5Cn%26quot%3B+%26gt%3B%26gt%3B+%7E%2F.gitignoreFor+good+measure+I+threw+in+Windows%26%238217%3B+creepy+file+Thumbs.db.%0ASadly+this+won%26%238217%3Bt+stop+other+developers+from+accidentally+committing+those+files%2C+so+you+still+need+to+add+those+ignores+to+your+.gitignore+in+every+project.+I%26%238217%3Bve+setup+my+git+init+alias+to+do+this+for+me.').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F02%2F03%2Fglobal-git-ignore.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('The+Making+of+typed_serialize').gsub(/\+/, ' '),
+          summary: unescape('The+design+process+of+a+Rails+pattern.').gsub(/\+/, ' '),
+          content: unescape('My+typed_serialize+plugin+came+from+the+repetition+of+code+just+like+this.%0Aserialize+%3Aoptions%2C+Hash%0A%0Adef+options%0A++value+%3D+super%0A++if+value.is_a%3F%28Hash%29%0A++++value%0A++else%0A++++self.options+%3D+%7B%7D%0A++end%0AendIt+calls+super+to+peek+at+what+ActiveRecord+would+return+for+the+serialized+column.+If+it%26%238217%3Bs+a+Hash%2C+we+just+return+it+right+away.+If+it%26%238217%3Bs+anything+else+we+set+it+to+a+new+Hash+and+return+that.%0ADistilling+the+interface%0AAfter+thinking+about+the+pattern+for+a+bit%2C+I+decided+that+simplest+shorthand+would+be+this.%0Aclass+User+%26lt%3B+ActiveRecord%3A%3ABase%0A++typed_serialize+%3Aoptions%2C+Hash%0AendThis+code+says+%26%238220%3Bthere+is+a+typed+and+serialized+attribute+named+options%2C+that+will+always+be+a+Hash.%26%238221%3B+Notice+that+it+is+nearly+the+same+usage+as+the+original+serialize+method.%0AGet+to+it%0AFirst+off%2C+we+define+a+method+that+is+accessible+at+the+time+of+class+definition.+Since+the+usage+is+the+same+as+serialize%2C+we+can+use+the+original+serialize+method+definition+as+a+starting+point.%0Aclass+ActiveRecord%3A%3ABase%0A++def+self.typed_serialize%28attr_name%2C+class_name+%3D+Object%29%0A++end%0AendOn+second+thought%2C+what%26%238217%3Bs+the+point+of+class_name+being+optional%3F+It+made+sense+for+the+original+serialize+method%2C+but+not+typed_serialize.+Let%26%238217%3Bs+make+class_name+mandatory.%0Aclass+ActiveRecord%3A%3ABase%0A++def+self.typed_serialize%28attr_name%2C+class_name%29%0A++end%0AendOK%2C+now+our+User+model+can+properly+execute%2C+but+it+does+absolutely+nothing.+So+let%26%238217%3Bs+at+least+call+Rails%26%238217%3B+serialize+method+to+get+the+standard+behavior.%0Aclass+ActiveRecord%3A%3ABase%0A++def+self.typed_serialize%28attr_name%2C+class_name+%3D+Object%29%0A++++serialize%28attr_name%2C+class_name%29%0A++end%0AendAdding+the+meat%0AOur+repeated+code+revolved+around+a+custom+reader+for+a+serialized+attribute.+So+let%26%238217%3Bs+add+a+custom+reader+for+attr_name+using+define_method+and+our+original+repeated+code.%0Aclass+ActiveRecord%3A%3ABase%0A++def+self.typed_serialize%28attr_name%2C+class_name+%3D+Object%29%0A++++serialize%28attr_name%2C+class_name%29%0A%0A++++define_method%28attr_name%29+do%0A++++++value+%3D+super%0A++++++if+value.is_a%3F%28Hash%29%0A++++++++value%0A++++++else%0A++++++++self.options+%3D+%7B%7D%0A++++++end%0A++++end%0A++end%0AendThe+original+code+has+a+couple+of+small+problems+when+inserted+into+this+context.+It+assumes+the+value+should+always+be+a+Hash+and+written+attribute+is+always+named+options.%0AA+quick+look+at+serialize%26%238217%3Bs+implementation+tells+us+it+stores+its+data+in+a+hash+with+the+key+as+the+attribute+name+in+string+form%2C+and+the+value+is+the+class_name.+We%26%238217%3Bll+use+that+to+derive+the+expected+class.%0Aexpected_class+%3D+self.class.serialized_attributes%5Battr_name.to_s%5DWe%26%238217%3Bll+use+Ruby%26%238217%3Bs+send+method+to+call+a+method+with+a+name+we+won%26%238217%3Bt+know+until+runtime.%0Asend%28%26quot%3B%23%7Battr_name%7D%3D%26quot%3B%2C+expected_class.new%29All+together+now.%0Aclass+ActiveRecord%3A%3ABase%0A++def+self.typed_serialize%28attr_name%2C+class_name+%3D+Object%29%0A++++serialize%28attr_name%2C+class_name%29%0A%0A++++define_method%28attr_name%29+do%0A++++++expected_class+%3D+self.class.serialized_attributes%5Battr_name.to_s%5D%0A%0A++++++value+%3D+super%0A++++++if+value.is_a%3F%28expected_class%29%0A++++++++value%0A++++++else%0A++++++++send%28%26quot%3B%23%7Battr_name%7D%3D%26quot%3B%2C+expected_class.new%29%0A++++++end%0A++++end%0A++end%0AendThis+is+my+first+post+detailing+an+implementation.+Interestingly+enough%2C+it+alerted+me+to+a+few+unnecessarily+complex+portions+of+even+this+tiny+amount+of+code.').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F02%2F01%2Fthe-making-of-typed-serialize.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('Making+Rails%27+Serialize+Even+Better').gsub(/\+/, ' '),
+          summary: unescape('An+improved+pattern+for+Rails+attribute+serializing.').gsub(/\+/, ' '),
+          content: unescape('Rails+has+this+handy+method+that+allows+you+store+almost+any+object+in+the+database+with+ease.+Most+often+I+end+up+using+it+for+storing+optional+attributes+in+a+hash.%0AHere+is+the+proper+syntax+for+telling+Rails+that+there+is+an+options+attribute+that+should+only+store+Hash+values.%0Aclass+User+%26lt%3B+ActiveRecord%3A%3ABase%0A++serialize+%3Aoptions%2C+Hash%0AendThe+problem%0AThe+options+attribute+will+start+off+as+nil%2C+and+remain+nil+until+you+set+it+to+something+else.+Setting+the+class_name+to+Hash+only+affects+what+you+can+write+to+this+attribute.%0A%26gt%3B%26gt%3B+user+%3D+User.new%0A%3D%26gt%3B+%23%26lt%3BUser+id%3A+nil%2C+name%3A+nil%2C+options%3A+nil%26gt%3B%0A%26gt%3B%26gt%3B+user.options%5B%3Atheme%5D%0ANoMethodError%3A+You+have+a+nil+object+when+you+didn%26%2339%3Bt+expect+it%21%0AYou+might+have+expected+an+instance+of+ActiveRecord%3A%3ABase.%0AThe+error+occurred+while+evaluating+nil.%5B%5D%0A%09from+%28irb%29%3A2%0A%3D%26gt%3B+nilThe+solution%0AWhat+we+really+need+is+to+automatically+return+an+empty+Hash+on+this+new+object+so+we+can+go+on+our+merry+way.%0AAdd+this+to+your+environment.rb.%0Aconfig.gem+%26%2339%3Bjqr-typed_serialize%26%2339%3B%2C%0A++%3Alib+%3D%26gt%3B+%26%2339%3Btyped_serialize%26%2339%3B%2C%0A++%3Asource+%3D%26gt%3B+%26%2339%3Bhttp%3A%2F%2Fgems.github.com%26%2339%3BNow+run+this+command+to+install+the+gem.%0A%24+rake+gems%3AinstallA+quick+change+of+our+model+will+fix+all+of+our+woes.%0Aclass+User+%26lt%3B+ActiveRecord%3A%3ABase%0A++typed_serialize+%3Aoptions%2C+Hash%0Aend%26gt%3B%26gt%3B+user+%3D+User.new%0A%3D%26gt%3B+%23%26lt%3BUser+id%3A+nil%2C+name%3A+nil%2C+options%3A+nil%26gt%3B%0A%26gt%3B%26gt%3B+user.options%5B%3Atheme%5D%0A%3D%26gt%3B+nil%0A%26gt%3B%26gt%3B+user.options%0A%3D%26gt%3B+%7B%7DVoila%21%0AThe+how+and+why%0AIf+you%26%238217%3Bre+curious+about+how+this+works%2C+I%26%238217%3Bve+written+a+simple+post+describing+the+the+making+of+typed_serialize%2C+or+you+can+browse+the+code.').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F02%2F01%2Fmaking-rails-serialize-even-better.html').gsub(/\+/, ' '),
+        },
+      
+        {
+          title:   unescape('All+My+Code+Are+Belong+to+Us').gsub(/\+/, ' '),
+          summary: unescape('A+blog+is+born.').gsub(/\+/, ' '),
+          content: unescape('I%26%238217%3Bve+really+been+pushing+myself+to+move+as+much+code+as+possible+into+the+public+space.+GitHub+has+come+at+a+perfect+time+to+encourage+this+behavior.+It+makes+the+tedious+process+of+sharing+code+so+easy+you%26%238217%3Bd+be+stupid+not+to.%0AI+put+all+of+it+directly+on+GitHub+as+a+Rails+plugin+and+a+Ruby+gem.+Learning+how+to+do+this+is+a+few+hours+of+investment%2C+but+it%26%238217%3Bs+an+investment+you+only+need+to+make+once.+I%26%238217%3Bm+using+Echoe+right+now%2C+but+I%26%238217%3Bll+probably+switch+to+Jeweler+for+even+simpler+releases.%0AI+am+certain+that+making+code+reusable+is+one+of+the+best+ways+to+gain+a+solid+understanding+of+how+a+software+developer%26%238217%3Bs+tools+should+be+used.+Polishing+up+code+for+public+release+encourages+a+ton+of+good+behavior+that+makes+even+personal+reuse+easier+and+as+a+side+benefit%2C+other+people+will+improve+my+code+for+free%21%0AMost+of+the+plugins+and+gems+I+write+are+simple+enhancements+to+patterns+and+are+the+result+of+DRYing+up+code+in+a+single+project.+After+abstracting+the+initial+idea+from+one+project%2C+I+find+it%26%238217%3Bs+much+easier+to+recognize+the+same+pattern+in+other+projects.%0ASo+take+a+few+minutes+and+look+for+patterns+in+your+code.+Give+the+pattern+a+name.+Uncover+the+simplest+way+to+express+it.+Start+using+it.+Discover+it%26%238217%3Bs+limitations.+Publish+it.+Talk+about+it.').gsub(/\+/, ' '),
+          url:     unescape('%2F2009%2F01%2F31%2Fall-my-code-are-belong-to-us.html').gsub(/\+/, ' '),
+        },
+      
     0];
 
     posts.pop();
@@ -55,3 +286,42 @@ javascript:
     });
   </script>
 </div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+      <script type="text/javascript" src="/javascripts/json_search.0.9.0.js"></script>
+    
+      <script type="text/javascript" src="/javascripts/home.js"></script>
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

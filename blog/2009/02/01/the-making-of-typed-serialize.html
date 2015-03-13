@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         The Making of typed_serialize //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="The design process of a Rails pattern." />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">01 Feb 2009</div>
+  <h2>The Making of typed_serialize</h2>
+  <p>My <a href="http://github.com/jqr/typed_serialize">typed_serialize plugin</a> came from the repetition of code just like this.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">serialize</span> <span class="ss">:options</span><span class="p">,</span> <span class="no">Hash</span>
+
+<span class="k">def</span> <span class="nf">options</span>
+  <span class="n">value</span> <span class="o">=</span> <span class="k">super</span>
+  <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span>
+    <span class="n">value</span>
+  <span class="k">else</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>It calls super to peek at what ActiveRecord would return for the serialized column. If it&#8217;s a Hash, we just return it right away. If it&#8217;s anything else we set it to a new Hash and return that.</p>
+<h3>Distilling the interface</h3>
+<p>After thinking about the pattern for a bit, I decided that simplest shorthand would be this.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="n">typed_serialize</span> <span class="ss">:options</span><span class="p">,</span> <span class="no">Hash</span>
+<span class="k">end</span></code></pre></div><p>This code says &#8220;there is a typed and serialized attribute named options, that will always be a Hash.&#8221; Notice that it is nearly the same usage as the original serialize method.</p>
+<h3>Get to it</h3>
+<p>First off, we define a method that is accessible at the time of class definition. Since the usage is the same as serialize, we can use the original serialize method definition as a starting point.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">typed_serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="no">Object</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>On second thought, what&#8217;s the point of class_name being optional? It made sense for the original serialize method, but not typed_serialize. Let&#8217;s make class_name mandatory.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">typed_serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>OK, now our User model can properly execute, but it does absolutely nothing. So let&#8217;s at least call Rails&#8217; serialize method to get the standard behavior.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">typed_serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="no">Object</span><span class="p">)</span>
+    <span class="n">serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><h3>Adding the meat</h3>
+<p>Our repeated code revolved around a custom reader for a serialized attribute. So let&#8217;s add a custom reader for attr_name using define_method and our original repeated code.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">typed_serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="no">Object</span><span class="p">)</span>
+    <span class="n">serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+
+    <span class="n">define_method</span><span class="p">(</span><span class="n">attr_name</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">value</span> <span class="o">=</span> <span class="k">super</span>
+      <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">Hash</span><span class="p">)</span>
+        <span class="n">value</span>
+      <span class="k">else</span>
+        <span class="nb">self</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>The original code has a couple of small problems when inserted into this context. It assumes the value should always be a Hash and written attribute is always named options.</p>
+<p>A quick look at serialize&#8217;s implementation tells us it stores its data in a hash with the key as the attribute name in string form, and the value is the class_name. We&#8217;ll use that to derive the expected class.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">expected_class</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">serialized_attributes</span><span class="o">[</span><span class="n">attr_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">]</span></code></pre></div><p>We&#8217;ll use Ruby&#8217;s send method to call a method with a name we won&#8217;t know until runtime.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">send</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">attr_name</span><span class="si">}</span><span class="s2">=&quot;</span><span class="p">,</span> <span class="n">expected_class</span><span class="o">.</span><span class="n">new</span><span class="p">)</span></code></pre></div><h3>All together now.</h3>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">typed_serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span> <span class="o">=</span> <span class="no">Object</span><span class="p">)</span>
+    <span class="n">serialize</span><span class="p">(</span><span class="n">attr_name</span><span class="p">,</span> <span class="n">class_name</span><span class="p">)</span>
+
+    <span class="n">define_method</span><span class="p">(</span><span class="n">attr_name</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">expected_class</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">serialized_attributes</span><span class="o">[</span><span class="n">attr_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">]</span>
+
+      <span class="n">value</span> <span class="o">=</span> <span class="k">super</span>
+      <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="n">expected_class</span><span class="p">)</span>
+        <span class="n">value</span>
+      <span class="k">else</span>
+        <span class="nb">send</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">attr_name</span><span class="si">}</span><span class="s2">=&quot;</span><span class="p">,</span> <span class="n">expected_class</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>This is my first post detailing an implementation. Interestingly enough, it alerted me to a few unnecessarily complex portions of even this tiny amount of code.</p>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Automatically Generated Maps with Microformats //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="Javascript-free google maps integration" />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">09 Sep 2013</div>
+  <h2>Automatically Generated Maps with Microformats</h2>
+  <p>
+  Got a few addresses and want to show them on a map without writing any javascript?
+  It turns out, there's an incredibly easy way: mark up your addresses as
+  <a href="http://microformats.org/wiki/hcard">hCards</a> and use the
+  <a href="https://github.com/collectiveidea/simple-maps">simple-maps</a> javascript library.
+</p>
+
+<h3>Microformats to the Rescue!</h3>
+<p>
+  Microformats are a simple way to attach meaning to standard HTML tags by
+  using classes. Here is an example I made with the
+  <a href="http://microformats.org/code/hcard/creator">hCard Creator</a>.
+</p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;hcard-starbucks&quot;</span> <span class="na">class=</span><span class="s">&quot;vcard&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;url fn&quot;</span> <span class="na">href=</span><span class="s">&quot;http://starbucks.com&quot;</span><span class="nt">&gt;</span>Starbucks<span class="nt">&lt;/a&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;adr&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;street-address&quot;</span><span class="nt">&gt;</span>854 Broad Ripple Ave<span class="nt">&lt;/span&gt;&lt;br/&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;locality&quot;</span><span class="nt">&gt;</span>Indianapolis<span class="nt">&lt;/span&gt;</span>,
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;region&quot;</span><span class="nt">&gt;</span>IN<span class="nt">&lt;/span&gt;</span>,
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;postal-code&quot;</span><span class="nt">&gt;</span>46220<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;country-name&quot;</span><span class="nt">&gt;</span>USA<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></div>
+
+<p>
+  Rendered as HTML using default styling, this looks like:
+</p>
+
+<p>
+  <div id="hcard-starbucks" class="vcard">
+    <a class="url fn" href="http://starbucks.com">Starbucks</a>
+    <div class="adr">
+      <span class="street-address">854 Broad Ripple Ave</span><br/>
+      <span class="locality">Indianapolis</span>,
+      <span class="region">IN</span>,
+      <span class="postal-code">46220</span>
+      <span class="country-name">USA</span>
+    </div>
+  </div>
+</p>
+
+<p>
+  Pretty simple, it usually means adding some classes to data that's
+  already on the page. We can style this however we like, including
+  completely hiding elements with <code>display: none</code> for things
+  that may be obvious (country name?).
+</p>
+
+<p>
+  To display the map we just use an element with id="map"
+</p>
+
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;map&quot;</span> <span class="na">style=</span><span class="s">&quot;width: 100%; height: 400px&quot;</span><span class="nt">&gt;&lt;/div&gt;</span></code></pre></div>
+
+<div id="map" style="width: 100%; height: 400px">Map would be here if you had javascript enabled.</div>
+
+<p>
+  There are two pins because it also picks up my hCard from the site layout.
+</p>
+
+<h3>Automatic Geocoding</h3>
+<p>
+  You may have noticed I didn't specify longitude or latitude anywhere
+  in the hCard. simple-maps detects and computes geocodes when they're not given.
+</p>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+      <li><a href="/2009/08/05/iphone-toggle-switches.html">iPhone Toggle Switches</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    
+      <script type="text/javascript" src="http://ideafoundry.info/javascripts/sumo/microformat.js"></script>
+    
+      <script type="text/javascript" src="http://ideafoundry.info/javascripts/sumo/hcard.js"></script>
+    
+      <script type="text/javascript" src="http://ideafoundry.info/javascripts/simple-maps/map.js"></script>
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

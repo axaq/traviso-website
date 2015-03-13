@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Passing Data With Ruby Exceptions //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="Do more than raise an exception with a message!" />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">11 Feb 2009</div>
+  <h2>Passing Data With Ruby Exceptions</h2>
+  <p>Have you ever needed more than the exception class, error message and back-trace when handling an exception?</p>
+<p>I&#8217;ve run into this situation a few times, most recently while adding some automatic cache expiry to <a href="http://github.com/jqr/stale_object_destroyer">stale_object_destroyer</a> when it rescues a ActiveRecord::StaleObjectError.</p>
+<p>First we subclass an exception and add an accessor for the data we&#8217;d like to pass and add it to the initialize method for easy construction.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">MyException</span> <span class="o">&lt;</span> <span class="no">StandardError</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:object</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">message</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="n">object</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">)</span>
+    <span class="k">super</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">object</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>The only other important bit is how you raise this new exception.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">raise</span> <span class="no">MyException</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Too Lazy&quot;</span><span class="p">,</span> <span class="n">object</span><span class="p">)</span></code></pre></div><h3>A realistic example</h3>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">CacheError</span> <span class="o">&lt;</span> <span class="no">StandardError</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:object</span>
+
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">message</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">,</span> <span class="n">object</span> <span class="o">=</span> <span class="kp">nil</span><span class="p">)</span>
+    <span class="k">super</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="nb">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">object</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="kp">attr_accessor</span> <span class="ss">:name</span>
+
+  <span class="k">def</span> <span class="nf">save_with_cache_update</span>
+    <span class="k">raise</span> <span class="no">CacheError</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Object is Stale&quot;</span><span class="p">,</span> <span class="nb">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">stale?</span>
+    <span class="n">save</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">stale?</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">begin</span>
+  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="s2">&quot;Billy Mays&quot;</span><span class="p">)</span>
+  <span class="c1"># ...</span>
+  <span class="n">user</span><span class="o">.</span><span class="n">save_with_cache_update</span>
+<span class="k">rescue</span> <span class="no">CacheError</span> <span class="o">=&gt;</span> <span class="n">err</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Rescued </span><span class="si">#{</span><span class="n">err</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2"> on user named </span><span class="si">#{</span><span class="n">err</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">inspect</span><span class="si">}</span><span class="s2">&quot;</span>
+  <span class="n">err</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">expire_cache</span>
+  <span class="k">retry</span>
+<span class="k">end</span></code></pre></div>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

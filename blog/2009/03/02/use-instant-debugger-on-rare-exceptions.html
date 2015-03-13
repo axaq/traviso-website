@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Use Instant Debugger on Rare Exceptions //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="A novel use of the ruby debugger to handle rare exceptions." />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">02 Mar 2009</div>
+  <h2>Use Instant Debugger on Rare Exceptions</h2>
+  <p>Most of the time a backtrace can help you zero in on a bug in your code quickly, but sometimes the issue is not your code but the data your code is processing. In these cases, a backtrace is just a clue to your problems, you really need to see what data your code was processing to get a feel for the issue.</p>
+<p>You could throw in some statements to print out certain variables to &#8220;see&#8221; what your code &#8220;sees&#8221; at that point in time, but there is a far easier way.</p>
+<h3>Your friend: debugger</h3>
+<p>The excellent ruby-debug gem lets you open up an instance of irb wherever you put a call to debugger. If you haven&#8217;t already, check out the excellent <a href="http://pivotallabs.com/users/chad/blog/articles/366-ruby-debug-in-30-seconds-we-don-t-need-no-stinkin-gui-">30 second guide to ruby-debug</a>. Just type in &#8220;irb&#8221; when the debugger triggers to get a live irb session with the current state.</p>
+<p>Normally this is more than enough to fix the problematic data/code. Today though I was iterating through a rather large set of data for importing from <span class="caps">CSV</span>. The problem data was something like 5 minutes into the import. I needed to open the debugger at the instant of the problem data and not on the thousands of rows of good data that preceded it.</p>
+<h3>Start on a dime</h3>
+<p>A light when off in my head after a few minutes of stumbling around in console. Why not just wrap the offending bit of code in a rescue block and only open the debugger at that instant? I give you Instant Debug.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">rows</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+  <span class="k">begin</span>
+    <span class="no">Item</span><span class="o">.</span><span class="n">create!</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+  <span class="k">rescue</span> <span class="o">=&gt;</span> <span class="n">err</span>
+    <span class="nb">require</span> <span class="s1">&#39;ruby-debug&#39;</span>
+    <span class="n">debugger</span>
+    <span class="mi">1</span> <span class="c1"># no-op so the debugger can land in this context</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre></div><p>Now if this code fails for any reason, we can see the exact state of the application that caused this problem. We are able to reproduce the issue easily by calling Item.create!(row) and we can even modify row to see if we can fix bad data.</p>
+<p>A helpful hint: Because you want to be able to trigger the problem easily, you should wrap the rescue block as tightly around the problematic code as possible.</p>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2010/08/27/easy-heroku-deploys-with-heroku-san.html">Easy Heroku Deploys with Heroku San</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Easy Heroku Deploys with Heroku San //
+       
+       Elijah Miller
+     </title>
+     <meta name="author" content="Elijah Miller" />
+     
+       <meta namne="description" content="Deploy and maintain multiple Heroku apps with ease." />
+     
+     <link href="http://feeds2.feedburner.com/jqr" rel="alternate" title="Elijah Miller" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/jqr"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/jqr"><img src="/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/">Elijah Miller</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="/">Elijah Miller</a> / <span class="nickname">jqr</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:elijah.miller@gmail.com">elijah.miller@gmail.com</a></dd>
+
+          <dt>Telephone</dt>
+          <dd class="tel">+1 317 457 4595</a></dd>
+
+          <dt>Company</dt>
+          <dd class="org"><a href="http://fastestforward.com/">Fastest Forward</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/jqr">Twitter</a></li>
+
+          <li><a href="http://github.com/jqr">GitHub</a></li>
+
+          <li><a href="http://www.linkedin.com/in/elijahmiller">LinkedIn</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">27 Aug 2010</div>
+  <h2>Easy Heroku Deploys with Heroku San</h2>
+  <p>We deploy a great deal of our apps to <a href="http://heroku.com">Heroku</a>, but maintaining multiple environments (staging, production, demo) was traditionally <a href="/2009/04/25/deploying-multiple-environments-on-heroku.html">very painful</a>.</p>
+<p><a href="http://github.com/fastestforward/heroku_san">heroku_san</a> is a simple set of rake tasks to make standard Rails deployment easy. Multiple apps, environments, branches and users are handled with the minimum of effort.</p>
+<h3>Initial Setup</h3>
+<p>I won&#8217;t bore you with the details of <a href="http://github.com/fastestforward/heroku_san/blob/master/README.rdoc">installing the gem and including the rake tasks</a>, but you need to know that heroku_san works by using a <span class="caps">YAML</span> file with shorthand versions of your Heroku application names. It looks like this:</p>
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">apps</span><span class="p-Indicator">:</span>
+  <span class="c1"># shorthand: heroku app</span>
+  <span class="l-Scalar-Plain">production</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">awesomeapp</span>
+  <span class="l-Scalar-Plain">staging</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">awesomeapp-staging</span>
+  <span class="l-Scalar-Plain">demo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">awesomeapp-demo</span></code></pre></div><h3>First Time</h3>
+<p>If this app has never been deployed to Heroku, you will need to create the remote applications. heroku_san can do this for you, using the data in config/heroku.yml.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rake all heroku:create</code></pre></div><p>Most multi-app deployments change the environment to something different for each app, allowing you to override things like S3 buckets, email policies, etc. heroku_san is happy to handle this too, it assumes you want the RACK_ENV set to the shorthand name of the application.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c"># set RACK_ENV on each application to the shorthand:</span>
+<span class="c">#   awesomeapp-staging =&gt; staging</span>
+<span class="c">#   awesomeapp-demo    =&gt; demo</span>
+rake all heroku:rack_env</code></pre></div><p>The old Heroku stack (aspen) requires you to use a Gem manifest (.gems) to list the gems your application depends on. heroku_san can auto-populate this using config.gem requirements for Rails 2 applications.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rake heroku:gems</code></pre></div><h3>Everyday Use</h3>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rake staging deploy            <span class="c"># deploy staging and migrate</span>
+rake production console        <span class="c"># open a console for production</span>
+rake demo staging heroku:share <span class="c"># add a new developer to demo and staging</span>
+rake all heroku:unshare        <span class="c"># remove a developer from all apps</span></code></pre></div><h3>Branches</h3>
+<p>Deploying always uses the current branch, so be careful! Occasionally you might need to force a deploy, especially if you&#8217;re deploying multiple feature branches to the same app.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rake staging deploy            <span class="c"># deploy current branch to staging</span>
+rake staging force_deploy      <span class="c"># force deploy current branch to staging</span></code></pre></div><h3>Only One App?</h3>
+<p>If you&#8217;re only using one app, you can skip the server names and just issue the commands directly.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rake deploy                    <span class="c"># deploy the only app you have configured</span>
+rake console                   <span class="c"># open a console on your single app</span></code></pre></div><h3>Curious?</h3>
+<p>heroku_san works entirely by using the git and heroku binaries. So if you&#8217;re ever curious about how a command works or need to debug something you can just watch the screen as you run a command to see exactly what it&#8217;s up to.</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">rake staging deploy
+<span class="c"># git push git@heroku.com:awesomeapp-staging.git  master:master &amp;&amp; \</span>
+<span class="c"># heroku rake --app awesomeapp-staging db:migrate &amp;&amp; \</span>
+<span class="c"># heroku restart --app awesomeapp-staging</span></code></pre></div><h3>Even More!</h3>
+<p>A full list of commands heroku_san provides is available in the <a href="http://github.com/fastestforward/heroku_san/blob/master/README.rdoc"><span class="caps">README</span></a>.</p>
+<h3>Special Thanks</h3>
+<p>Thanks to <a href="http://github.com/glennr">Glenn Roberts</a>, who was kind enough to convert heroku_san from a Rails plugin into a gem, making updates a breeze.</p>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+      <li><a href="/2009/08/05/iphone-toggle-switches.html">iPhone Toggle Switches</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+      try {
+      var pageTracker = _gat._getTracker("UA-254246-10");
+      pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+
+    <script type="text/javascript">
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id',
+                       '4dd0582ef5a1f51b35000002');
+        t.src = '//secure.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>
