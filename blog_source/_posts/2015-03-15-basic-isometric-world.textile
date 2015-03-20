@@ -112,7 +112,7 @@ So here is the code piece to initialise traviso:
     var instanceConfig =
     {
         mapDataPath : "mapData.xml", // the path to the xml file that defines map data, required
-        assetsToLoad : ["../assets/assets_map.json", "../assets/assets_characters.json"], // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
+        assetsToLoad : ["t_1.png", "o_1.png"], // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
     };
 
     var engine = TRAVISO.getEngineInstance(instanceConfig);
@@ -121,7 +121,9 @@ So here is the code piece to initialise traviso:
 </script>
 {% endhighlight %}
 
-Traviso aims to give you a lot of flexibility in terms of customisation. What you see above is the minimum and default settings. For a list of customisation items go ahead and read the related tutorial <a href="/blog/{% post_url 2015-03-15-data-file-structure %}" target="_self">here</a>.
+Traviso aims to give you a lot of flexibility in terms of customisation. What you see above is the minimum and default settings. For a list of customisation items go ahead and read the related tutorial <a href="/blog/{% post_url 2015-03-15-engine-configuration %}" target="_self">here</a>.
 
-<a href="/blog/{% post_url 2015-03-15-data-file-structure %}" target="_blank">Download</a> traviso and start playing around with the examples included.
+<a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
+
+Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
 

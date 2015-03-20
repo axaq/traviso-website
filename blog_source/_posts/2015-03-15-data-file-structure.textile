@@ -157,3 +157,10 @@ idle_s, idle_sw, idle_w, idle_nw, idle_n, idle_ne, idle_e, idle_se, move_s, move
 <br/>
 <h4>Ground Map</h4>
 
+
+
+
+<a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
+
+Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
+

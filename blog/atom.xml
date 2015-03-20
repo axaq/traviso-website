@@ -4,13 +4,70 @@
  <title>TRAVISO Blog</title>
  <link href="http://travisojs.com/blog/atom.xml" rel="self"/>
  <link href="http://travisojs.com/blog/"/>
- <updated>2015-03-20T15:59:04+00:00</updated>
+ <updated>2015-03-20T17:06:57+00:00</updated>
  <id>http://www.travisojs.com/blog/</id>
  <author>
    <name>TRAVISO Blog</name>
    <email>karlidag@gmail.com</email>
  </author>
 
+ 
+   <entry>
+     <title>Engine Configuration</title>
+     <link href="http://travisojs.com/blog/2015/03/15/engine-configuration.html"/>
+     <updated>2015-03-15T00:00:00+00:00</updated>
+     <id>http://travisojs.com/blog/2015/03/15/engine-configuration</id>
+     <content type="html">&lt;p&gt;When you create a traviso engine instance you need to define a configuration object for it.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instanceConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;mapDataPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;mapData.xml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;assetsToLoad&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;grassTile.png&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;waterTile.png&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;house.png&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;box.png&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;engine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TRAVISO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getEngineInstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;instanceConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&amp;#8216;mapDataPath&amp;#8217; is the only required component which specifies the path to the &lt;span class=&quot;caps&quot;&gt;XML&lt;/span&gt; file that defines map data.&lt;/p&gt;
+&lt;p&gt;&amp;#8216;assetsToLoad&amp;#8217; is an array of paths to the assets that are desired to be loaded by traviso. No need to use this if your assets are already loaded to &lt;span class=&quot;caps&quot;&gt;PIXI&lt;/span&gt; cache.&lt;/p&gt;
+&lt;p&gt;Here is a breakdown of all the other parameters that you can playaround to customise your isometric engine.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;nx&quot;&gt;mapDataPath&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the path to the xml file that defines map data, required&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;assetsToLoad&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;minScale&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// mimimum scale that the DisplayObjectContainer for the map can get, default 0.5&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;maxScale&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// maximum scale that the DisplayObjectContainer for the map can get, default 1.5&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;numberOfZoomLevels&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// used to calculate zoom increment, default 5&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;initialZoomLevel&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// initial zoom level of the map, should be between -1 and 1, default 0&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;instantCameraZoom&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// specifies wheather to zoom instantly or with a tween animation, default false&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;tileHeight&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// height of a single isometric tile, default 74&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;isoAngle&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the angle between the topleft edge and the horizontal diagonal of a isometric quad, default 30&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;initialPositionFrame&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// frame to position the engine, default { x : 0, y : 0, w : 800, h : 600 }&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;initialPositionFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// x position of the engine, default 0&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;initialPositionFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// y position of the engine, default 0&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;initialPositionFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// width of the engine, default 800&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;initialPositionFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// height of the engine, default 600&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;pathFindingType&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the type of path finding algorithm two use, default TRAVISO.pfAlgorithms.ASTAR_ORTHOGONAL&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;followCharacter&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// defines if the camera will follow the current controllable or not, default true&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;instantCameraRelocation&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// specifies wheather the camera moves instantly or with a tween animation to the target location, default false&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;instantObjectRelocation&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// specifies wheather the map-objects will be moved to target location instantly or with an animation, default false&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;highlightPath&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// highlight the path when the current controllable moves on the map, default true&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;highlightTargetTile&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// highlight the target tile when the current controllable moves on the map, default true&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;tileHighlightAnimated&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// animate the tile highlights, default true&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;mapDraggable&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// enable dragging the map with touch-and-touchmove or mousedown-and-mousemove on the map, default true&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;backgroundColor&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Hexadecimal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// background color, if defined the engine will create a solid colored background for the map, default null&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;useMask&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// creates a mask using the position frame defined by &amp;#39;initialPositionFrame&amp;#39; property or the &amp;#39;posFrame&amp;#39; parameter that is passed to &amp;#39;repositionContent&amp;#39; method, default false&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;callbackScope&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the scope to apply when calling callback functions, default null&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;engineInstanceReadyCallback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// callback function that will be called once everything is loaded and engine instance is ready, needs &amp;#39;callbackScope&amp;#39; property, default null&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;tileSelectCallback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// callback function that will be called when a tile is selected, needs &amp;#39;callbackScope&amp;#39; property, default null&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;objectSelectCallback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// callback function that will be called when a tile with an interactive map-object on it is selected, needs &amp;#39;callbackScope&amp;#39; property, default null&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;objectReachedDestinationCallback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// callback function that will be called when the current controllable any moving object reaches its destination, needs &amp;#39;callbackScope&amp;#39; property, default null&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;otherObjectsOnTheNextTileCallback&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// callback function that will be called when the current controllable is in move and there are other objects on the next tile, needs &amp;#39;callbackScope&amp;#39; property, default null&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/axaq/traviso.js&quot; target=&quot;_blank&quot;&gt;Download&lt;/a&gt; traviso and start playing around with the examples included.&lt;/p&gt;
+&lt;p&gt;Check out the documentation &lt;a href=&quot;http://www.travisojs.com/docs/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
+   </entry>
  
    <entry>
      <title>Data File Structure</title>
@@ -110,7 +167,9 @@
 &lt;p&gt;&lt;b&gt;&lt;span class=&quot;caps&quot;&gt;NOTE&lt;/span&gt; 2:&lt;/b&gt; &amp;#8216;f&amp;#8217; tags of a &amp;#8216;v&amp;#8217; tag has priority over attributes defining animation sequences. So if you use both the engine will process only the &amp;#8216;f&amp;#8217; tags.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;&lt;span class=&quot;caps&quot;&gt;NOTE&lt;/span&gt; 3:&lt;/b&gt; For an object, at minimum, one &amp;#8216;v&amp;#8217; tag with the id &amp;#8220;idle&amp;#8221; is required. This will also be used as the initial visual (single texture or animation sequence) that will be applied to your object until you change it in your own logic.&lt;/p&gt;
 &lt;p&gt;&lt;br/&gt;
-&lt;h4&gt;Ground Map&lt;/h4&gt;&lt;/p&gt;</content>
+&lt;h4&gt;Ground Map&lt;/h4&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/axaq/traviso.js&quot; target=&quot;_blank&quot;&gt;Download&lt;/a&gt; traviso and start playing around with the examples included.&lt;/p&gt;
+&lt;p&gt;Check out the documentation &lt;a href=&quot;http://www.travisojs.com/docs/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
    </entry>
  
    <entry>
@@ -202,14 +261,15 @@
     &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instanceConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;nx&quot;&gt;mapDataPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;mapData.xml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the path to the xml file that defines map data, required&lt;/span&gt;
-        &lt;span class=&quot;nx&quot;&gt;assetsToLoad&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;../assets/assets_map.json&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;../assets/assets_characters.json&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;assetsToLoad&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;t_1.png&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;o_1.png&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 
     &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;engine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TRAVISO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getEngineInstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;instanceConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;engine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Traviso aims to give you a lot of flexibility in terms of customisation. What you see above is the minimum and default settings. For a list of customisation items go ahead and read the related tutorial &lt;a href=&quot;/blog//2015/03/15/data-file-structure.html&quot; target=&quot;_self&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;/blog//2015/03/15/data-file-structure.html&quot; target=&quot;_blank&quot;&gt;Download&lt;/a&gt; traviso and start playing around with the examples included.&lt;/p&gt;</content>
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Traviso aims to give you a lot of flexibility in terms of customisation. What you see above is the minimum and default settings. For a list of customisation items go ahead and read the related tutorial &lt;a href=&quot;/blog//2015/03/15/engine-configuration.html&quot; target=&quot;_self&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/axaq/traviso.js&quot; target=&quot;_blank&quot;&gt;Download&lt;/a&gt; traviso and start playing around with the examples included.&lt;/p&gt;
+&lt;p&gt;Check out the documentation &lt;a href=&quot;http://www.travisojs.com/docs/&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;</content>
    </entry>
  
    <entry>
