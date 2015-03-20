@@ -4,13 +4,213 @@
  <title>TRAVISO Blog</title>
  <link href="http://travisojs.com/blog/atom.xml" rel="self"/>
  <link href="http://travisojs.com/blog/"/>
- <updated>2015-03-13T12:10:24+00:00</updated>
+ <updated>2015-03-20T15:22:17+00:00</updated>
  <id>http://www.travisojs.com/blog/</id>
  <author>
    <name>TRAVISO Blog</name>
    <email>karlidag@gmail.com</email>
  </author>
 
+ 
+   <entry>
+     <title>Data File Structure</title>
+     <link href="http://travisojs.com/blog/2015/03/15/data-file-structure.html"/>
+     <updated>2015-03-15T00:00:00+00:00</updated>
+     <id>http://travisojs.com/blog/2015/03/15/data-file-structure</id>
+     <content type="html">&lt;p&gt;Data file is a simple &lt;span class=&quot;caps&quot;&gt;XML&lt;/span&gt; file which defines what goes where inside the engine.&lt;/p&gt;
+&lt;p&gt;Here is an example:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot; ?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;map_data&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;tiles&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;tile&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;movable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;t_1.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/tile&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/tiles&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;objects&amp;gt;&lt;/span&gt;
+	    &lt;span class=&quot;nt&quot;&gt;&amp;lt;object&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;movable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;interactive=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;s=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1x1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;v&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;idle&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;o_1.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;/v&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/object&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/objects&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;ground_map&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,1 ,1 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,0 ,0 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,0 ,0 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,1 ,1 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ground_map&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;object_map&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,0 ,0 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,1 ,0 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,0 ,1 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,0 ,0 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/object_map&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;map_data&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;So let&amp;#8217;s go step by step.&lt;/p&gt;
+&lt;h4&gt;Tiles&lt;/h4&gt;
+&lt;p&gt;&amp;lt;tiles&amp;gt; tag defines the available tiles that you can use in your map.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;tiles&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;tile&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;movable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;images/grassTile.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/tile&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;tile&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;movable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;images/waterTile.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/tile&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/tiles&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A &amp;lt;tile&amp;gt; tag should include the following attributes:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;id:&lt;/b&gt; (Numbers except 0) This is the key value that you will use to define the type of the tile. These will be used in the ground_map tag. DON&amp;#8217;T use 0 as id since it represents empty tiles in the ground_map.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;movable:&lt;/b&gt; (0/1) This defines weather other characters can move onto this type of tile or not.&lt;/p&gt;
+&lt;p&gt;A &amp;#8216;tile&amp;#8217; tag should also include the image path/name as the tag value.&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;h4&gt;Objects&lt;/h4&gt;&lt;/p&gt;
+&lt;p&gt;Similarly &amp;#8216;objects&amp;#8217; tag defines the available objects that you can use in your map.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;objects&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;object&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;movable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;interactive=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;s=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1x1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;v&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;idle&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;boxes.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/v&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/object&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/objects&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An &amp;#8216;object&amp;#8217; tag should include the following attributes:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;id:&lt;/b&gt; (Numbers except 0) This is the key value that you will use to define the type of the object. These will be used in the object_map tag. DON&amp;#8217;T use 0 as id since it represents no-objects in the object_map.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;movable:&lt;/b&gt; (0/1) This defines weather other characters can move onto a tile that this objects sits on.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;interactive:&lt;/b&gt; (0/1) This specifies weather the user can select/interact with the object. The engine will use the callbacks to inform the developer once the object is selected by the user.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;s:&lt;/b&gt; This specifies the size of the object in the number of rows and colums (rows x colums).&lt;/p&gt;
+&lt;p&gt;An &amp;#8216;object&amp;#8217; tag should also include AT &lt;span class=&quot;caps&quot;&gt;LEAST&lt;/span&gt; one v tag with id &amp;#8216;idle&amp;#8217;.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;span class=&quot;caps&quot;&gt;NOTE&lt;/span&gt;:&lt;/b&gt; You can define as many visuals (single images or animation sequences) as you want using v tags.&lt;/p&gt;
+&lt;p&gt;Here is an animation defined for the idle state of an object. You can think of &amp;#8220;f&amp;#8221; tag as a frame for animation. If there is only one &amp;#8216;f&amp;#8217; tag then it is a still image instead of an animation.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;v&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;idle&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_stand_1.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_stand_2.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_stand_3.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_stand_4.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_stand_5.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_stand_6.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/v&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can create the textures/animations for your object in two ways.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Either using child f tags to specify each frame texture if your image names are not in a numeric order like walk1.png, walk2.png &amp;#8230;&lt;/li&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;v&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;move_ne&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_move_ne_x.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_move_ne_w.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_move_ne_y.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_move_ne_z.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_move_ne_t.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_move_ne_v.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/v&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;li&gt;Or in a single v tag by providing filename/path prefix and extension.&lt;/li&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&amp;lt;v &lt;span class=&quot;nv&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;move_ne&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;hero_move_ne_&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;png&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;number_of_frames&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;6&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;start_number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; /&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/ol&gt;
+&lt;p&gt;So, the following two &amp;#8216;v&amp;#8217; tags are interpreted as the same by the engine:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;v&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;flip&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_flip_3.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_flip_4.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_flip_5.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;hero_flip_6.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/v&amp;gt;&lt;/span&gt;
+ 
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;v&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;flip&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;path=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;hero_flip_&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;ext=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;png&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;number_of_frames=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;4&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;start_number=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;3&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here the attributes go as follows:&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;id:&lt;/b&gt; Id of the texture or animation. You will use this to change object texture/animation any time.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;path:&lt;/b&gt; Image name/id as it is accessed throughout a cached spritesheet or with a path externally.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;ext:&lt;/b&gt; Image file extension. i.e. png, jpg&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;number_of_frames:&lt;/b&gt; Number of frames in an animation. if it is not an animation but a single texture, set it to 1.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;start_number:&lt;/b&gt; Starting number of the image name suffix. This is only used for animations where image names are in a numeric order like walk1.png, walk2.png, walk3.png, walk4.png &amp;#8230;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;span class=&quot;caps&quot;&gt;NOTE&lt;/span&gt; 1:&lt;/b&gt; Following ids are reserved, so for additional custom animations use different ids:&lt;/p&gt;
+&lt;p&gt;idle_s, idle_sw, idle_w, idle_nw, idle_n, idle_ne, idle_e, idle_se, move_s, move_sw, move_w, move_nw, move_n, move_ne, move_e, move_se&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;span class=&quot;caps&quot;&gt;NOTE&lt;/span&gt; 2:&lt;/b&gt; &amp;#8216;f&amp;#8217; tags of a &amp;#8216;v&amp;#8217; tag has priority over attributes defining animation sequences. So if you use both the engine will process only the &amp;#8216;f&amp;#8217; tags.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;span class=&quot;caps&quot;&gt;NOTE&lt;/span&gt; 3:&lt;/b&gt; For an object, at minimum, one &amp;#8216;v&amp;#8217; tag with the id &amp;#8220;idle&amp;#8221; is required. This will also be used as the initial visual (single texture or animation sequence) that will be applied to your object until you change it in your own logic.&lt;/p&gt;
+&lt;p&gt;&lt;br/&gt;
+&lt;h4&gt;Ground Map&lt;/h4&gt;&lt;/p&gt;</content>
+   </entry>
+ 
+   <entry>
+     <title>Basic Isometric World</title>
+     <link href="http://travisojs.com/blog/2015/03/15/basic-isometric-world.html"/>
+     <updated>2015-03-15T00:00:00+00:00</updated>
+     <id>http://travisojs.com/blog/2015/03/15/basic-isometric-world</id>
+     <content type="html">&lt;p&gt;Creating an isometric world with Traviso is pretty straightforward. Here is what u need:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Visuals for tiles and objects.&lt;/li&gt;
+  &lt;li&gt;An &lt;span class=&quot;caps&quot;&gt;XML&lt;/span&gt; file for Traviso to know what goes where.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Note: Traviso is built on top of the pixi.js rendering engine. So if you haven&amp;#8217;t already check it out &lt;a href=&quot;http://www.pixijs.com&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Creating a tile image&lt;/h3&gt;
+&lt;p&gt;Isometric tiles are defined by two parameters throughout Traviso:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;b&gt;Iso-Height:&lt;/b&gt; The height of a single tile.&lt;br /&gt;
+  	&lt;br/&gt;
+  	&lt;img src=&quot;/blog/images/posts/IsoHeight.png&quot;&gt;  &lt;/li&gt;
+  &lt;li&gt;&lt;b&gt;Iso-Angle:&lt;/b&gt; The angle between the isometric edge and the isometric (horizontal) diagnal of the tile.&lt;br /&gt;
+  	&lt;br/&gt;
+  	&lt;img src=&quot;/blog/images/posts/IsoAngle.png&quot;&gt;  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Default value for the Iso-Angle is 30 degrees and default height is 74 px.&lt;/p&gt;
+&lt;h3&gt;Creating an object image&lt;/h3&gt;
+&lt;p&gt;While creating your objects better use a tile image as a reference to decide where your imeage goes on the tile.&lt;/p&gt;
+&lt;p&gt;Bottom corner of a tile is the reference point that traviso uses to align things inside the engine.&lt;/p&gt;
+&lt;p&gt;Just place your object-image on a tile-image, hide the tile-image, save it as the image file for your object.&lt;br /&gt;
+&lt;br/&gt;
+&lt;img src=&quot;/blog/images/posts/reference.png&quot;&gt;&lt;img src=&quot;/blog/images/posts/1x2object.png&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;Creating the data file&lt;/h3&gt;
+&lt;p&gt;Data file is a simple &lt;span class=&quot;caps&quot;&gt;XML&lt;/span&gt; file which defines what goes where inside the engine.&lt;/p&gt;
+&lt;p&gt;Here is an example:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot; ?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;map_data&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;tiles&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;tile&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;movable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;t_1.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/tile&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/tiles&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;objects&amp;gt;&lt;/span&gt;
+	    &lt;span class=&quot;nt&quot;&gt;&amp;lt;object&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;movable=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;interactive=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;s=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;1x1&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;v&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;idle&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+				&lt;span class=&quot;nt&quot;&gt;&amp;lt;f&amp;gt;&lt;/span&gt;o_1.png&lt;span class=&quot;nt&quot;&gt;&amp;lt;/f&amp;gt;&lt;/span&gt;
+			&lt;span class=&quot;nt&quot;&gt;&amp;lt;/v&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;/object&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/objects&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;ground_map&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,1 ,1 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,0 ,0 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,0 ,0 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;1 ,1 ,1 ,1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/ground_map&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;object_map&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,0 ,0 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,1 ,0 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,0 ,1 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+		&lt;span class=&quot;nt&quot;&gt;&amp;lt;row&amp;gt;&lt;/span&gt;0 ,0 ,0 ,0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/row&amp;gt;&lt;/span&gt;
+	&lt;span class=&quot;nt&quot;&gt;&amp;lt;/object_map&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;map_data&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For a detailed explanation of the data file structure you can have a look at the related tutorial &lt;a href=&quot;/blog/2015/03/15/data-file-structure.html&quot; target=&quot;_self&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h3&gt;Ready to roll&lt;/h3&gt;
+&lt;p&gt;So here is the code piece to initialise traviso:&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;js/pixi.dev.js&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;js/traviso.dev.js&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;script&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;////// Global on-frame renderer function&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;render&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;requestAnimFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; 
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	
+    &lt;span class=&quot;c1&quot;&gt;////// Here, we initialize the pixi stage&lt;/span&gt;
+	
+    &lt;span class=&quot;c1&quot;&gt;// create an new instance of a pixi stage&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;stage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PIXI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;0x6BACDE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;// create a renderer instance&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;renderer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;PIXI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;autoDetectRenderer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+	
+    &lt;span class=&quot;c1&quot;&gt;// add the renderer view element to the DOM&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;renderer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	
+    &lt;span class=&quot;nx&quot;&gt;requestAnimFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	
+    &lt;span class=&quot;c1&quot;&gt;////// Here, we create our traviso instance and add on top of pixi&lt;/span&gt;
+	
+    &lt;span class=&quot;c1&quot;&gt;// engine-instance configuration object&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;instanceConfig&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;mapDataPath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;mapData.xml&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// the path to the xml file that defines map data, required&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;assetsToLoad&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;../assets/assets_map.json&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;../assets/assets_characters.json&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;engine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;TRAVISO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getEngineInstance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;instanceConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;engine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Traviso aims to give you a lot of flexibility in terms of customisation. What you see above is the minimum and default settings. For a list of customisation items go ahead and read the related tutorial &lt;a href=&quot;/blog//2015/03/15/data-file-structure.html&quot; target=&quot;_self&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/blog//2015/03/15/data-file-structure.html&quot; target=&quot;_blank&quot;&gt;Download&lt;/a&gt; traviso and start playing around with the examples included.&lt;/p&gt;</content>
+   </entry>
  
    <entry>
      <title>Selfless Ruby</title>
@@ -576,32 +776,6 @@ gem install thor &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
 thor install &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
 http://github.com/jqr/thor_tasks/raw/master/rspec_rename_to_dotspec.thor &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
 thor rspec:rename_to_dotspec&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
-   </entry>
- 
-   <entry>
-     <title>Basic Iso World</title>
-     <link href="http://travisojs.com/blog/2009/02/03/global-git-ignore.html"/>
-     <updated>2009-02-03T00:00:00+00:00</updated>
-     <id>http://travisojs.com/blog/2009/02/03/global-git-ignore</id>
-     <content type="html">&lt;p&gt;Creating an isometric world with Traviso is pretty straightforward. Here is what u need:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Visuals for tiles and objects.&lt;/li&gt;
-  &lt;li&gt;An &lt;span class=&quot;caps&quot;&gt;XML&lt;/span&gt; file for Traviso to know what goes where.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Note: Traviso is built on top of the pixi.js rendering engine. So if you haven&amp;#8217;t already check it out here.&lt;/p&gt;
-&lt;h3&gt;Creating a tile image&lt;/h3&gt;
-&lt;p&gt;Isometric tiles are defined by two parameters throughout Traviso:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;b&gt;Iso-Angle:&lt;/b&gt; The height of a single tile.&lt;br /&gt;
-  	&lt;img src=&quot;/images/posts/shift_control_option_r.jpg&quot;&gt;  &lt;/li&gt;
-  &lt;li&gt;&lt;b&gt;Iso-Height:&lt;/b&gt; The angle between the isometric edge and the isometric (horizontal) diagnal of the tile.&lt;br /&gt;
-  	&lt;img src=&quot;/images/posts/shift_control_option_r.jpg&quot;&gt;  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Default value for the Iso-Angle is 30 degrees and default height is &amp;#8230;..&lt;/p&gt;
-&lt;p&gt;Git supports global ignores just like any good &lt;span class=&quot;caps&quot;&gt;SCM&lt;/span&gt;.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git config --global core.excludesfile ~/.gitignore
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;.DS_Store\nThumbs.db\n&amp;quot;&lt;/span&gt; &amp;gt;&amp;gt; ~/.gitignore&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For good measure I threw in Windows&amp;#8217; creepy file &lt;a href=&quot;http://en.wikipedia.org/wiki/Thumbs.db&quot;&gt;Thumbs.db&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Sadly this won&amp;#8217;t stop other developers from accidentally committing those files, so you still need to add those ignores to your .gitignore in every project. I&amp;#8217;ve setup my &lt;a href=&quot;http://github.com/jqr/dotfiles/raw/master/bash_profile.d/git.sh&quot;&gt;git init alias&lt;/a&gt; to do this for me.&lt;/p&gt;</content>
    </entry>
  
    <entry>

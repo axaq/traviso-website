@@ -79,6 +79,11 @@ h1 a, h1 a:link, h1 a:visited {
   padding: 0;
   margin: 0;
 }
+#post ul {
+  list-style-type: square;
+  margin: 0px 30px;
+}
+
 #content li {
   margin-bottom: 10px;
 }

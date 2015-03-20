@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+     <title>
+       
+         Basic Isometric World //
+       
+       TRAVISO Blog
+     </title>
+     <meta name="author" content="Hakan Karlidag" />
+     
+       <meta namne="description" content="Creating a simple isometric world." />
+     
+     <link href="http://feeds2.feedburner.com/axaq" rel="alternate" title="Hakan Karlidag" type="application/atom+xml" />
+
+     <link rel="stylesheet" href="/blog/stylesheets/syntax.css" type="text/css" />
+     <link rel="stylesheet" href="/blog/stylesheets/default.css" type="text/css" />
+
+     
+  </head>
+  <body>
+    <a href="http://github.com/axaq"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" alt="Fork me on GitHub" /></a>
+
+    <div id="site">
+      <a id="subscribe" href="http://feeds2.feedburner.com/axaq"><img src="/blog/images/rss.png" alt="Subscribe to RSS Feed" /></a>
+
+      <div id="search_area" style="display: none">
+        <label for="search" style="display: none">Search</label>
+        <img src="http://www.famfamfam.com/lab/icons/silk/icons/cancel.png" alt="X"/>
+        <input id="search" />
+      </div>
+
+      <h1><a href="/blog">Welcome to traviso.js blog</a></h1>
+
+      <div class="clear"></div>
+
+      <div id="sidebar" class="vcard">
+        <h3>Me</h3>
+        <dl id="contact">
+          <dt>Name</dt>
+          <dd><a class="fn url" href="http://twitter.com/axaq">Hakan Karlidag</a> / <span class="nickname">axaq</span></dd>
+
+          <dt>Email</dt>
+          <dd class="email"><a href="mailto:karlidag@gmail.com">karlidag@gmail.com</a></dd>
+        </dl>
+        <h3>And then some</h3>
+        <ul id="profiles">
+          <li><a href="http://twitter.com/axaq">Twitter</a></li>
+
+          <li><a href="http://github.com/axaq">GitHub</a></li>
+        </ul>
+
+         <div class="adr">
+          <span class="locality">Indianapolis</span>
+          <span class="region">IN</span>
+          <span class="postal-code">46220</span>
+
+          <span class="country-name">USA</span>
+
+         </div>
+      </div>
+
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+
+      <div id="content">
+        <div id="post">
+  <div class="date">15 Mar 2015</div>
+  <h2>Basic Isometric World</h2>
+  <p>Creating an isometric world with Traviso is pretty straightforward. Here is what u need:</p>
+<ol>
+  <li>Visuals for tiles and objects.</li>
+  <li>An <span class="caps">XML</span> file for Traviso to know what goes where.</li>
+</ol>
+<p>Note: Traviso is built on top of the pixi.js rendering engine. So if you haven&#8217;t already check it out <a href="http://www.pixijs.com" target="_blank">here</a>.</p>
+<h3>Creating a tile image</h3>
+<p>Isometric tiles are defined by two parameters throughout Traviso:</p>
+<ul>
+  <li><b>Iso-Height:</b> The height of a single tile.<br />
+  	<br/>
+  	<img src="/blog/images/posts/IsoHeight.png">  </li>
+  <li><b>Iso-Angle:</b> The angle between the isometric edge and the isometric (horizontal) diagnal of the tile.<br />
+  	<br/>
+  	<img src="/blog/images/posts/IsoAngle.png">  </li>
+</ul>
+<p>Default value for the Iso-Angle is 30 degrees and default height is 74 px.</p>
+<h3>Creating an object image</h3>
+<p>While creating your objects better use a tile image as a reference to decide where your imeage goes on the tile.</p>
+<p>Bottom corner of a tile is the reference point that traviso uses to align things inside the engine.</p>
+<p>Just place your object-image on a tile-image, hide the tile-image, save it as the image file for your object.<br />
+<br/>
+<img src="/blog/images/posts/reference.png"><img src="/blog/images/posts/1x2object.png"></p>
+<h3>Creating the data file</h3>
+<p>Data file is a simple <span class="caps">XML</span> file which defines what goes where inside the engine.</p>
+<p>Here is an example:</p>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;</span>
+<span class="nt">&lt;map_data&gt;</span>
+	<span class="nt">&lt;tiles&gt;</span>
+		<span class="nt">&lt;tile</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span> <span class="na">movable=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>t_1.png<span class="nt">&lt;/tile&gt;</span>
+	<span class="nt">&lt;/tiles&gt;</span>
+	<span class="nt">&lt;objects&gt;</span>
+	    <span class="nt">&lt;object</span> <span class="na">id=</span><span class="s">&quot;1&quot;</span> <span class="na">movable=</span><span class="s">&quot;0&quot;</span> <span class="na">interactive=</span><span class="s">&quot;0&quot;</span> <span class="na">s=</span><span class="s">&quot;1x1&quot;</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;v</span> <span class="na">id=</span><span class="s">&quot;idle&quot;</span><span class="nt">&gt;</span>
+				<span class="nt">&lt;f&gt;</span>o_1.png<span class="nt">&lt;/f&gt;</span>
+			<span class="nt">&lt;/v&gt;</span>
+		<span class="nt">&lt;/object&gt;</span>
+	<span class="nt">&lt;/objects&gt;</span>
+	<span class="nt">&lt;ground_map&gt;</span>
+		<span class="nt">&lt;row&gt;</span>1 ,1 ,1 ,1<span class="nt">&lt;/row&gt;</span>
+		<span class="nt">&lt;row&gt;</span>1 ,0 ,0 ,1<span class="nt">&lt;/row&gt;</span>
+		<span class="nt">&lt;row&gt;</span>1 ,0 ,0 ,1<span class="nt">&lt;/row&gt;</span>
+		<span class="nt">&lt;row&gt;</span>1 ,1 ,1 ,1<span class="nt">&lt;/row&gt;</span>
+	<span class="nt">&lt;/ground_map&gt;</span>
+	<span class="nt">&lt;object_map&gt;</span>
+		<span class="nt">&lt;row&gt;</span>0 ,0 ,0 ,0<span class="nt">&lt;/row&gt;</span>
+		<span class="nt">&lt;row&gt;</span>0 ,1 ,0 ,0<span class="nt">&lt;/row&gt;</span>
+		<span class="nt">&lt;row&gt;</span>0 ,0 ,1 ,0<span class="nt">&lt;/row&gt;</span>
+		<span class="nt">&lt;row&gt;</span>0 ,0 ,0 ,0<span class="nt">&lt;/row&gt;</span>
+	<span class="nt">&lt;/object_map&gt;</span>
+<span class="nt">&lt;map_data&gt;</span></code></pre></div><p>For a detailed explanation of the data file structure you can have a look at the related tutorial <a href="/blog/2015/03/15/data-file-structure.html" target="_self">here</a>.</p>
+<h3>Ready to roll</h3>
+<p>So here is the code piece to initialise traviso:</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;js/pixi.dev.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;js/traviso.dev.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+<span class="nt">&lt;script&gt;</span>
+
+    <span class="c1">////// Global on-frame renderer function</span>
+    <span class="kd">function</span> <span class="nx">update</span><span class="p">()</span> 
+    <span class="p">{</span>
+        <span class="nx">renderer</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="nx">stage</span><span class="p">);</span>
+        <span class="nx">requestAnimFrame</span><span class="p">(</span><span class="nx">update</span><span class="p">);</span> 
+    <span class="p">}</span>
+	
+    <span class="c1">////// Here, we initialize the pixi stage</span>
+	
+    <span class="c1">// create an new instance of a pixi stage</span>
+    <span class="nx">stage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PIXI</span><span class="p">.</span><span class="nx">Stage</span><span class="p">(</span><span class="mh">0x6BACDE</span><span class="p">);</span>
+
+    <span class="c1">// create a renderer instance</span>
+    <span class="nx">renderer</span> <span class="o">=</span> <span class="nx">PIXI</span><span class="p">.</span><span class="nx">autoDetectRenderer</span><span class="p">();</span>
+	
+    <span class="c1">// add the renderer view element to the DOM</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">renderer</span><span class="p">.</span><span class="nx">view</span><span class="p">);</span>
+	
+    <span class="nx">requestAnimFrame</span><span class="p">(</span><span class="nx">update</span><span class="p">);</span>
+	
+    <span class="c1">////// Here, we create our traviso instance and add on top of pixi</span>
+	
+    <span class="c1">// engine-instance configuration object</span>
+    <span class="kd">var</span> <span class="nx">instanceConfig</span> <span class="o">=</span>
+    <span class="p">{</span>
+        <span class="nx">mapDataPath</span> <span class="o">:</span> <span class="s2">&quot;mapData.xml&quot;</span><span class="p">,</span> <span class="c1">// the path to the xml file that defines map data, required</span>
+        <span class="nx">assetsToLoad</span> <span class="o">:</span> <span class="p">[</span><span class="s2">&quot;../assets/assets_map.json&quot;</span><span class="p">,</span> <span class="s2">&quot;../assets/assets_characters.json&quot;</span><span class="p">],</span> <span class="c1">// array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">engine</span> <span class="o">=</span> <span class="nx">TRAVISO</span><span class="p">.</span><span class="nx">getEngineInstance</span><span class="p">(</span><span class="nx">instanceConfig</span><span class="p">);</span>
+    <span class="nx">stage</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">engine</span><span class="p">);</span>
+
+<span class="nt">&lt;/script&gt;</span></code></pre></div><p>Traviso aims to give you a lot of flexibility in terms of customisation. What you see above is the minimum and default settings. For a list of customisation items go ahead and read the related tutorial <a href="/blog//2015/03/15/data-file-structure.html" target="_self">here</a>.</p>
+<p><a href="/blog//2015/03/15/data-file-structure.html" target="_blank">Download</a> traviso and start playing around with the examples included.</p>
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+      <li><a href="/blog/2015/03/15/data-file-structure.html">Data File Structure</a></li>
+    
+      <li><a href="/blog/2013/10/14/selfless-ruby.html">Selfless Ruby</a></li>
+    
+      <li><a href="/blog/2013/09/09/automatically-generated-maps-with-microformats.html">Automatically Generated Maps with Microformats</a></li>
+    
+  </ul>
+</div>
+
+      </div>
+
+      <div class="clear"></div>
+
+    </div>
+
+    
+
+    <script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+	  try {
+	  ga('create', 'UA-60720270-1', 'auto');
+	  ga('send', 'pageview');
+	  } catch(err) {}
+	</script>
+  </body>
+</html>
