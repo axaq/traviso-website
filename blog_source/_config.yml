@@ -1,4 +1,0 @@
-# Where things are
-source:      .
-destination: ./../blog
-layouts:     ./_layouts
