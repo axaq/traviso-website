@@ -1,0 +1,26 @@
+
+# Where things are
+source:      .
+destination: ./_site
+layouts:     ./blog/_layouts
+posts:     ./blog/_posts
+plugins:     ./blog/_plugins
+plugins:     ./drafts/_drafts
+
+name: "traviso.js"
+exclude: ["asset_sources", "less", "mail"]
+timezone: "Europe/London"
+safe: true
+lsi: false
+host: localhost
+port: 4001
+description: Programming blog by @demisx1 on software patterns and solutions utilized in a full-stack
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+highlighter: pygments
+url: http://www.travisojs.com
+excerpt_separator: <!--more-->
+
+redcarpet:
+  extensions: ["space_after_headers", "quote", "hard_wrap", "lax_spacing"]

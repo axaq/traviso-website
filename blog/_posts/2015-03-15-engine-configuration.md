@@ -1,11 +1,15 @@
 ---
 layout: post
-title: Engine Configuration
+title: "Engine Configuration"
+date:   2015-03-15 10:00:00
 summary: How to configure your traviso engine instance.
 ---
+
+___
+
 When you create a traviso engine instance you need to define a configuration object for it.
 
-{% highlight js %}
+```js
 var instanceConfig =
 {
     mapDataPath : "mapData.xml",
@@ -13,15 +17,17 @@ var instanceConfig =
 };
 
 var engine = TRAVISO.getEngineInstance(instanceConfig);
-{% endhighlight %}
+```
 
-'mapDataPath' is the only required component which specifies the path to the XML file that defines map data.
+<!--more-->
 
-'assetsToLoad' is an array of paths to the assets that are desired to be loaded by traviso. No need to use this if your assets are already loaded to PIXI cache.
+`mapDataPath` is the only required component which specifies the path to the XML file that defines map data.
+
+`assetsToLoad` is an array of paths to the assets that are desired to be loaded by traviso. No need to use this if your assets are already loaded to PIXI cache.
 
 Here is a breakdown of all the other parameters that you can playaround to customise your isometric engine.
 
-{% highlight js %}
+```js
 mapDataPath {String} // the path to the xml file that defines map data, required
 assetsToLoad {Array(String)} // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
 
@@ -61,9 +67,27 @@ tileSelectCallback {Function} // callback function that will be called when a ti
 objectSelectCallback {Function} // callback function that will be called when a tile with an interactive map-object on it is selected, needs 'callbackScope' property, default null
 objectReachedDestinationCallback {Function} // callback function that will be called when the current controllable any moving object reaches its destination, needs 'callbackScope' property, default null
 otherObjectsOnTheNextTileCallback {Function} // callback function that will be called when the current controllable is in move and there are other objects on the next tile, needs 'callbackScope' property, default null
-{% endhighlight %}
+```
 
 <a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
 
 Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
 
+<div id="post-navigation" >
+  <div class="previous">
+    {% if page.previous.url %}
+    <a href="{{page.previous.url}}" title="Previous post: {{page.next.title}}">
+      <i class="fa fa-lg fa-arrow-circle-left"></i>
+      {{page.previous.title}}
+    </a>
+    {% endif %}
+  </div>
+  <div class="next text-right">
+    {% if page.next.url %}
+    <a href="{{page.next.url}}" title="Next post: {{page.next.title}}">
+    	NEXT: {{page.next.title}}
+    	<i class="fa fa-2x fa-arrow-circle-right"></i>
+    </a>
+    {% endif %}
+  </div>
+</div>
