@@ -3,6 +3,7 @@ layout: post
 title: "Engine Configuration"
 date:   2015-03-15 10:00:00
 summary: How to configure your traviso engine instance.
+categories: tutorial
 ---
 
 ___

@@ -14,7 +14,7 @@ safe: true
 lsi: false
 host: localhost
 port: 4001
-description: Programming blog by @demisx1 on software patterns and solutions utilized in a full-stack
+description: Traviso is an open source JS engine that makes it easy to build isometric applications that run in a web browser
 markdown: redcarpet
 redcarpet:
   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]

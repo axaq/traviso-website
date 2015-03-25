@@ -3,6 +3,7 @@ layout: post
 title: "Data File Structure"
 date:   2015-03-15 11:00:00
 summary: A detailed explanation of the data file's structure.
+categories: tutorial
 ---
 
 ___
@@ -105,7 +106,7 @@ Here is an animation defined for the idle state of an object. You can think of `
 </v>
 ```
 
-You can create the textures/animations for your object in two ways.
+You can create the textures/animations for your object in two ways:
 
 * Either using child `<f>` tags to specify each frame texture if your image names are not in a numeric order like `walk1.png, walk2.png ...`
   
