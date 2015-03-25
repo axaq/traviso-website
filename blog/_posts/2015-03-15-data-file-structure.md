@@ -58,9 +58,9 @@ So let's go step by step.
 
 A `<tile>` tag should include the following attributes:
 
-* **id:** (Numbers except 0) This is the key value that you will use to define the type of the tile. These will be used in the `<ground_map>` tag. DON'T use 0 as id since it represents empty tiles in the `<ground_map>`.
+* **`id:`** (Numbers except 0) This is the key value that you will use to define the type of the tile. These will be used in the `<ground_map>` tag. DON'T use 0 as id since it represents empty tiles in the `<ground_map>`.
 
-* **movable:** (0/1) This defines weather other characters can move onto this type of tile or not.
+* **`movable:`** (0/1) This defines weather other characters can move onto this type of tile or not.
             
 A `<tile>` tag should also include the image path/name as the tag value.
 
@@ -81,13 +81,13 @@ Similarly `<objects>` tag defines the available objects that you can use in your
 
 An `<object>` tag should include the following attributes:
 
-* **id:** (Numbers except 0) This is the key value that you will use to define the type of the object. These will be used in the `<object_map>` tag. DON'T use 0 as id since it represents no-objects in the `<object_map>`.
+* **`id:`** (Numbers except 0) This is the key value that you will use to define the type of the object. These will be used in the `<object_map>` tag. DON'T use 0 as id since it represents no-objects in the `<object_map>`.
 
-* **movable:** (0/1) This defines weather other characters can move onto a tile that this objects sits on.
+* **`movable:`** (0/1) This defines weather other characters can move onto a tile that this objects sits on.
 
-* **interactive:** (0/1) This specifies weather the user can select/interact with the object. The engine will use the callbacks to inform the developer once the object is selected by the user.
+* **`interactive:`** (0/1) This specifies weather the user can select/interact with the object. The engine will use the callbacks to inform the developer once the object is selected by the user.
 
-* **s:** This specifies the size of the object in the number of rows and colums (rows x colums).
+* **`s:`** This specifies the size of the object in the number of rows and colums (rows x colums).
 
 An `<object>` tag should also include AT LEAST one `<v>` tag with `id="idle"`.
             
@@ -142,15 +142,15 @@ So, the following two `<v>` tags are interpreted as the same by the engine:
 
 Here the attributes go as follows:
 
-* **id:** Id of the texture or animation. You will use this to change object texture/animation any time.
+* **`id:`** Id of the texture or animation. You will use this to change object texture/animation any time.
 
-* **path:** Image name/id as it is accessed throughout a cached spritesheet or with a path externally.
+* **`path:`** Image name/id as it is accessed throughout a cached spritesheet or with a path externally.
 
-* **ext:** Image file extension. i.e. png, jpg
+* **`ext:`** Image file extension. i.e. png, jpg
 
-* **number_of_frames:** Number of frames in an animation. if it is not an animation but a single texture, set it to 1.
+* **`number_of_frames:`** Number of frames in an animation. if it is not an animation but a single texture, set it to 1.
 
-* **start_number:** Starting number of the image name suffix. This is only used for animations where image names are in a numeric order like walk1.png, walk2.png, walk3.png, walk4.png ...
+* **`start_number:`** Starting number of the image name suffix. This is only used for animations where image names are in a numeric order like walk1.png, walk2.png, walk3.png, walk4.png ...
                 
 > **NOTE 1:** Following ids are reserved, so for additional custom animations use different ids:
 
