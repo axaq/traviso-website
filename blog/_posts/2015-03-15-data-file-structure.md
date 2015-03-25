@@ -18,12 +18,12 @@ Here is an example:
 <?xml version="1.0" encoding="utf-8" ?>
 <map_data>
 	<tiles>
-		<tile id="1" movable="1">t_1.png</tile>
+		<tile id="1" movable="1">grassTile.png</tile>
 	</tiles>
 	<objects>
 	    <object id="1" movable="0" interactive="0" s="1x1">
 			<v id="idle">
-				<f>o_1.png</f>
+				<f>boxes.png</f>
 			</v>
 		</object>
 	</objects>
@@ -163,12 +163,87 @@ Here the attributes go as follows:
 <br/>
 ### Ground Map
 
+`<ground_map>` tag defines ground/terrain layer of the map. `0` means no tile image AND non-walkable area.
+
+```xml
+<ground_map>
+    <row>1 ,1 ,1 ,1</row>
+    <row>1 ,0 ,0 ,1</row>
+    <row>1 ,0 ,0 ,1</row>
+    <row>1 ,1 ,1 ,1</row>
+</ground_map>
+<map_data>
+```
+
+This setting will create a frame of tiles with `id="1"` around an empty area with no tiles which means your controllable objects cannot walk on this area.
+
+> **NOTE 1:** When used with `<single_ground_image>` tag, you don't necesserily need `<tiles>` tag. You can only include 0s and 1s to define which of the areas on the map are walkable. But you can also still put individual tile images on top of your global ground image by defining them in `<tiles>` tag.
+
+> **NOTE 2:** If there is no `<single_ground_image>` defined then that means each tile has its own image which should be defined under `<tiles>` tag.
+
+<br/>
+### Single Ground Image `optional`
+
+`<single_ground_image>` tag is an **optional** one. If you want to use a single ground/terrain image for your map instead of individual tile images then this property comes handy.
+
+```xml
+<single_ground_image scale="2">
+    <path>assets/ground.jpg</path>
+</single_ground_image>
+```
+
+When you define a `<path>` for your single-ground-image as shown above, then you can use `<ground_map>` tag just to define which areas are walkable and which are not on your map by using 0s and 1s.
+
+The image should be loaded before the engine starts or it should be passed to the engine inside the `assetsToLoad` property of your configuration object.
+
+> **NOTE:** If you are using a single-ground-image but also want individual tile images as well, then just go and define your tiles under `<tiles>` tag and use their ids in the `<ground_map>`. The engine will overlay individual tile images onto your single-ground-image. Just keep in mind that **no** tile can have `id="0"`.
+
+`<single_ground_image>` tag only have one attribute at the moment:
+
+* **`scale:`** Scale amount to apply to the single-ground-image so that you can use smaller images and scale them up for extra big maps, default 1.
 
 <br/>
 ### Object Map
 
+`<object_map>` tag defines object layer of the map. `0` means no object for that location.
+
+```xml
+<object_map>
+    <row>0 ,0 ,0 ,0</row>
+    <row>0 ,1 ,0 ,0</row>
+    <row>0 ,0 ,1 ,0</row>
+    <row>0 ,0 ,0 ,0</row>
+</object_map>
+```
+
+Just put the proper id of the objects that you have defined under `<objects>` tag in the location you desire to put the object.
+
+<br/>
+### Image for Tile Highlighting `optional`
+
+`<tile_highlight_image>` tag defines the image to be overlayed on the tile when highlighted.
+
+```xml
+<tile_highlight_image>tileHighlight.png</tile_highlight_image>
+``` 
+
+As always, either it should be loaded before the engine starts or it should be passed to the engine inside the `assetsToLoad` property of your configuration object. Use your tile size as a guide to create your highliting image. 
+
+<br/>
+### Initial Controllable Location `optional`
 
 
+`<initial_controllable_location>` tag defines the location of the controllable object on the map when it is first initiated.
+
+```xml
+<initial_controllable_location c="5" r="10" />
+```
+
+This uses `c` and `r` attributes to define row and column indexes.
+
+> **NOTE:** You don't need to include this tag in your data file if you want to define your controllable later on manually.
+
+<br/>
 <a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
 
 Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.

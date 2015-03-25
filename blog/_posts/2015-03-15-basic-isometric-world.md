@@ -13,7 +13,7 @@ Creating an isometric world with Traviso is pretty straightforward. Here is what
 1. Visuals for tiles and objects.
 2. An XML file for Traviso to know what goes where.
 
-> **NOTE:** Traviso is built on top of the pixi.js rendering engine. So if you haven't already check it out <a href="http://www.pixijs.com" target="_blank">here</a>.
+> **NOTE:** Traviso is built on top of the **pixi.js** rendering engine. So if you haven't already check it out <a href="http://www.pixijs.com" target="_blank">here</a>.
 
 <!--more-->
 
@@ -56,12 +56,12 @@ Here is an example:
 <?xml version="1.0" encoding="utf-8" ?>
 <map_data>
 	<tiles>
-		<tile id="1" movable="1">t_1.png</tile>
+		<tile id="1" movable="1">grassTile.png</tile>
 	</tiles>
 	<objects>
 	    <object id="1" movable="0" interactive="0" s="1x1">
 			<v id="idle">
-				<f>o_1.png</f>
+				<f>house.png</f>
 			</v>
 		</object>
 	</objects>
@@ -118,7 +118,7 @@ So here is the code piece to initialise traviso:
     var instanceConfig =
     {
         mapDataPath : "mapData.xml", // the path to the xml file that defines map data, required
-        assetsToLoad : ["t_1.png", "o_1.png"], // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
+        assetsToLoad : ["grassTile.png", "house.png"], // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
     };
 
     var engine = TRAVISO.getEngineInstance(instanceConfig);

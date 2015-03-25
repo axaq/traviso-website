@@ -70,6 +70,7 @@ objectReachedDestinationCallback {Function} // callback function that will be ca
 otherObjectsOnTheNextTileCallback {Function} // callback function that will be called when the current controllable is in move and there are other objects on the next tile, needs 'callbackScope' property, default null
 ```
 
+<br/>
 <a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
 
 Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
