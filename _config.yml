@@ -8,7 +8,7 @@ plugins:     ./blog/_plugins
 plugins:     ./drafts/_drafts
 
 name: "traviso.js"
-exclude: ["asset_sources", "less", "mail"]
+exclude: ["asset_sources", "less"]
 timezone: "Europe/London"
 safe: true
 lsi: false
