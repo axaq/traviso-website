@@ -1,0 +1,5 @@
+# Where things are
+source:      .
+destination: ./_site
+layouts:     ./blog/_layouts
+posts:     ./blog/_posts
