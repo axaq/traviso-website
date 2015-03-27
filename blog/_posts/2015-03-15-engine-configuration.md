@@ -66,8 +66,8 @@ callbackScope {Object} // the scope to apply when calling callback functions, de
 engineInstanceReadyCallback {Function} // callback function that will be called once everything is loaded and engine instance is ready, needs 'callbackScope' property, default null
 tileSelectCallback {Function} // callback function that will be called when a tile is selected, needs 'callbackScope' property, default null
 objectSelectCallback {Function} // callback function that will be called when a tile with an interactive map-object on it is selected, needs 'callbackScope' property, default null
-objectReachedDestinationCallback {Function} // callback function that will be called when the current controllable any moving object reaches its destination, needs 'callbackScope' property, default null
-otherObjectsOnTheNextTileCallback {Function} // callback function that will be called when the current controllable is in move and there are other objects on the next tile, needs 'callbackScope' property, default null
+objectReachedDestinationCallback {Function} // callback function that will be called when any moving object reaches its destination, needs 'callbackScope' property, default null
+otherObjectsOnTheNextTileCallback {Function} // callback function that will be called when any moving object is in move and there are other objects on the next tile, needs 'callbackScope' property, default null
 ```
 
 <br/>
@@ -88,7 +88,7 @@ Check out the documentation <a href="http://www.travisojs.com/docs/" target="_bl
     {% if page.next.url %}
     <a href="{{page.next.url}}" title="Next post: {{page.next.title}}">
     	NEXT: {{page.next.title}}
-    	<i class="fa fa-2x fa-arrow-circle-right"></i>
+    	<i class="fa fa-lg fa-arrow-circle-right"></i>
     </a>
     {% endif %}
   </div>

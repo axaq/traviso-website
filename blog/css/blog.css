@@ -57,8 +57,15 @@ header nav span.navbar-brand {
 #main #footer-spacing { display:block; height:40px; }
 
 #main #post-navigation { margin-top:40px; }
-#main #post-navigation .next { margin-top:20px; text-align: right; }
-/*#main #post-navigation .next a { font-size: 1.2em; }*/
+#main #post-navigation .next { /*margin-top:20px; */text-align: right; display: inline-block; width: 50%;}
+#main #post-navigation .previous { display: inline-block; width: 48%; }
+
+#main #main-content img {
+  margin: 5px 5px;
+  border-width: 1px;
+  border-color: #0086B3;
+  border-style: solid;
+}
 
 
 blockquote {

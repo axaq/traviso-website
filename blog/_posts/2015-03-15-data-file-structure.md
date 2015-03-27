@@ -261,7 +261,7 @@ Check out the documentation <a href="http://www.travisojs.com/docs/" target="_bl
     {% if page.next.url %}
     <a href="{{page.next.url}}" title="Next post: {{page.next.title}}">
     	NEXT: {{page.next.title}}
-    	<i class="fa fa-2x fa-arrow-circle-right"></i>
+    	<i class="fa fa-lg fa-arrow-circle-right"></i>
     </a>
     {% endif %}
   </div>
