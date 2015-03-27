@@ -4,6 +4,7 @@ title: "How to Use Callback Properties"
 date:   2015-03-21 10:00:00
 summary: How to use callback methods to create your own logic.
 categories: demo
+demo: "/examples/example5/"
 ---
 
 ___

@@ -4,6 +4,7 @@ title: "Basic Isometric World"
 date:   2015-03-15 9:00:00
 summary: Creating a simple isometric world.
 categories: tutorial
+demo: "/examples/example1/"
 ---
 
 ___

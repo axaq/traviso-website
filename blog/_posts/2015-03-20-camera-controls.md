@@ -4,6 +4,7 @@ title: "Camera Controls"
 date:   2015-03-20 10:00:00
 summary: How to create camera controls for your traviso map.
 categories: demo
+demo: "/examples/example4/"
 ---
 
 ___

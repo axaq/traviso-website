@@ -4,6 +4,7 @@ title: "Using Single Ground Image"
 date:   2015-03-27 10:00:00
 summary: How to use a single image for the whole map ground/terrain.
 categories: demo
+demo: "/examples/example6/"
 ---
 
 ___
