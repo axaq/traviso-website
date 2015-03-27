@@ -132,7 +132,7 @@ Traviso aims to give you a lot of flexibility in terms of customisation. What yo
 <br/>
 <a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
 
-Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
+Check out the documentation <a href="/docs/" target="_blank">here</a>.
 
 <div id="post-navigation" >
   <div class="previous">

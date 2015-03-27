@@ -246,7 +246,7 @@ This uses `c` and `r` attributes to define row and column indexes.
 <br/>
 <a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
 
-Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
+Check out the documentation <a href="/docs/" target="_blank">here</a>.
 
 <div id="post-navigation" >
   <div class="previous">

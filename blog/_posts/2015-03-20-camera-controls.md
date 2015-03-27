@@ -10,7 +10,7 @@ ___
 
 Traviso has built-in camera methods that you can call externally to play around to get the best result in your own app logic.
 
-At this point you can either read the tutorial below or go ahead and see the result immediately <a href="http://www.travisojs.com/examples/4/" target="_blank">here</a>.
+At this point you can either read the tutorial below or go ahead and see the result immediately <a href="/examples/example4/" target="_blank">here</a>.
 
 <!--more-->
 
@@ -30,7 +30,7 @@ Here is a list of public methods realted to camera controls that you can use wit
 * `zoomTo( zoomAmount,  instantZoom=false )` : Zooms camera by to the amount given.
 
 
-You can reach a more detailed documentation about this methods <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
+You can reach a more detailed documentation about this methods <a href="/docs/" target="_blank">here</a>.
 
 Now, let's make a panel to control our camera.
 
@@ -79,19 +79,19 @@ function onEngineInstanceReady()
 	stage.addChild(engine);
 	
 	// create buttons
-	var btnZoomIn = new PIXI.Sprite.fromFrame("../_assets/btn_zoomIn.png");
+	var btnZoomIn = new PIXI.Sprite.fromFrame("../assets/btn_zoomIn.png");
     stage.addChild(btnZoomIn);
     
-    var btnZoomOut = new PIXI.Sprite.fromFrame("../_assets/btn_zoomOut.png");
+    var btnZoomOut = new PIXI.Sprite.fromFrame("../assets/btn_zoomOut.png");
     stage.addChild(btnZoomOut);
     
-    var btnCentralize = new PIXI.Sprite.fromFrame("../_assets/btn_centralize.png");
+    var btnCentralize = new PIXI.Sprite.fromFrame("../assets/btn_centralize.png");
     stage.addChild(btnCentralize);
     
-    var btnCentralizeToObject = new PIXI.Sprite.fromFrame("../_assets/btn_centralizeToObject.png");
+    var btnCentralizeToObject = new PIXI.Sprite.fromFrame("../assets/btn_centralizeToObject.png");
     stage.addChild(btnCentralizeToObject);
     
-    var btnFocusMapToObject = new PIXI.Sprite.fromFrame("../_assets/btn_focusToObject.png");
+    var btnFocusMapToObject = new PIXI.Sprite.fromFrame("../assets/btn_focusToObject.png");
     stage.addChild(btnFocusMapToObject);
     
     // set positions
@@ -177,19 +177,19 @@ function onEngineInstanceReady()
 	stage.addChild(engine);
 	
 	// create buttons
-	var btnZoomIn = new PIXI.Sprite.fromFrame("../_assets/btn_zoomIn.png");
+	var btnZoomIn = new PIXI.Sprite.fromFrame("../assets/btn_zoomIn.png");
     stage.addChild(btnZoomIn);
     
-    var btnZoomOut = new PIXI.Sprite.fromFrame("../_assets/btn_zoomOut.png");
+    var btnZoomOut = new PIXI.Sprite.fromFrame("../assets/btn_zoomOut.png");
     stage.addChild(btnZoomOut);
     
-    var btnCentralize = new PIXI.Sprite.fromFrame("../_assets/btn_centralize.png");
+    var btnCentralize = new PIXI.Sprite.fromFrame("../assets/btn_centralize.png");
     stage.addChild(btnCentralize);
     
-    var btnCentralizeToObject = new PIXI.Sprite.fromFrame("../_assets/btn_centralizeToObject.png");
+    var btnCentralizeToObject = new PIXI.Sprite.fromFrame("../assets/btn_centralizeToObject.png");
     stage.addChild(btnCentralizeToObject);
     
-    var btnFocusMapToObject = new PIXI.Sprite.fromFrame("../_assets/btn_focusToObject.png");
+    var btnFocusMapToObject = new PIXI.Sprite.fromFrame("../assets/btn_focusToObject.png");
     stage.addChild(btnFocusMapToObject);
     
     // set positions
@@ -233,7 +233,7 @@ function onEngineInstanceReady()
 }
 ```
 
-You can check out the demo from <a href="http://www.travisojs.com/examples/4/" target="_blank">here</a>.
+You can check out the demo from <a href="/examples/example4/" target="_blank">here</a>.
 
 
 <br/>
@@ -254,7 +254,7 @@ Hope you liked it. Let me know your thoughts either in the comments below or thr
 <br/>
 <a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
 
-Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
+Check out the documentation <a href="/docs/" target="_blank">here</a>.
 
 <div id="post-navigation" >
   <div class="previous">

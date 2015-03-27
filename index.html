@@ -8,6 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Traviso is an open source JS engine that makes it easy to build isometric applications that run in a web browser.">
     <meta name="author" content="axaq">
+    
+    <meta content="http://www.travisojs.com" data-page-subject="true" property="og:url" />
+	<meta content="Traviso - Isometric Javascript Engine" data-page-subject="true" property="og:title" />
+	<meta content="Traviso - Isometric Javascript Engine" data-page-subject="true" property="og:site_name" />
+	<meta content="Traviso is an open source JS engine that makes it easy to build isometric applications that run in a web browser." data-page-subject="true" property="og:description" />
+	<meta property ="og:type" content="website"/>
+	<meta property="og:image" content="http://www.travisojs.com/img/logo_small.png">
+	<meta property="og:image:type" content="image/png">
+	<meta property="og:image:width" content="1500">
+	<meta property="og:image:height" content="1500">
+	<meta content="Traviso - Isometric Javascript Engine" data-page-subject="true" name="twitter:title" />
+	<meta content="Traviso is an open source JS engine that makes it easy to build isometric applications that run in a web browser." data-page-subject="true" name="twitter:description" />
+	<meta content="http://www.travisojs.com" data-page-subject="true" name="twitter:url" />
 
     <title>Traviso - Isometric Javascript Engine</title>
 
@@ -171,8 +184,8 @@
                 <div class="col-lg-4 col-lg-offset-2 text-center">
                     <p><i class="fa fa-gear fa-1x"></i> Built-in multi-controllable support</p>
                     <p><i class="fa fa-gear fa-1x"></i> Priority levels for moving objects</p>
-                    <p><i class="fa fa-gear fa-1x"></i> Support for block-like tiles</p>
-                    <p><i class="fa fa-gear fa-1x"></i> Ground height</p>
+                    <p><i class="fa fa-gear fa-1x"></i> Built-in support for block-like tiles</p>
+                    <p><i class="fa fa-gear fa-1x"></i> Ground/terrain height</p>
                 </div>
                 <div class="col-lg-4 text-center">
                 	<p><i class="fa fa-gear fa-1x"></i> Fog of war</p>
@@ -234,33 +247,33 @@
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal4" class="portfolio-link" data-toggle="modal" style="background-color: #e27c3e">
+                    <a href="blog/demo/2015/03/20/camera-controls.html" class="portfolio-link" data-toggle="modal" style="background-color: #e27c3e">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/examples/example1.jpg" class="img-responsive" alt="">
+                        <img src="img/examples/example4.jpg" class="img-responsive" alt="">
                         <div class="portfolio-item-text-area text-muted">
                         	<p><i class="fa fa-file-o fa-1x"></i> Camera Controls</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal5" class="portfolio-link" data-toggle="modal" style="background-color: #5b2b0b">
+                    <a href="blog/demo/2015/03/21/how-to-use-callbacks.html" class="portfolio-link" data-toggle="modal" style="background-color: #5b2b0b">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
                             </div>
                         </div>
-                        <img src="img/examples/example1.jpg" class="img-responsive" alt="">
+                        <img src="img/examples/example5.jpg" class="img-responsive" alt="">
                         <div class="portfolio-item-text-area text-muted">
                         	<p><i class="fa fa-file-o fa-1x"></i> Callbacks</p>
                         </div>
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#portfolioModal6" class="portfolio-link" data-toggle="modal" style="background-color: #ccb2a3">
+                    <a href="blog/demo/2015/03/27/single-ground-image.html" class="portfolio-link" data-toggle="modal" style="background-color: #ccb2a3">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
@@ -275,6 +288,15 @@
             </div>
         </div>
     </section>
+    
+   <div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=1447226902235316&version=v2.3";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
 
     <!-- Footer -->
     <footer class="text-center">
@@ -290,12 +312,15 @@
                                 <a href="https://twitter.com/axaq" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
                             </li>
                             <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-github-alt"></i></a>
+                                <a href="https://github.com/axaq" target="_blank" class="btn-social btn-outline"><i class="fa fa-fw fa-github-alt"></i></a>
                             </li>
                         </ul>
                     </div>
                     <div class="footer-col col-md-4">
-                        <p>tweet share etc.</p>
+                    	<div class="fb-like" data-href="http://www.travisojs.com" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                        <br/><br/>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.travisojs.com" data-text="Check out traviso.js - Isometric Javascript Engine" data-via="axaq" data-hashtags="travisojs">Tweet</a>
+						<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                     </div>
                 </div>
             </div>

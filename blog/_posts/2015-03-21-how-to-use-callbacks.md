@@ -10,7 +10,7 @@ ___
 
 Traviso has built-in callback methods that you can define through the configuration object that you pass to a traviso engine instance.
 
-At this point you can either read the tutorial below or go ahead and see the result immediately <a href="http://www.travisojs.com/examples/5/" target="_blank">here</a>.
+At this point you can either read the tutorial below or go ahead and see the result immediately <a href="/examples/example5/" target="_blank">here</a>.
 
 <!--more-->
 
@@ -123,7 +123,7 @@ function flipAnimFinished (obj)
 
 Notice that we also changed the objects' visual back to its stationary one so that it will face its last direction.
 
-At this point, if you want to see it live, you can check out the demo <a href="http://www.travisojs.com/examples/5/" target="_blank">here</a>.
+At this point, if you want to see it live, you can check out the demo <a href="/examples/example5/" target="_blank">here</a>.
 <br/>
 
 Next objective is to interact with the engine so that we will know what is on the way of the moving object and we can act accordingly.
@@ -179,7 +179,7 @@ function createAndStartBoxAnim()
 }
 ```
 
-That's all for now. You can check out the demo from <a href="http://www.travisojs.com/examples/5/" target="_blank">here</a>.
+That's all for now. You can check out the demo from <a href="/examples/example5/" target="_blank">here</a>.
 
 Above examples demostrate just a way of using the callbacks but you can come up with different uses depending on your logic.
 
@@ -189,7 +189,7 @@ Hope you liked it. Let me know your thoughts either in the comments below or thr
 <br/>
 <a href="https://github.com/axaq/traviso.js" target="_blank">Download</a> traviso and start playing around with the examples included.
 
-Check out the documentation <a href="http://www.travisojs.com/docs/" target="_blank">here</a>.
+Check out the documentation <a href="/docs/" target="_blank">here</a>.
 
 <div id="post-navigation" >
   <div class="previous">
