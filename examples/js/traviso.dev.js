@@ -1,10 +1,10 @@
 /**
  * @license
- * traviso.js - v0.0.2
+ * traviso.js - v0.0.6
  * Copyright (c) 2015, Hakan Karlidag - @axaq
  * www.travisojs.com
  *
- * Compiled: 2015-04-15
+ * Compiled: 2015-07-08
  *
  * traviso.js is licensed under the MIT License.
  * http://www.opensource.org/licenses/mit-license.php
@@ -42,7 +42,7 @@ var TRAVISO = TRAVISO || {};
  * @property {String} VERSION
  * @static
  */
-TRAVISO.VERSION = "v0.0.1";
+TRAVISO.VERSION = "v0.0.6";
 
 /**
  * The types of available path finding algorithms
@@ -98,8 +98,8 @@ TRAVISO.trace = function(s)
  * @param {String} instanceConfig.mapDataPath the path to the xml file that defines map data, required
  * @param {Array(String)} [instanceConfig.assetsToLoad=null] array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
  * 
- * @param {Number} [instanceConfig.minScale=0.5] mimimum scale that the DisplayObjectContainer for the map can get, default 0.5
- * @param {Number} [instanceConfig.maxScale=1.5] maximum scale that the DisplayObjectContainer for the map can get, default 1.5
+ * @param {Number} [instanceConfig.minScale=0.5] mimimum scale that the PIXI.Container for the map can get, default 0.5
+ * @param {Number} [instanceConfig.maxScale=1.5] maximum scale that the PIXI.Container for the map can get, default 1.5
  * @param {Number} [instanceConfig.numberOfZoomLevels=5] used to calculate zoom increment, default 5
  * @param {Number} [instanceConfig.initialZoomLevel=0] initial zoom level of the map, should be between -1 and 1, default 0
  * @param {Number} [instanceConfig.instantCameraZoom=false] specifies wheather to zoom instantly or with a tween animation, default false
@@ -114,14 +114,23 @@ TRAVISO.trace = function(s)
  * @param {Number} instanceConfig.initialPositionFrame.h height of the engine, default 600
  * 
  * @param {Number} [instanceConfig.pathFindingType=TRAVISO.pfAlgorithms.ASTAR_ORTHOGONAL] the type of path finding algorithm two use, default TRAVISO.pfAlgorithms.ASTAR_ORTHOGONAL
+ * @param {Boolean} [instanceConfig.pathFindingClosest=false] whether to return the path to the closest node if the target is unreachable, default false
  * 
  * @param {Boolean} [instanceConfig.followCharacter=true] defines if the camera will follow the current controllable or not, default true
  * @param {Boolean} [instanceConfig.instantCameraRelocation=false] specifies wheather the camera moves instantly or with a tween animation to the target location, default false
  * @param {Boolean} [instanceConfig.instantObjectRelocation=false] specifies wheather the map-objects will be moved to target location instantly or with an animation, default false
  * 
+ * @param {Boolean} [instanceConfig.changeTransperancies=true] make objects transparent when the cotrollable is behind them, default true
+ * 
  * @param {Boolean} [instanceConfig.highlightPath=true] highlight the path when the current controllable moves on the map, default true
  * @param {Boolean} [instanceConfig.highlightTargetTile=true] highlight the target tile when the current controllable moves on the map, default true
  * @param {Boolean} [instanceConfig.tileHighlightAnimated=true] animate the tile highlights, default true
+ * @param {Number(Hexadecimal)} [instanceConfig.tileHighlightFillColor=0x80d7ff] color code for the tile highlight fill (this will be overridden if there is a highlight-image defined in the map data file), default 0x80d7ff
+ * @param {Number} [instanceConfig.tileHighlightFillAlpha=0.5] apha value for the tile highlight fill (this will be overridden if there is a highlight-image defined in the map data file), default 0.5
+ * @param {Number(Hexadecimal)} [instanceConfig.tileHighlightStrokeColor=0xFFFFFF] color code for the tile highlight stroke (this will be overridden if there is a highlight-image defined in the map data file), default 0xFFFFFF
+ * @param {Number} [instanceConfig.tileHighlightStrokeAlpha=1.0] apha value for the tile highlight stroke (this will be overridden if a highlight-image is defined), default 1.0
+ * @param {Boolean} [instanceConfig.dontAutoMoveToTile=false] when a tile selected don't move the controllable immediately but still call 'tileSelectCallback', default false
+ * @param {Boolean} [instanceConfig.checkPathOnEachTile=true] engine looks for a path everytime an object moves to a new tile on the path (set to false if you don't have moving objects other then your controllable on your map), default true
  * 
  * @param {Boolean} [instanceConfig.mapDraggable=true] enable dragging the map with touch-and-touchmove or mousedown-and-mousemove on the map, default true
  * 
@@ -134,6 +143,7 @@ TRAVISO.trace = function(s)
  * @param {Function} [instanceConfig.objectSelectCallback=null] callback function that will be called when a tile with an interactive map-object on it is selected, needs 'callbackScope' property, default null
  * @param {Function} [instanceConfig.objectReachedDestinationCallback=null] callback function that will be called when any moving object reaches its destination, needs 'callbackScope' property, default null
  * @param {Function} [instanceConfig.otherObjectsOnTheNextTileCallback=null] callback function that will be called when any moving object is in move and there are other objects on the next tile, needs 'callbackScope' property, default null
+ * @param {Function} [instanceConfig.objectUpdateCallback=null] callback function that will be called everytime an objects direction or position changed, default null
  * 
  * @param [globalConfig] {Object} configuration object for the traviso engine
  * @return {EngineView} a new instance of the isometric engine 
@@ -170,16 +180,20 @@ TRAVISO.init = function(globalConfig)
 						"followCharacter", 
 						"instantCameraRelocation", 
 						"instantObjectRelocation", 
+						"changeTransperancies", 
 						"highlightPath", 
 						"highlightTargetTile", 
 						"tileHighlightAnimated", 
+						"dontAutoMoveToTile", 
+						"checkPathOnEachTile", 
 						"mapDraggable", 
 						"callbackScope", 
 						"engineInstanceReadyCallback", 
 						"tileSelectCallback", 
 						"objectSelectCallback", 
 						"objectReachedDestinationCallback", 
-						"otherObjectsOnTheNextTileCallback"
+						"otherObjectsOnTheNextTileCallback",
+						"objectUpdateCallback"
 					  ];
 	
 	for (var i=0; i < modifiables.length; i++)
@@ -274,9 +288,7 @@ TRAVISO.loadAssetsAndData = function(engine, loadedCallback)
 {
     if (engine.config.assetsToLoad && engine.config.assetsToLoad !== "" && engine.config.assetsToLoad.length > 0)
     {
-        var loader = new PIXI.AssetLoader(engine.config.assetsToLoad, false);
-        loader.onComplete = function () { TRAVISO.loadData(engine, loadedCallback); };
-        loader.load();
+        PIXI.loader.add(engine.config.assetsToLoad).load(function () { TRAVISO.loadData(engine, loadedCallback); });
     }
     else
     {
@@ -398,10 +410,11 @@ TRAVISO.loadData = function(engine, loadedCallback)
                     // set object properties
                     arr = this.responseXML.getElementsByTagName("object");
                     
-                    var oTextures;
+                    var oTextures, interactionOffsets, temp, isFloorObject, noTransparency;
                     for (i = 0; i < arr.length; i++)
                     {
                         oTextures = { };
+                        interactionOffsets = { };
 
                         ///////////////////////////////////////////////////////////////////////////
 
@@ -413,17 +426,28 @@ TRAVISO.loadData = function(engine, loadedCallback)
                         }
                         else
                         {
-                        	var m, k;
+                        	var m, k, v, vId, vIpor, vIpoc, vFrames;
                             for (k = 0; k < objectVisuals.length; k++)
                             {
-                                var v = objectVisuals[k];
-                                var vId = v.attributes.getNamedItem("id").nodeValue;
+                                v = objectVisuals[k];
+                                temp = v.attributes.getNamedItem("id");
+                                vId = temp ? temp.nodeValue : null;
                                 if (!vId || vId === "" || vId.length < 1)
                                 {
                                     throw new Error("TRAVISO: A v tag without an id is detected in the XML file.");
                                 }
+                                
+                                temp = v.attributes.getNamedItem("ipor");
+                                vIpor = temp ? temp.nodeValue : null;
+                                temp = v.attributes.getNamedItem("ipoc");
+                                vIpoc = temp ? temp.nodeValue : null;
+                                interactionOffsets[vId] = null;
+                                if (vIpor && vIpor !== "" && vIpor.length > 0 && vIpoc && vIpoc !== "" && vIpoc.length > 0)
+                                {
+                                    interactionOffsets[vId] = { c: parseInt(vIpoc), r: parseInt(vIpor) };
+                                }
 
-                                var vFrames = v.getElementsByTagName("f");
+                                vFrames = v.getElementsByTagName("f");
                                 if (vFrames && vFrames.length > 0)
                                 {
                                     oTextures[vId] = [];
@@ -461,11 +485,17 @@ TRAVISO.loadData = function(engine, loadedCallback)
 
                             }
                         }
-
+                        
+                        isFloorObject = arr[i].attributes.getNamedItem("floor") ? parseInt(arr[i].attributes.getNamedItem("floor").nodeValue, 10) : false;
+                        noTransparency = arr[i].attributes.getNamedItem("noTransparency") ? parseInt(arr[i].attributes.getNamedItem("noTransparency").nodeValue, 10) : false;
+                        
                         engine.mapData.textures.objects[arr[i].attributes.getNamedItem("id").nodeValue] =
                         {
                             t : oTextures,
+                            io : interactionOffsets,
                             s : arr[i].attributes.getNamedItem("s").nodeValue,
+                            f : isFloorObject,
+                            nt : noTransparency,
                             m : parseInt(arr[i].attributes.getNamedItem("movable").nodeValue, 10),
                             i : parseInt(arr[i].attributes.getNamedItem("interactive").nodeValue, 10)
                         };
@@ -509,7 +539,10 @@ TRAVISO.getObjectInfo = function(engine, objectType)
         return {
             m : objInfo.m,
             i : objInfo.i,
+            f : objInfo.f,
+            nt : objInfo.nt,
             t : textures,
+            io : objInfo.io,
             s : objInfo.s
         };
     }
@@ -917,7 +950,7 @@ TRAVISO.MoveEngine = function(engine, defaultSpeed)
     this.fps = 60;
     
     var scope = this;
-	requestAnimFrame(function() { scope.run(); });
+	requestAnimationFrame(function() { scope.run(); });
 };
 
 // constructor
@@ -1381,6 +1414,7 @@ TRAVISO.MoveEngine.prototype.run = function()
     	        
     	        // check for tile change
     	        this.engine.checkForTileChange(o);
+				this.engine.checkForFollowCharacter(o);
     	        
     	        // check for direction change
     	        
@@ -1427,7 +1461,7 @@ TRAVISO.MoveEngine.prototype.run = function()
         }
         
         var scope = this;
-        requestAnimFrame(function() { scope.run(); });
+        requestAnimationFrame(function() { scope.run(); });
     }
 };
 
@@ -1488,6 +1522,7 @@ TRAVISO.PathFinding = function(mapSizeC, mapSizeR, options)
     this.nodes = [];
     this.diagonal = !!options.diagonal;
     this.heuristic = this.diagonal ? this.heuristics.diagonal : this.heuristics.manhattan;
+    this.closest = !!options.closest;
     this.grid = [];
     for (c = 0; c < mapSizeC; c++)
     {
@@ -1539,7 +1574,7 @@ TRAVISO.PathFinding.prototype.cleanDirty = function()
 /**
  * Marks a node as dirty.
  *
- * @method cleanDirty
+ * @method markDirty
  * @private
  * @param node {TRAVISO.PathFinding.GridNode} node to be marked
  */
@@ -1548,6 +1583,13 @@ TRAVISO.PathFinding.prototype.markDirty = function(node)
     this.dirtyNodes.push(node);
 };
 
+/**
+ * Finds adjacent/neighboring cells of a single node.
+ *
+ * @method neighbors
+ * @param node {TRAVISO.PathFinding.GridNode} source node
+ * @return {Array(TRAVISO.PathFinding.GridNode)} an array of available cells
+ */
 TRAVISO.PathFinding.prototype.neighbors = function(node)
 {
     var ret = [],
@@ -1617,6 +1659,7 @@ TRAVISO.PathFinding.prototype.toString = function()
     return graphString.join('\n');
 };
 
+// Data structure for a grid-node used in pathfinding algorithm.
 TRAVISO.PathFinding.GridNode = function(c, r, weight)
 {
     this.x = c;
@@ -1663,7 +1706,7 @@ TRAVISO.PathFinding.prototype.solve = function(originC, originR, destC, destR)
 {
 	var start = this.grid[originC][originR];
 	var end = this.grid[destC][destR];
-	var result = this.search(start, end, { heuristic: this.heuristic });
+	var result = this.search(start, end, { heuristic: this.heuristic, closest: this.closest });
 	return result && result.length > 0 ? result : null;
 };
 
@@ -1717,7 +1760,7 @@ TRAVISO.PathFinding.prototype.getHeap = function()
  * @param {GridNode} start
  * @param {GridNode} end
  * @param {Object} [options]
- * @param {bool} [options.closest] Specifies whether to return the
+ * @param {Boolean} [options.closest] Specifies whether to return the
             path to the closest node if the target is unreachable.
  * @param {Function} [options.heuristic] Heuristic function.
  */
@@ -2007,6 +2050,7 @@ TRAVISO.PathFinding.prototype.destroy = function()
     this.grid = null;
     this.nodes = null;
     this.dirtyNodes = null;
+    this.heuristic = null;
 };
 
 /**
@@ -2017,7 +2061,7 @@ TRAVISO.PathFinding.prototype.destroy = function()
  * Visual class for the map-objects.
  *
  * @class ObjectView
- * @extends DisplayObjectContainer
+ * @extends PIXI.Container
  * @constructor
  * @param engine {EngineView} the engine instance that the map-object sits in
  * @param [objectType=0] {Number} type-id of the object as defined in the XML file
@@ -2025,7 +2069,7 @@ TRAVISO.PathFinding.prototype.destroy = function()
  */
 TRAVISO.ObjectView = function(engine, objectType, animSpeed)
 {
-    PIXI.DisplayObjectContainer.call(this);
+    PIXI.Container.call(this);
     
     /**
 	 * A reference to the engine view that the map-object sits in.
@@ -2058,6 +2102,9 @@ TRAVISO.ObjectView = function(engine, objectType, animSpeed)
     var info = TRAVISO.getObjectInfo(this.engine, this.type);
     this.isMovableTo = info.m;
     this.isInteractive = info.i;
+    this.interactive = this.interactiveChildren = false;
+    this.isFloorObject = info.f;
+    this.noTransparency = info.nt;
     var arr = info.s.split("x");
     this.size =
     {
@@ -2072,8 +2119,17 @@ TRAVISO.ObjectView = function(engine, objectType, animSpeed)
 	 * @protected
 	 */
     this.textures = info.t;
+    /**
+	 * A dictionary for interaction offset points for each visual if defined in the map data file.
+	 * @property {Object} interactionOffsets
+	 * @protected
+	 */
+    this.interactionOffsets = info.io;
+    
+    this.currentInteractionOffset = this.interactionOffsets.idle;
 	
-    this.container = new PIXI.MovieClip(this.textures.idle);
+    this.container = new PIXI.extras.MovieClip(this.textures.idle);
+    this.container.interactive = this.container.interactiveChildren = false;
     this.container.anchor.x = xAnchor;
     this.container.anchor.y = 1;
     this.addChild(this.container);
@@ -2090,7 +2146,7 @@ TRAVISO.ObjectView = function(engine, objectType, animSpeed)
 
 // constructor
 TRAVISO.ObjectView.constructor = TRAVISO.ObjectView;
-TRAVISO.ObjectView.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+TRAVISO.ObjectView.prototype = Object.create(PIXI.Container.prototype);
 
 /**
  * Animation speed for the movieclips included in the map-object visuals.
@@ -2125,7 +2181,15 @@ TRAVISO.ObjectView.prototype.changeVisualToDirection = function(direction, movin
         {
             throw new Error("no 'idle' visual defined as backup for object type " + this.type);
         }
+        else
+        {
+            this.currentDirection = TRAVISO.directions.O;
+        }
 	}
+    else
+    {
+        this.currentDirection = direction;
+    }
 };
 /**
  * Changes the map-objects's texture(s) according to the specified visual-id.
@@ -2145,6 +2209,16 @@ TRAVISO.ObjectView.prototype.changeVisual = function(vId, stopOnFirstFrame, noLo
         // TRAVISO.trace("!!! No textures defined for vId: " + vId);
         return false;
     }
+    
+    this.currentInteractionOffset = this.interactionOffsets[vId];
+    
+    if (this.container.textures === this.textures[vId] && !noLoop)
+    {
+        this.container.loop = !noLoop;
+        if (TRAVISO.existy(animSpeed) && animSpeed > 0) { this.animSpeed = animSpeed; }
+        return true;
+    }
+    
     this.container.textures = this.textures[vId];
     
     if (!stopOnFirstFrame && this.textures[vId].length > 1)
@@ -2162,6 +2236,9 @@ TRAVISO.ObjectView.prototype.changeVisual = function(vId, stopOnFirstFrame, noLo
     {
         this.container.gotoAndStop(0);
     }
+    
+    if (this.engine.config.objectUpdateCallback) { this.engine.config.objectUpdateCallback.call(this.engine.config.callbackScope, this); }
+    
     return true;
 };
 
@@ -2193,14 +2270,14 @@ TRAVISO.ObjectView.prototype.destroy = function()
  * Visual class for the map-tiles.
  *
  * @class TileView
- * @extends DisplayObjectContainer
+ * @extends PIXI.Container
  * @constructor
  * @param engine {EngineView} the engine instance that the map-tile sits in
  * @param [tileType="0"] {String} type-id of the tile as defined in the XML file
  */
 TRAVISO.TileView = function(engine, tileType)
 {
-    PIXI.DisplayObjectContainer.call(this);
+    PIXI.Container.call(this);
 
     /**
      * A reference to the engine view that the map-tile sits in.
@@ -2241,7 +2318,7 @@ TRAVISO.TileView = function(engine, tileType)
 
     if (tileInfo.t.length > 0)
     {
-        this.tileGraphics = new PIXI.MovieClip(tileInfo.t);
+        this.tileGraphics = new PIXI.extras.MovieClip(tileInfo.t);
         this.tileGraphics.anchor.x = 0.5;
         this.tileGraphics.anchor.y = 0.5;
         this.addChild(this.tileGraphics);
@@ -2277,8 +2354,8 @@ TRAVISO.TileView = function(engine, tileType)
     {
         this.highlightedOverlay = new PIXI.Graphics();
         this.highlightedOverlay.clear();
-        this.highlightedOverlay.lineStyle(2, 0xFFFFFF, 1);
-        this.highlightedOverlay.beginFill(0x80d7ff, 0.5);
+        this.highlightedOverlay.lineStyle(this.engine.config.tileHighlightStrokeAlpha <= 0 ? 0 : 2, this.engine.config.tileHighlightStrokeColor, this.engine.config.tileHighlightStrokeAlpha);
+        this.highlightedOverlay.beginFill(this.engine.config.tileHighlightFillColor, this.engine.config.tileHighlightFillAlpha);
         this.highlightedOverlay.moveTo(this.vertices[0][0], this.vertices[0][1]);
         for (var i = 1; i < this.vertices.length; i++)
         {
@@ -2298,7 +2375,7 @@ TRAVISO.TileView = function(engine, tileType)
 
 // constructor
 TRAVISO.TileView.constructor = TRAVISO.TileView;
-TRAVISO.TileView.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+TRAVISO.TileView.prototype = Object.create(PIXI.Container.prototype);
 
 /**
  * Changes the highlight state of the map-tile.
@@ -2388,21 +2465,21 @@ TRAVISO.TileView.prototype.destroy = function()
  * within the engine and all map related logic
  *
  * @class EngineView
- * @extends DisplayObjectContainer
+ * @extends PIXI.Container
  * @constructor
  * @param config {Object} configuration object for the isometric engine instance
  * @param config.mapDataPath {String} the path to the xml file that defines map data, required
  */
 TRAVISO.EngineView = function(config)
 {
-    PIXI.DisplayObjectContainer.call(this);
+    PIXI.Container.call(this);
     
     /**
      * Configuration object for the isometric engine instance
      * 
      * @property {Object} config
-     * @property {Number} config.minScale=0.5 mimimum scale that the DisplayObjectContainer for the map can get, default 0.5
-     * @property {Number} config.maxScale=1.5 maximum scale that the DisplayObjectContainer for the map can get, default 1.5
+     * @property {Number} config.minScale=0.5 mimimum scale that the PIXI.Container for the map can get, default 0.5
+     * @property {Number} config.maxScale=1.5 maximum scale that the PIXI.Container for the map can get, default 1.5
      * @property {Number} config.minZoom=-1 minimum zoom level, engine defined
      * @property {Number} config.maxZoom=1 maximum zoom level, engine defined
      * @property {Number} config.zoomIncrement=0.5 zoom increment amount calculated by the engine according to user settings, default 0.5
@@ -2420,14 +2497,23 @@ TRAVISO.EngineView = function(config)
      * @property {Number} config.initialPositionFrame.h height of the engine, default 600
      * 
      * @property {Number} config.pathFindingType=TRAVISO.pfAlgorithms.ASTAR_ORTHOGONAL the type of path finding algorithm two use, default TRAVISO.pfAlgorithms.ASTAR_ORTHOGONAL
+     * @property {Boolean} config.pathFindingClosest=false whether to return the path to the closest node if the target is unreachable, default false
      * 
      * @property {Boolean} config.followCharacter=true defines if the camera will follow the current controllable or not, default true
      * @property {Boolean} config.instantCameraRelocation=false specifies wheather the camera moves instantly or with a tween animation to the target location, default false
      * @property {Boolean} config.instantObjectRelocation=false specifies wheather the map-objects will be moved to target location instantly or with an animation, default false
      * 
+     * @property {Boolean} config.changeTransperancies=true make objects transparent when the cotrollable is behind them, default true
+     * 
      * @property {Boolean} config.highlightPath=true highlight the path when the current controllable moves on the map, default true
      * @property {Boolean} config.highlightTargetTile=true highlight the target tile when the current controllable moves on the map, default true
      * @property {Boolean} config.tileHighlightAnimated=true animate the tile highlights, default true
+     * @property {Number(Hexadecimal)} [config.tileHighlightFillColor=0x80d7ff] color code for the tile highlight fill (this will be overridden if a highlight-image is defined), default 0x80d7ff
+     * @property {Number} [config.tileHighlightFillAlpha=0.5] apha value for the tile highlight fill (this will be overridden if a highlight-image is defined), default 0.5
+     * @property {Number(Hexadecimal)} [config.tileHighlightStrokeColor=0xFFFFFF] color code for the tile highlight stroke (this will be overridden if a highlight-image is defined), default 0xFFFFFF
+     * @property {Number} [config.tileHighlightStrokeAlpha=1.0] apha value for the tile highlight stroke (this will be overridden if a highlight-image is defined), default 1.0
+     * @property {Boolean} config.dontAutoMoveToTile=false when a tile selected don't move the controllable immediately but still call 'tileSelectCallback', default false
+     * @property {Boolean} config.checkPathOnEachTile=true looks for a path everytime an object moves to a new tile (set to false if you don't have other moving objects on your map), default true
      * 
      * @property {Boolean} config.mapDraggable=true enable dragging the map with touch-and-touchmove or mousedown-and-mousemove on the map, default true
      * 
@@ -2443,17 +2529,25 @@ TRAVISO.EngineView = function(config)
      * @property {Function} config.objectSelectCallback=null callback function that will be called when a tile with an interactive map-object on it is selected, default null
      * @property {Function} config.objectReachedDestinationCallback=null callback function that will be called when any moving object reaches its destination, default null
      * @property {Function} config.otherObjectsOnTheNextTileCallback=null callback function that will be called when any moving object is in move and there are other objects on the next tile, default null
+     * @property {Function} config.objectUpdateCallback=null callback function that will be called everytime an objects direction or position changed, default null
      * 
      * @private
      */
 
     this.config = config || { };
     
-    // set the properties that are true by default when not defined by the user
+    // set the properties that are set by default when not defined by the user
     this.config.followCharacter = TRAVISO.existy(this.config.followCharacter) ? this.config.followCharacter : true;
+    this.config.changeTransperancies = TRAVISO.existy(this.config.changeTransperancies) ? this.config.changeTransperancies : true;
     this.config.highlightPath = TRAVISO.existy(this.config.highlightPath) ? this.config.highlightPath : true;
     this.config.highlightTargetTile = TRAVISO.existy(this.config.highlightTargetTile) ? this.config.highlightTargetTile : true;
     this.config.tileHighlightAnimated = TRAVISO.existy(this.config.tileHighlightAnimated) ? this.config.tileHighlightAnimated : true;
+    this.config.tileHighlightFillColor = TRAVISO.existy(this.config.tileHighlightFillColor) ? this.config.tileHighlightFillColor : 0x80d7ff;
+    this.config.tileHighlightFillAlpha = TRAVISO.existy(this.config.tileHighlightFillAlpha) ? this.config.tileHighlightFillAlpha : 0.5;
+    this.config.tileHighlightStrokeColor = TRAVISO.existy(this.config.tileHighlightStrokeColor) ? this.config.tileHighlightStrokeColor : 0xFFFFFF;
+    this.config.tileHighlightStrokeAlpha = TRAVISO.existy(this.config.tileHighlightStrokeAlpha) ? this.config.tileHighlightStrokeAlpha : 1.0;
+    this.config.dontAutoMoveToTile = TRAVISO.existy(this.config.dontAutoMoveToTile) ? this.config.dontAutoMoveToTile : false;
+    this.config.checkPathOnEachTile = TRAVISO.existy(this.config.checkPathOnEachTile) ? this.config.checkPathOnEachTile : true;
     this.config.mapDraggable = TRAVISO.existy(this.config.mapDraggable) ? this.config.mapDraggable : true;
     
     this.setZoomParameters(this.config.minScale, this.config.maxScale, this.config.numberOfZoomLevels, this.config.initialZoomLevel, this.config.instantCameraZoom);
@@ -2523,6 +2617,11 @@ TRAVISO.EngineView = function(config)
      * @default false
      */
     /** 
+     * make objects transparent when the cotrollable is behind them
+     * @property {Boolean} changeTransperancies 
+     * @default true
+     */ 
+    /** 
      * highlight the path when the current controllable moves on the map
      * @property {Boolean} highlightPath 
      * @default true
@@ -2535,6 +2634,17 @@ TRAVISO.EngineView = function(config)
     /** 
      * animate the tile highlights
      * @property {Boolean} tileHighlightAnimated 
+     * @default true
+     */
+    /** 
+     * when a tile selected don't move the controllable immediately but still call 'tileSelectCallback'
+     * @property {Boolean} dontAutoMoveToTile 
+     * @default false
+     */
+    /** 
+     * engine looks for a path everytime an object moves to a new tile on the path
+     * (set to false if you don't have moving objects other then your controllable on your map)
+     * @property {Boolean} checkPathOnEachTile 
      * @default true
      */
     /** 
@@ -2572,6 +2682,11 @@ TRAVISO.EngineView = function(config)
      * @property {Function} otherObjectsOnTheNextTileCallback 
      * @default null
      */
+    /** 
+     * callback function that will be called everytime an objects direction or position changed
+     * @property {Function} objectUpdateCallback 
+     * @default null
+     */
     
     var scope = this;
     TRAVISO.loadAssetsAndData(this, function()
@@ -2582,7 +2697,7 @@ TRAVISO.EngineView = function(config)
 
 // constructor
 TRAVISO.EngineView.constructor = TRAVISO.EngineView;
-TRAVISO.EngineView.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+TRAVISO.EngineView.prototype = Object.create(PIXI.Container.prototype);
 
 TRAVISO.EngineView.prototype.config = this.config;
 
@@ -2673,31 +2788,31 @@ TRAVISO.EngineView.prototype.createMap = function()
     
     /**
      * Display object for the map visuals
-     * @property {PIXI.DisplayObjectContainer} mapContainer
+     * @property {PIXI.Container} mapContainer
      * @private
      */
     /**
      * Display object for the ground/terrain visuals
-     * @property {PIXI.DisplayObjectContainer} groundContainer
+     * @property {PIXI.Container} groundContainer
      * @private
      */
     /**
      * Display object for the map-object visuals
-     * @property {PIXI.DisplayObjectContainer} objContainer
+     * @property {PIXI.Container} objContainer
      * @private
      */
     // create containers for visual map elements
-    this.mapContainer = new PIXI.DisplayObjectContainer();
+    this.mapContainer = new PIXI.Container();
 	this.addChild(this.mapContainer);
     
     // Define two layers of maps
 	// One for the world and one for the objects (static/dynamic) over it
 	// This enables us not to update the whole world in every move but instead just update the object depths over it 
 	
-	this.groundContainer = new PIXI.DisplayObjectContainer();
+	this.groundContainer = new PIXI.Container();
 	this.mapContainer.addChild(this.groundContainer);
 	
-	this.objContainer = new PIXI.DisplayObjectContainer();
+	this.objContainer = new PIXI.Container();
 	this.mapContainer.addChild(this.objContainer);
 	
 	var groundMapData = this.mapData.groundMapData;
@@ -2726,6 +2841,8 @@ TRAVISO.EngineView.prototype.createMap = function()
 	    this.groundContainer.addChild(groundImageSprite);
 	    
 	    groundImageSprite.scale.set(this.mapData.singleGroundImageScale);
+        
+        this.groundImageSprite = groundImageSprite;
 	}
 	
 	// create arrays to hold tiles and objects
@@ -2763,7 +2880,14 @@ TRAVISO.EngineView.prototype.createMap = function()
      * @property {PathFinding} pathFinding
      * @private
      */
-	this.pathFinding = new TRAVISO.PathFinding(this.mapSizeC, this.mapSizeR, { diagonal: this.config.pathFinding === TRAVISO.pfAlgorithms.ASTAR_DIAGONAL });
+	this.pathFinding = new TRAVISO.PathFinding(
+        this.mapSizeC, 
+        this.mapSizeR,
+        {
+            diagonal: this.config.pathFindingType === TRAVISO.pfAlgorithms.ASTAR_DIAGONAL,
+            closest: this.config.pathFindingClosest
+        }
+    );
 	
    
 	
@@ -2801,7 +2925,8 @@ TRAVISO.EngineView.prototype.createMap = function()
      * @private
      */
     
-	var obj;
+	var obj,
+        floorObjectFound = false;
 	for (i = 0; i < this.mapSizeR; i++)
 	{
 	    for (j = this.mapSizeC-1; j >= 0; j--)
@@ -2813,6 +2938,8 @@ TRAVISO.EngineView.prototype.createMap = function()
 		    	obj.position.x = this.getTilePosXFor(i,j);
 		    	obj.position.y = this.getTilePosYFor(i,j) + this.TILE_HALF_H;
 		    	obj.mapPos = { c:j, r:i };
+                
+                if (!floorObjectFound && obj.isFloorObject) { floorObjectFound = true; }
 		    	
 		    	this.objContainer.addChild(obj);
 		    	
@@ -2825,7 +2952,25 @@ TRAVISO.EngineView.prototype.createMap = function()
 		    }
 		}
 	}
-	
+    if (floorObjectFound)
+    {
+        // run the loop again to bring the other objects on top of the floor objects
+        var a, k;
+        for (i = 0; i < this.mapSizeR; i++)
+    	{
+    	    for (j = this.mapSizeC-1; j >= 0; j--)
+    	    {
+    	    	a = this.objArray[i][j];
+    	    	if (a)
+    	    	{
+    	    	    for (k=0; k < a.length; k++)
+    	    	    {
+    				    if (!a[k].isFloorObject) { this.objContainer.addChild(a[k]); }
+    				}
+    		    }
+    		}
+    	}
+	}
 	// cacheAsBitmap: for now this creates problem with tile highlights
 	// this.groundContainer.cacheAsBitmap = true;
 	
@@ -2994,7 +3139,7 @@ TRAVISO.EngineView.prototype.addObjectToLocation = function(obj, pos)
 	this.objContainer.addChild(obj);
 	
 	this.addObjRefToLocation(obj, obj.mapPos);
-	this.arrangeDepthsFromLocation(obj.mapPos);
+	this.arrangeDepthsFromLocation(obj.isFloorObject ? { c: this.mapSizeC-1, r: 0 } : obj.mapPos);
 	
 	return obj;
 };
@@ -3160,8 +3305,8 @@ TRAVISO.EngineView.prototype.centralizeToPoint = function(px, py, instantRelocat
  * Sets all the parameters related to zooming in and out.
  *
  * @method setZoomParameters
- * @param [minScale=0.5] {Number} mimimum scale that the DisplayObjectContainer for the map can get, default 0.5
- * @param [maxScale=1.5] {Number} maximum scale that the DisplayObjectContainer for the map can get, default 1.5
+ * @param [minScale=0.5] {Number} mimimum scale that the PIXI.Container for the map can get, default 0.5
+ * @param [maxScale=1.5] {Number} maximum scale that the PIXI.Container for the map can get, default 1.5
  * @param [numberOfZoomLevels=5] {Number} used to calculate zoom increment, defined by user, default 5
  * @param [initialZoomLevel=0] {Number} initial zoom level of the map, default 0
  * @param [instantCameraZoom=false] {Boolean} specifies wheather to zoom instantly or with a tween animation, default false
@@ -3428,7 +3573,7 @@ TRAVISO.EngineView.prototype.changeObjAlphasInLocation = function(value, pos)
         var l = a.length;
         for (var i=0; i < l; i++)
         {
-            a[i].alpha = value;
+            if (!a[i].isFloorObject && !a[i].noTransparency) { a[i].alpha = value; }
         }
     }
 };
@@ -3470,19 +3615,22 @@ TRAVISO.EngineView.prototype.arrangeObjLocation = function(obj, pos)
  */
 TRAVISO.EngineView.prototype.arrangeObjTransperancies = function(obj, prevPos, pos) 
 {
-    if (this.currentControllable === obj)
+    if (this.config.changeTransperancies)
     {
-    	if (prevPos.c > 0) { this.changeObjAlphasInLocation(1, { c: prevPos.c-1, r: prevPos.r }); }
-        if (prevPos.c > 0 && prevPos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(1, { c: prevPos.c-1, r: prevPos.r+1 }); }
-        if (prevPos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(1, { c: prevPos.c, r: prevPos.r+1 }); }
-	
-    	if (pos.c > 0) { this.changeObjAlphasInLocation(0.7, { c: pos.c-1, r: pos.r }); }
-        if (pos.c > 0 && pos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(0.7, { c: pos.c-1, r: pos.r+1 }); }
-        if (pos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(0.7, { c: pos.c, r: pos.r+1 }); }
+        if (this.currentControllable === obj)
+        {
+        	if (prevPos.c > 0) { this.changeObjAlphasInLocation(1, { c: prevPos.c-1, r: prevPos.r }); }
+            if (prevPos.c > 0 && prevPos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(1, { c: prevPos.c-1, r: prevPos.r+1 }); }
+            if (prevPos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(1, { c: prevPos.c, r: prevPos.r+1 }); }
+    	
+        	if (pos.c > 0) { this.changeObjAlphasInLocation(0.7, { c: pos.c-1, r: pos.r }); }
+            if (pos.c > 0 && pos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(0.7, { c: pos.c-1, r: pos.r+1 }); }
+            if (pos.r < this.mapSizeR-1) { this.changeObjAlphasInLocation(0.7, { c: pos.c, r: pos.r+1 }); }
+        }
+    	
+    	// TODO: check if there is a way not to update main character alpha each time
+    	obj.alpha = 1;
     }
-	
-	// TODO: check if there is a way not to update main character alpha each time
-	obj.alpha = 1;
 };
 
 /**
@@ -3506,7 +3654,7 @@ TRAVISO.EngineView.prototype.arrangeDepthsFromLocation = function(pos)
 	    	{
 	    	    for (k=0; k < a.length; k++)
 	    	    {
-				    this.objContainer.addChild(a[k]);
+				    if (!a[k].isFloorObject) { this.objContainer.addChild(a[k]); }
 				}
 		    }
 		}
@@ -3529,23 +3677,40 @@ TRAVISO.EngineView.prototype.arrangePathHighlight = function(currentPath, newPat
         for (i=0; i < currentPath.length; i++)
         {
             pathItem = currentPath[i];
-            if (newPath.indexOf(pathItem) === -1)
+            if (!newPath || newPath.indexOf(pathItem) === -1)
             {
                 tile = this.tileArray[pathItem.mapPos.r][pathItem.mapPos.c];
                 tile.setHighlighted(false, !this.config.tileHighlightAnimated);
             }
         }
     }
-    
-	for (i=0; i < newPath.length; i++)
+    if (newPath)
     {
-        pathItem = newPath[i];
-        if (!currentPath || currentPath.indexOf(pathItem) === -1)
+    	for (i=0; i < newPath.length; i++)
         {
-            tile = this.tileArray[pathItem.mapPos.r][pathItem.mapPos.c];
-            tile.setHighlighted(true, !this.config.tileHighlightAnimated);
+            pathItem = newPath[i];
+            if (!currentPath || currentPath.indexOf(pathItem) === -1)
+            {
+                tile = this.tileArray[pathItem.mapPos.r][pathItem.mapPos.c];
+                tile.setHighlighted(true, !this.config.tileHighlightAnimated);
+            }
         }
     }
+};
+
+/**
+ * Stops a moving object.
+ *
+ * @method stopObject
+ * @private
+ * @param obj {ObjectView} map-object to be moved on path
+ */
+TRAVISO.EngineView.prototype.stopObject = function(obj) 
+{
+    obj.currentPath = null;
+    obj.currentTarget = null;
+    obj.currentTargetTile = null;
+    this.moveEngine.removeMovable(obj);
 };
 
 /**
@@ -3562,7 +3727,7 @@ TRAVISO.EngineView.prototype.arrangePathHighlight = function(currentPath, newPat
  */
 TRAVISO.EngineView.prototype.moveObjThrough = function(obj, path, speed) 
 {
-	if (this.config.instantObjectRelocation)
+    if (this.config.instantObjectRelocation)
 	{
 		var tile = this.tileArray[path[0].mapPos.r][path[0].mapPos.c];
 		obj.position.x = tile.position.x;
@@ -3573,24 +3738,23 @@ TRAVISO.EngineView.prototype.moveObjThrough = function(obj, path, speed)
 	}
 	else
 	{
-	    if (this.config.highlightPath && this.currentControllable === obj)
+        if (this.config.highlightPath && this.currentControllable === obj)
         {
             this.arrangePathHighlight(obj.currentPath, path);
 		}
-		
-		if (obj.currentTarget)
+        
+        if (obj.currentTarget)
 		{
 			// TRAVISO.trace("Object has a target, update the path with the new one");
-			this.moveEngine.addNewPathToObject(obj, path, speed);
+            // this.moveEngine.addNewPathToObject(obj, path, speed);
+            this.stopObject(obj);
 		}
-		else
-		{
-			this.moveEngine.prepareForMove(obj, path, speed);
-			
-			obj.currentTargetTile = obj.currentPath[obj.currentPathStep];
-			
-			this.onObjMoveStepBegin(obj, obj.currentPath[obj.currentPathStep].mapPos);
-		}
+
+		this.moveEngine.prepareForMove(obj, path, speed);
+		
+		obj.currentTargetTile = obj.currentPath[obj.currentPathStep];
+		
+		this.onObjMoveStepBegin(obj, obj.currentPath[obj.currentPathStep].mapPos);
 	}
 };
 
@@ -3643,7 +3807,6 @@ TRAVISO.EngineView.prototype.onObjMoveStepBegin = function(obj, pos)
     {
     	// pos is NOT movable
         this.moveEngine.removeMovable(obj);
-    	// this.checkAndMoveObjectToTile(obj, obj.currentPath[0]);
     	this.checkAndMoveObjectToLocation(obj, obj.currentPath[0].mapPos);
     	
         return false;
@@ -3675,9 +3838,12 @@ TRAVISO.EngineView.prototype.onObjMoveStepEnd = function(obj)
     
     if (!pathEnded)
     {
-        // this.moveStep(o, o.currentPath[o.currentPathStep].mapPos);
-        // this.checkAndMoveObjectToTile(obj, obj.currentPath[0]);
-        this.checkAndMoveObjectToLocation(obj, obj.currentPath[0].mapPos);
+        if (this.config.checkPathOnEachTile) { this.checkAndMoveObjectToLocation(obj, obj.currentPath[0].mapPos); }
+        else
+        {
+            obj.currentPath.splice(obj.currentPath.length-1, 1);
+            this.moveObjThrough(obj, obj.currentPath);
+        }
     }
     else
     {
@@ -3690,14 +3856,28 @@ TRAVISO.EngineView.prototype.onObjMoveStepEnd = function(obj)
     	var tile = this.tileArray[obj.mapPos.r][obj.mapPos.c];
     	tile.setHighlighted(false, !this.config.tileHighlightAnimated);
     	
-    	if (this.config.followCharacter) { this.centralizeToLocation(obj.mapPos.c, obj.mapPos.r); }
+//    	if (this.config.followCharacter) { this.centralizeToLocation(obj.mapPos.c, obj.mapPos.r); }
     }
 	
 	if (pathEnded && this.config.objectReachedDestinationCallback) { this.config.objectReachedDestinationCallback.call(this.config.callbackScope, obj); }
 };
 
+TRAVISO.EngineView.prototype.checkForFollowCharacter = function(obj) 
+{
+    if (this.config.followCharacter && this.currentControllable === obj)
+	{
+        this.currentFocusLocation = { c: obj.mapPos.c, r: obj.mapPos.r };
+    	var px = this.externalCenter.x - obj.position.x * this.currentScale;
+    	var py = this.externalCenter.y - obj.position.y * this.currentScale;
+        // this.centralizeToPoint(px, py, true);
+        this.moveEngine.addTween(this.mapContainer.position, 0.1, { x: px, y: py }, 0, "easeOut", true );
+    }
+};
+
 TRAVISO.EngineView.prototype.checkForTileChange = function(obj) 
 {
+    if (this.config.objectUpdateCallback) { this.config.objectUpdateCallback.call(this.config.callbackScope, obj); }
+    
 	var pos = { x: obj.position.x, y: obj.position.y - this.TILE_HALF_H };
 	// var tile = this.tileArray[obj.mapPos.r][obj.mapPos.c];
 	var tile = this.tileArray[obj.currentTargetTile.mapPos.r][obj.currentTargetTile.mapPos.c];
@@ -3835,10 +4015,19 @@ TRAVISO.EngineView.prototype.moveCurrentControllableToObj = function(obj, speed)
     {
         throw new Error("TRAVISO: currentControllable is not defined!");
     }
+    // check if there is a preferred interaction point
+    if (obj.currentInteractionOffset)
+    {
+        var targetPos = { c: obj.mapPos.c + obj.currentInteractionOffset.c, r: obj.mapPos.r + obj.currentInteractionOffset.r };
+        if (this.checkAndMoveObjectToLocation(this.currentControllable, targetPos, speed))
+        {
+            return true;
+        }
+    } 
 	var cellArray = this.pathFinding.getAdjacentOpenCells(obj.mapPos.c, obj.mapPos.r, obj.size.c, obj.size.r);
 	var tile;
 	var minLength = 3000;
-	var path, minPath;
+	var path, minPath, tempFlagHolder;
 	for (var i=0; i < cellArray.length; i++)
 	{
 		tile = this.tileArray[cellArray[i].mapPos.r][cellArray[i].mapPos.c];
@@ -3847,6 +4036,13 @@ TRAVISO.EngineView.prototype.moveCurrentControllableToObj = function(obj, speed)
 			if(tile.mapPos.c === this.currentControllable.mapPos.c && tile.mapPos.r === this.currentControllable.mapPos.r)
 			{
 				// already next to the object, do nothing
+                this.arrangePathHighlight(this.currentControllable.currentPath);
+                this.stopObject(this.currentControllable);
+                tempFlagHolder = this.config.instantObjectRelocation;
+                this.config.instantObjectRelocation = true;
+                this.moveObjThrough(this.currentControllable, [tile]);
+                this.config.instantObjectRelocation = tempFlagHolder;
+                this.currentControllable.changeVisualToDirection(this.currentControllable.currentDirection, false);
 				if (this.config.objectReachedDestinationCallback) { this.config.objectReachedDestinationCallback.call(this.config.callbackScope, this.currentControllable); }
 				return true;
 			}
@@ -3921,8 +4117,7 @@ TRAVISO.EngineView.prototype.getTileFromLocalPos = function(lp)
  */
 TRAVISO.EngineView.prototype.checkForTileClick = function(mdata) 
 {
-	var lp = TRAVISO.globalToLocal(mdata.global, this.mapContainer);
-	lp = { x:lp.x / this.currentScale, y:lp.y / this.currentScale };
+	var lp = this.mapContainer.toLocal(mdata.global);
 	var closestTile = this.getTileFromLocalPos(lp);
 	if (closestTile)
 	{
@@ -3939,7 +4134,7 @@ TRAVISO.EngineView.prototype.checkForTileClick = function(mdata)
                 // TODO CHECK: this might cause issues when there is one movable and one not movable object on the same tile
                 else if(a[k].isMovableTo)
                 {
-                    if (!this.currentControllable || this.checkAndMoveObjectToTile(this.currentControllable, closestTile))
+                    if (this.config.dontAutoMoveToTile || !this.currentControllable || this.checkAndMoveObjectToTile(this.currentControllable, closestTile))
                     {
                         if (this.config.highlightTargetTile) { closestTile.setHighlighted(true, !this.config.tileHighlightAnimated); }
                         if (this.config.tileSelectCallback) { this.config.tileSelectCallback.call(this.config.callbackScope, closestTile.mapPos.r, closestTile.mapPos.c); }
@@ -3948,7 +4143,7 @@ TRAVISO.EngineView.prototype.checkForTileClick = function(mdata)
                 } 
             }
         }
-		else if (!this.currentControllable || this.checkAndMoveObjectToTile(this.currentControllable, closestTile))
+		else if (this.config.dontAutoMoveToTile || !this.currentControllable || this.checkAndMoveObjectToTile(this.currentControllable, closestTile))
 		{
 			if (this.config.highlightTargetTile) { closestTile.setHighlighted(true, !this.config.tileHighlightAnimated); }
 			if (this.config.tileSelectCallback) { this.config.tileSelectCallback.call(this.config.callbackScope, closestTile.mapPos.r, closestTile.mapPos.c); }
@@ -4009,39 +4204,41 @@ TRAVISO.EngineView.prototype.isInteractionInMask = function(p)
 };
 
 // ******************** START: MOUSE INTERACTIONS **************************** //
-TRAVISO.EngineView.prototype.onMouseDown = function(mdata) 
+TRAVISO.EngineView.prototype.onMouseDown = function(event) 
 {
-	if (!this.dragging && this.isInteractionInMask(mdata.global))
+    var globalPos = event.data.global;
+	if (!this.dragging && this.isInteractionInMask(globalPos))
 	{
 	    this.dragging = true;
 		//this.mouseDownTime = new Date();
-		this.dragInitStartingX = this.dragPrevStartingX = mdata.global.x;
-		this.dragInitStartingY = this.dragPrevStartingY = mdata.global.y;
+		this.dragInitStartingX = this.dragPrevStartingX = globalPos.x;
+		this.dragInitStartingY = this.dragPrevStartingY = globalPos.y;
 	}
 };
-TRAVISO.EngineView.prototype.onMouseMove = function(mdata) 
+TRAVISO.EngineView.prototype.onMouseMove = function(event) 
 {
 	if (this.dragging && this.config.mapDraggable)
 	{
-		this.mapContainer.position.x += mdata.global.x - this.dragPrevStartingX;
-		this.mapContainer.position.y += mdata.global.y - this.dragPrevStartingY;
-		this.dragPrevStartingX = mdata.global.x;
-		this.dragPrevStartingY = mdata.global.y;
+        var globalPos = event.data.global;
+		this.mapContainer.position.x += globalPos.x - this.dragPrevStartingX;
+		this.mapContainer.position.y += globalPos.y - this.dragPrevStartingY;
+		this.dragPrevStartingX = globalPos.x;
+		this.dragPrevStartingY = globalPos.y;
 	}
 };
-TRAVISO.EngineView.prototype.onMouseUp = function(mdata) 
+TRAVISO.EngineView.prototype.onMouseUp = function(event) 
 {
 	if (this.dragging)
 	{
 		this.dragging = false;
 		//var passedTime = (new Date()) - this.mouseDownTime;
-		var distX = mdata.global.x - this.dragInitStartingX;
-		var distY = mdata.global.y - this.dragInitStartingY;
+		var distX = event.data.global.x - this.dragInitStartingX;
+		var distY = event.data.global.y - this.dragInitStartingY;
 		
 		if (Math.abs(distX) < 5 && Math.abs(distY) < 5)
 		{
 			// NOT DRAGGING IT IS A CLICK
-			this.checkForTileClick(mdata);
+			this.checkForTileClick(event.data);
 		}
 	}
 };

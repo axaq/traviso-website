@@ -18,7 +18,7 @@
             <h1 class="blue-main-title">traviso.js</h1>
         </div>
         <div class="yui3-u-1-4 version project-version">
-            API Docs for: 0.0.2
+            API Docs for: 0.0.6
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -424,7 +424,7 @@
       
     
     
-      <a href="../files/.._src_traviso_Traviso.js.html#l218"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:218</code></a>
+      <a href="../files/.._src_traviso_Traviso.js.html#l232"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:232</code></a>
     
   </p>
 
@@ -854,7 +854,7 @@
       
     
     
-      <a href="../files/.._src_traviso_MapMethods.js.html#l369"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:369</code></a>
+      <a href="../files/.._src_traviso_MapMethods.js.html#l388"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:388</code></a>
     
   </p>
 
@@ -1373,7 +1373,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>mimimum scale that the DisplayObjectContainer for the map can get, default 0.5</p>
+                                    <p>mimimum scale that the PIXI.Container for the map can get, default 0.5</p>
 
                                 </div>
 
@@ -1388,7 +1388,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
                                 
 
                                 <div class="param-description">
-                                    <p>maximum scale that the DisplayObjectContainer for the map can get, default 1.5</p>
+                                    <p>maximum scale that the PIXI.Container for the map can get, default 1.5</p>
 
                                 </div>
 
@@ -1550,6 +1550,21 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
                             
                             <li class="param">
                                 
+                                    <code class="param-name optional">[pathFindingClosest=false]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>whether to return the path to the closest node if the target is unreachable, default false</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
                                     <code class="param-name optional">[followCharacter=true]</code>
                                     <span class="type">Boolean</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
@@ -1595,6 +1610,21 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
                             
                             <li class="param">
                                 
+                                    <code class="param-name optional">[changeTransperancies=true]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>make objects transparent when the cotrollable is behind them, default true</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
                                     <code class="param-name optional">[highlightPath=true]</code>
                                     <span class="type">Boolean</span>
                                     <span class="flag optional" title="This parameter is optional.">optional</span>
@@ -1632,6 +1662,96 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
 
                                 <div class="param-description">
                                     <p>animate the tile highlights, default true</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[tileHighlightFillColor=0x80d7ff]</code>
+                                    <span class="type">Number(Hexadecimal)</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>color code for the tile highlight fill (this will be overridden if there is a highlight-image defined in the map data file), default 0x80d7ff</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[tileHighlightFillAlpha=0.5]</code>
+                                    <span class="type">Number</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>apha value for the tile highlight fill (this will be overridden if there is a highlight-image defined in the map data file), default 0.5</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[tileHighlightStrokeColor=0xFFFFFF]</code>
+                                    <span class="type">Number(Hexadecimal)</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>color code for the tile highlight stroke (this will be overridden if there is a highlight-image defined in the map data file), default 0xFFFFFF</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[tileHighlightStrokeAlpha=1.0]</code>
+                                    <span class="type">Number</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>apha value for the tile highlight stroke (this will be overridden if a highlight-image is defined), default 1.0</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[dontAutoMoveToTile=false]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>when a tile selected don&#39;t move the controllable immediately but still call &#39;tileSelectCallback&#39;, default false</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[checkPathOnEachTile=true]</code>
+                                    <span class="type">Boolean</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>engine looks for a path everytime an object moves to a new tile on the path (set to false if you don&#39;t have moving objects other then your controllable on your map), default true</p>
 
                                 </div>
 
@@ -1773,6 +1893,21 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
                                 
                             </li>
                             
+                            <li class="param">
+                                
+                                    <code class="param-name optional">[objectUpdateCallback=null]</code>
+                                    <span class="type">Function</span>
+                                    <span class="flag optional" title="This parameter is optional.">optional</span>
+                                
+
+                                <div class="param-description">
+                                    <p>callback function that will be called everytime an objects direction or position changed, default null</p>
+
+                                </div>
+
+                                
+                            </li>
+                            
                         </ul>
                     
                 </li>
@@ -1839,7 +1974,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_MapMethods.js.html#l354"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:354</code></a>
+      <a href="../files/.._src_traviso_MapMethods.js.html#l373"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:373</code></a>
     
   </p>
 
@@ -1963,7 +2098,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_MapMethods.js.html#l232"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:232</code></a>
+      <a href="../files/.._src_traviso_MapMethods.js.html#l248"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:248</code></a>
     
   </p>
 
@@ -2109,7 +2244,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_MapMethods.js.html#l266"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:266</code></a>
+      <a href="../files/.._src_traviso_MapMethods.js.html#l285"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:285</code></a>
     
   </p>
 
@@ -2277,7 +2412,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_MapMethods.js.html#l339"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:339</code></a>
+      <a href="../files/.._src_traviso_MapMethods.js.html#l358"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:358</code></a>
     
   </p>
 
@@ -2401,7 +2536,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_MapMethods.js.html#l305"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:305</code></a>
+      <a href="../files/.._src_traviso_MapMethods.js.html#l324"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:324</code></a>
     
   </p>
 
@@ -2877,7 +3012,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_Traviso.js.html#l128"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:128</code></a>
+      <a href="../files/.._src_traviso_Traviso.js.html#l138"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:138</code></a>
     
   </p>
 
@@ -3313,7 +3448,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_MapMethods.js.html#l31"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:31</code></a>
+      <a href="../files/.._src_traviso_MapMethods.js.html#l29"><code>..&#x2F;src&#x2F;traviso&#x2F;MapMethods.js:29</code></a>
     
   </p>
 
@@ -4067,7 +4202,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_Traviso.js.html#l171"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:171</code></a>
+      <a href="../files/.._src_traviso_Traviso.js.html#l185"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:185</code></a>
     
   </p>
 
@@ -4258,7 +4393,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_Traviso.js.html#l208"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:208</code></a>
+      <a href="../files/.._src_traviso_Traviso.js.html#l222"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:222</code></a>
     
   </p>
 
@@ -4407,7 +4542,7 @@ Also initialises traviso global settings if it hasn&#39;t been already.</p>
       
     
     
-      <a href="../files/.._src_traviso_Traviso.js.html#l201"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:201</code></a>
+      <a href="../files/.._src_traviso_Traviso.js.html#l215"><code>..&#x2F;src&#x2F;traviso&#x2F;Traviso.js:215</code></a>
     
   </p>
 

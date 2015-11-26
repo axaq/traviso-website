@@ -48,14 +48,24 @@ initialPositionFrame.w {Number} // width of the engine, default 800
 initialPositionFrame.h {Number} // height of the engine, default 600
 
 pathFindingType {Number} // the type of path finding algorithm two use, default TRAVISO.pfAlgorithms.ASTAR_ORTHOGONAL
+pathFindingClosest {Boolean} // whether to return the path to the closest node if the target is unreachable, default false
 
 followCharacter {Boolean} // defines if the camera will follow the current controllable or not, default true
 instantCameraRelocation {Boolean} // specifies wheather the camera moves instantly or with a tween animation to the target location, default false
 instantObjectRelocation {Boolean} // specifies wheather the map-objects will be moved to target location instantly or with an animation, default false
 
+changeTransperancies {Boolean} // make objects transparent when the cotrollable is behind them, default true
+
 highlightPath {Boolean} // highlight the path when the current controllable moves on the map, default true
 highlightTargetTile {Boolean} // highlight the target tile when the current controllable moves on the map, default true
 tileHighlightAnimated {Boolean} // animate the tile highlights, default true
+tileHighlightFillColor {Number(Hexadecimal)} // color code for the tile highlight fill (this will be overridden if there is a highlight-image defined in the map data file), default 0x80d7ff
+tileHighlightFillAlpha {Number} // apha value for the tile highlight fill (this will be overridden if there is a highlight-image defined in the map data file), default 0.5
+tileHighlightStrokeColor {Number(Hexadecimal)} // color code for the tile highlight stroke (this will be overridden if there is a highlight-image defined in the map data file), default 0xFFFFFF
+tileHighlightStrokeAlpha {Number} // apha value for the tile highlight stroke (this will be overridden if a highlight-image is defined), default 1.0
+
+dontAutoMoveToTile {Boolean} // when a tile selected don't move the controllable immediately but still call 'tileSelectCallback', default false
+checkPathOnEachTile {Boolean} // engine looks for a path everytime an object moves to a new tile on the path (set to false if you don't have moving objects other then your controllable on your map), default true
 
 mapDraggable {Boolean} // enable dragging the map with touch-and-touchmove or mousedown-and-mousemove on the map, default true
 
@@ -68,6 +78,7 @@ tileSelectCallback {Function} // callback function that will be called when a ti
 objectSelectCallback {Function} // callback function that will be called when a tile with an interactive map-object on it is selected, needs 'callbackScope' property, default null
 objectReachedDestinationCallback {Function} // callback function that will be called when any moving object reaches its destination, needs 'callbackScope' property, default null
 otherObjectsOnTheNextTileCallback {Function} // callback function that will be called when any moving object is in move and there are other objects on the next tile, needs 'callbackScope' property, default null
+objectUpdateCallback {Function} // callback function that will be called everytime an objects direction or position changed, default null
 ```
 
 <br/>
