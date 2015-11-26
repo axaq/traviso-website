@@ -6,6 +6,7 @@ summary: A detailed explanation of the data file's structure.
 categories: tutorial
 ---
 
+(Updated on Nov 26, 2015)
 ___
 
 Data file is a simple XML file which defines what goes where inside the engine.
@@ -89,6 +90,10 @@ An `<object>` tag should include the following attributes:
 
 * **`s:`** This specifies the size of the object in the number of rows and colums (rows x colums).
 
+* **`noTransparency:`** (0/1) This specifies if the engine will make the object transperent or not when the main controller is behind it.
+
+* **`floor:`** (0/1) (0/1) This specifies if the object is a floor-object (like a rug) or not.
+
 An `<object>` tag should also include AT LEAST one `<v>` tag with `id="idle"`.
             
 > **NOTE:** You can define as many visuals (single images or animation sequences) as you want using `<v>` tags.
@@ -151,6 +156,12 @@ Here the attributes go as follows:
 * **`number_of_frames:`** Number of frames in an animation. if it is not an animation but a single texture, set it to 1.
 
 * **`start_number:`** Starting number of the image name suffix. This is only used for animations where image names are in a numeric order like walk1.png, walk2.png, walk3.png, walk4.png ...
+
+* **`ipoc:`** Interaction-point column-offset for the visual.
+
+* **`ipor:`** Interaction-point row-offset for the visual.
+
+If you want to create an interaction point for a visual you can set interaction-point-offset by defining 'ipor' and 'ipoc' as row and column. This means when the you use methods like 'moveControllableToObj' the engine will move the controllable to this interaction points instead of just the nearest neighbouring tile. For instance, you can have characters interacting and you can allow your controllable character to interact with other characters depending on which way they are looking.
                 
 > **NOTE 1:** Following ids are reserved, so for additional custom animations use different ids:
 

@@ -6,6 +6,7 @@ summary: How to configure your traviso engine instance.
 categories: tutorial
 ---
 
+(Updated on Nov 26, 2015)
 ___
 
 When you create a traviso engine instance you need to define a configuration object for it.
