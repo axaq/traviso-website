@@ -2,10 +2,10 @@
 # Where things are
 source:      .
 destination: ./_site
-layouts:     ./blog/_layouts
-posts:     ./blog/_posts
-plugins:     ./blog/_plugins
-plugins:     ./drafts/_drafts
+layouts_dir: ./blog/_layouts
+posts:       ./_posts
+plugins_dir: ./blog/_plugins
+drafts:      ./drafts/_drafts
 
 name: "traviso.js"
 exclude: ["asset_sources", "less"]
@@ -21,6 +21,7 @@ redcarpet:
 highlighter: pygments
 url: http://www.travisojs.com
 excerpt_separator: <!--more-->
+permalink: /blog/:categories/:year/:month/:day/:title.html
 
 redcarpet:
   extensions: ["space_after_headers", "quote", "hard_wrap", "lax_spacing"]
