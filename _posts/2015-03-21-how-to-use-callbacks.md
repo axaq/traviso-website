@@ -8,6 +8,7 @@ demo: "/examples/example5/"
 ---
 
 (Updated on Feb 03, 2018)
+
 ___
 
 > **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files and `callbackScope` setting are no longer in use.
@@ -26,11 +27,11 @@ var instanceConfig = {
     mapDataPath : "mapData.json", // the path to the json file that defines map data, required
     assetsToLoad : ["../assets/assets_map.json", "../assets/assets_characters.json"], // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
     
-	engineInstanceReadyCallback : onEngineInstanceReady, // callback function that will be called once everything is loaded and engine instance is ready, default null
-	tileSelectCallback : onTileSelect, // callback function that will be called when a tile is selected, default null
-	objectSelectCallback : onObjectSelect, // callback function that will be called when a tile with an interactive map-object on it is selected, default null
-	objectReachedDestinationCallback : onObjectReachedDestination, // callback function that will be called when any moving object reaches its destination, default null
-	otherObjectsOnTheNextTileCallback : onOtherObjectsOnTheNextTile // callback function that will be called when any moving object is in move and there are other objects on the next tile, default null
+    engineInstanceReadyCallback : onEngineInstanceReady, // callback function that will be called once everything is loaded and engine instance is ready, default null
+    tileSelectCallback : onTileSelect, // callback function that will be called when a tile is selected, default null
+    objectSelectCallback : onObjectSelect, // callback function that will be called when a tile with an interactive map-object on it is selected, default null
+    objectReachedDestinationCallback : onObjectReachedDestination, // callback function that will be called when any moving object reaches its destination, default null
+    otherObjectsOnTheNextTileCallback : onOtherObjectsOnTheNextTile // callback function that will be called when any moving object is in move and there are other objects on the next tile, default null
 };
 
 // create the engine
@@ -48,7 +49,7 @@ Let's start by creating a method for each callback function. We start with `onEn
 ```js
 function onEngineInstanceReady()
 {
-	stage.addChild(engine);
+    stage.addChild(engine);
 }
 ```
 
@@ -115,22 +116,22 @@ Next, we create another callback function which is being fired when any moving o
 ```js
 function onObjectReachedDestination(obj)
 {
-	var objectsOnDestination = engine.getObjectsAtLocation(obj.mapPos);
-	for (var i=0; i < objectsOnDestination.length; i++)
-	{
-		// check if there is a flag on the destination tile
-		if(objectsOnDestination[i].type === 10)
-		{
-			obj.changeVisual("flip", false, true, flipAnimFinished);
-			break;
-		}
-	}
+    var objectsOnDestination = engine.getObjectsAtLocation(obj.mapPos);
+    for (var i=0; i < objectsOnDestination.length; i++)
+    {
+        // check if there is a flag on the destination tile
+        if(objectsOnDestination[i].type === 10)
+        {
+            obj.changeVisual("flip", false, true, flipAnimFinished);
+            break;
+        }
+    }
 }
 
 // this method will be called when the custom flip anim finished
 function flipAnimFinished (obj)
 {
-	// change the visual of the object so that it will face its last direction
+    // change the visual of the object so that it will face its last direction
     obj.changeVisualToDirection(obj.currentDirection, false);
 }
 ```
@@ -147,17 +148,17 @@ We start with implementing the callback function for the `otherObjectsOnTheNextT
 ```js
 function onOtherObjectsOnTheNextTile(movingObject, objectsOnNewTile)
 {
-	var boxAnim;
-	for (var i=0; i < objectsOnNewTile.length; i++)
-	{
-		// check if there are boxes on the next tile
-		if(objectsOnNewTile[i].type === 12)
-		{
-			boxAnim = createAndStartBoxAnim();
-			engine.addCustomObjectToLocation(boxAnim, objectsOnNewTile[i].mapPos);
-			engine.removeObjectFromLocation(objectsOnNewTile[i]);
-		}
-	}
+    var boxAnim;
+    for (var i=0; i < objectsOnNewTile.length; i++)
+    {
+        // check if there are boxes on the next tile
+        if(objectsOnNewTile[i].type === 12)
+        {
+            boxAnim = createAndStartBoxAnim();
+            engine.addCustomObjectToLocation(boxAnim, objectsOnNewTile[i].mapPos);
+            engine.removeObjectFromLocation(objectsOnNewTile[i]);
+        }
+    }
 }
 ```
 
@@ -168,7 +169,7 @@ Finally, we will add a method to create little boxes and spread them up:
 ```js
 function createAndStartBoxAnim()
 {
-	// create six seperate boxes to spread
+    // create six seperate boxes to spread
     var boxAnim = new PIXI.Container();
     var t = PIXI.Texture.fromFrame("box.png");
     var box;

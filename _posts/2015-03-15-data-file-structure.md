@@ -7,6 +7,7 @@ categories: tutorial
 ---
 
 (Updated on Feb 03, 2018)
+
 ___
 
 > **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.

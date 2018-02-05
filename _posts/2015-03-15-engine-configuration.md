@@ -7,6 +7,7 @@ categories: tutorial
 ---
 
 (Updated on Feb 03, 2018)
+
 ___
 
 > **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
@@ -32,7 +33,7 @@ var engine = TRAVISO.getEngineInstance(instanceConfig);
 Here is a breakdown of all the other parameters that you can playaround to customise your isometric engine.
 
 ```js
-mapDataPath {String} // the path to the xml file that defines map data, required
+mapDataPath {String} // the path to the json file that defines map data, required
 assetsToLoad {Array(String)} // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
 
 minScale {Number} // mimimum scale that the DisplayObjectContainer for the map can get, default 0.5

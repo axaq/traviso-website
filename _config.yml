@@ -15,13 +15,14 @@ lsi: false
 host: localhost
 port: 4001
 description: Traviso is an open source JS engine that makes it easy to build isometric applications that run in a web browser
-markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
-highlighter: pygments
+markdown:    kramdown
+# markdown: redcarpet
+# redcarpet:
+#   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+highlighter: rouge
 url: http://www.travisojs.com
 excerpt_separator: <!--more-->
 permalink: /blog/:categories/:year/:month/:day/:title.html
 
-redcarpet:
-  extensions: ["space_after_headers", "quote", "hard_wrap", "lax_spacing"]
+# redcarpet:
+#   extensions: ["space_after_headers", "quote", "hard_wrap", "lax_spacing"]

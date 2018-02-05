@@ -8,6 +8,7 @@ demo: "/examples/example1/"
 ---
 
 (Updated on Feb 03, 2018)
+
 ___
 
 > **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
@@ -28,12 +29,12 @@ Isometric tiles are defined by two parameters throughout Traviso:
 
 * **Iso-Height:** The height of a single tile.
 
-  	<img src="/blog/images/posts/IsoHeight.png">
-  	<br/>
+    <img src="/blog/images/posts/IsoHeight.png">
+    <br/>
 
 * **Iso-Angle:** The angle between the isometric edge and the isometric (horizontal) diagnal of the tile.
 
-  	<img src="/blog/images/posts/IsoAngle.png">
+    <img src="/blog/images/posts/IsoAngle.png">
 
 
 Default value for the Iso-Angle is 30 degrees and default height is 74 px. 

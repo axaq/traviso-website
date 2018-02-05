@@ -8,6 +8,7 @@ demo: "/examples/example4/"
 ---
 
 (Updated on Feb 03, 2018)
+
 ___
 
 > **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
@@ -54,14 +55,14 @@ var instanceConfig = {
     mapDataPath : "mapData.xml",
     assetsToLoad : ["grassTile.png", "house.png"],
     initialPositionFrame: { x : 0, y : 0, w : 800, h : 600 },
-	engineInstanceReadyCallback : onEngineInstanceReady
+    engineInstanceReadyCallback : onEngineInstanceReady
 };
 
 var engine = TRAVISO.getEngineInstance(instanceConfig);
 
 // this method will be called when the engine is ready
 function onEngineInstanceReady () {
-	pixiRoot.stage.addChild(engine);
+    pixiRoot.stage.addChild(engine);
 }
 ```
 
@@ -148,7 +149,7 @@ var instanceConfig = {
     mapDataPath : "mapData.xml",
     assetsToLoad : ["grassTile.png", "house.png"],
     initialPositionFrame: { x : 0, y : 0, w : 800, h : 600 },
-	engineInstanceReadyCallback : onEngineInstanceReady
+    engineInstanceReadyCallback : onEngineInstanceReady
 };
 var engine = TRAVISO.getEngineInstance(instanceConfig);
 

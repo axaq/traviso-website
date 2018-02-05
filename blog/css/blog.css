@@ -385,3 +385,6 @@ footer .footer-below {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+pre code {
+    white-space: pre;
+}
