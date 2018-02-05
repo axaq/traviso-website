@@ -7,29 +7,32 @@ categories: demo
 demo: "/examples/example6/"
 ---
 
+(Updated on Feb 03, 2018)
 ___
+
+> **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
 
 With Traviso you can use a single ground image instead of using seperate tile images for each tile or you can mix the two.
 
-To begin with, you need to set your XML data file correct. Optional `single_ground_image` tag should be set for this option.
+To begin with, you need to set your JSON data file correct. Optional `"singleGroundImage"` section should be set for this option.
 
 <!--more-->
 
-```xml
-<single_ground_image scale="2">
-    <path>assets/ground.png</path>
-</single_ground_image>
+```json
+"singleGroundImage": { 
+    "path": "assets/groundImage.jpg",
+    "scale": 2
+}
 ```
-When you define a `<path>` for your single-ground-image as shown above, then you can use `<ground_map>` tag just to define which areas are walkable and which are not on your map by using 0s and 1s.
+When you define a `"path"` for your single-ground-image as shown above, then you can use `"groundMap"` section just to define which areas are walkable and which are not on your map by using `0`s and `1`s.
 
-```xml
-<ground_map>
-    <row>1 ,1 ,1 ,1</row>
-    <row>1 ,0 ,0 ,1</row>
-    <row>1 ,0 ,0 ,1</row>
-    <row>1 ,1 ,1 ,1</row>
-</ground_map>
-<map_data>
+```json
+"groundMap": [
+    { "row": "1 ,1 ,1 ,1" },
+    { "row": "1 ,0 ,0 ,1" },
+    { "row": "1 ,0 ,0 ,1" },
+    { "row": "1 ,1 ,1 ,1" }
+]
 ```
 
 The image should be loaded before the engine starts or it should be passed to the engine inside the `assetsToLoad` property of your configuration object.
@@ -37,35 +40,36 @@ The image should be loaded before the engine starts or it should be passed to th
 ```js
 var instanceConfig =
 {
-    mapDataPath : "mapData.xml", // the path to the xml file that defines map data, required
+    mapDataPath : "mapData.json", // the path to the json file that defines map data, required
     assetsToLoad : ["assets/ground.png", "house.png"], // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
 };
 
 var engine = TRAVISO.getEngineInstance(instanceConfig);
 ```
 
-If you are using a single-ground-image but also want individual tile images as well, then just go and define your tiles under `<tiles>` tag and use their ids in the `<ground_map>`. The engine will overlay individual tile images onto your single-ground-image. Just keep in mind that **no** tile can have `id="0"`.
+If you are using a single-ground-image but also want individual tile images as well, then just go and define your tiles under `"tiles"` section and use their ids in the `"groundMap"`. The engine will overlay individual tile images onto your single-ground-image. Just keep in mind that **no** tile can have the id/key `"0"`.
 
-```xml
-<tiles>
-	<tile id="1" movable="0">waterTile.png</tile>
-	<tile id="2" movable="1">grassTile.png</tile>
-</tiles>
-<single_ground_image scale="2">
-    <path>assets/ground.png</path>
-</single_ground_image>
-<ground_map>
-    <row>1 ,1 ,1 ,0</row>
-    <row>1 ,2 ,2 ,0</row>
-    <row>1 ,2 ,2 ,0</row>
-    <row>1 ,1 ,1 ,0</row>
-</ground_map>
-<map_data>
+```json
+{
+    "tiles": {
+        "1":  { "movable": false, "path": "waterTile.png" },
+        "2":  { "movable": true, "path": "grassTile.png" }
+    },
+    "singleGroundImage": { "path": "assets/groundImage.jpg", "scale": 2 },
+    "groundMap": [
+        { "row": "1 ,1 ,1 ,0" },
+        { "row": "1 ,2 ,2 ,0" },
+        { "row": "1 ,2 ,2 ,0" },
+        { "row": "1 ,1 ,1 ,0" }
+    ]
+}
 ```
 
-`<single_ground_image>` tag only have one attribute at the moment:
+`"singleGroundImage"` section only have two attributes at the moment:
 
-* **`scale:`** Scale amount to apply to the single-ground-image so that you can use smaller images and scale them up for extra big maps, default 1.
+* **`path:`**  (String) Either should be loaded before the engine starts or should be passed to the engine inside the 'assetsToLoad' property.
+
+* **`scale:`**  (Integer) Scale amount to apply to the single-ground-image so that you can use smaller images and scale them up for extra big maps, default 1. 
 
 For a detailed explanation of the data file structure you can have a look at the related tutorial [here]({% post_url 2015-03-15-data-file-structure %} "Traviso data file structure").
 

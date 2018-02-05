@@ -18,7 +18,7 @@
             <h1 class="blue-main-title">traviso.js</h1>
         </div>
         <div class="yui3-u-1-4 version project-version">
-            API Docs for: 0.0.2
+            API Docs for: 0.0.9
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -105,7 +105,7 @@
  * Visual class for the map-objects.
  *
  * @class ObjectView
- * @extends DisplayObjectContainer
+ * @extends PIXI.Container
  * @constructor
  * @param engine {EngineView} the engine instance that the map-object sits in
  * @param [objectType=0] {Number} type-id of the object as defined in the XML file
@@ -113,7 +113,7 @@
  */
 TRAVISO.ObjectView = function(engine, objectType, animSpeed)
 {
-    PIXI.DisplayObjectContainer.call(this);
+    PIXI.Container.call(this);
     
     /**
 	 * A reference to the engine view that the map-object sits in.
@@ -138,21 +138,22 @@ TRAVISO.ObjectView = function(engine, objectType, animSpeed)
 	 * @property {Boolean} isInteractive
 	 */
 	/**
-	 * The size of the map-object in terms of rows and columns.
-	 * @property {Object} size
-	 * @property {Number} size.r
-	 * @property {Number} size.c
+	 * Number of tiles that map-object covers horizontally on the isometric map
+     * @property {Number} columnSpan
+	 */
+    /**
+	 * Number of tiles that map-object covers vertically on the isometric map
+     * @property {Number} rowSpan
 	 */
     var info = TRAVISO.getObjectInfo(this.engine, this.type);
     this.isMovableTo = info.m;
     this.isInteractive = info.i;
-    var arr = info.s.split(&quot;x&quot;);
-    this.size =
-    {
-        r : parseInt(arr[0], 10),
-        c : parseInt(arr[1], 10)
-    };
-    var xAnchor = this.size.r / (this.size.c + this.size.r);
+    this.interactive = this.interactiveChildren = false;
+    this.isFloorObject = info.f;
+    this.noTransparency = info.nt;
+    this.rowSpan = info.rowSpan;
+    this.columnSpan = info.columnSpan;
+    var xAnchor = this.rowSpan / (this.columnSpan + this.rowSpan);
 	
 	/**
 	 * A dictionary for all the textures defined for the map-object.
@@ -160,8 +161,17 @@ TRAVISO.ObjectView = function(engine, objectType, animSpeed)
 	 * @protected
 	 */
     this.textures = info.t;
+    /**
+	 * A dictionary for interaction offset points for each visual if defined in the map data file.
+	 * @property {Object} interactionOffsets
+	 * @protected
+	 */
+    this.interactionOffsets = info.io;
+    
+    this.currentInteractionOffset = this.interactionOffsets.idle;
 	
-    this.container = new PIXI.MovieClip(this.textures.idle);
+    this.container = new PIXI.extras.AnimatedSprite(this.textures.idle);
+    this.container.interactive = this.container.interactiveChildren = false;
     this.container.anchor.x = xAnchor;
     this.container.anchor.y = 1;
     this.addChild(this.container);
@@ -178,7 +188,7 @@ TRAVISO.ObjectView = function(engine, objectType, animSpeed)
 
 // constructor
 TRAVISO.ObjectView.constructor = TRAVISO.ObjectView;
-TRAVISO.ObjectView.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
+TRAVISO.ObjectView.prototype = Object.create(PIXI.Container.prototype);
 
 /**
  * Animation speed for the movieclips included in the map-object visuals.
@@ -202,7 +212,7 @@ Object.defineProperty(TRAVISO.ObjectView.prototype, &quot;animSpeed&quot;, {
  * @param [moving=false] {Boolean} if the requested visuals are for moving or stationary state  
  * @param [stopOnFirstFrame=false] {Boolean} if true stops on the first frame after changing the visuals
  * @param [noLoop=false] {Boolean} if true the movieclip animation will not loop after the first animation 
- * @param [onAnimComplete=null] {Function} Callback function to call if &#x27;noLoop&#x27; is true after the first run of the animation, uses the engine&#x27;s &#x27;callbackScope&#x27;
+ * @param [onAnimComplete=null] {Function} callback function to call if &#x27;noLoop&#x27; is true after the first run of the animation
  * @param [animSpeed=0.5] {Number} animation speed for the movieclips
  */
 TRAVISO.ObjectView.prototype.changeVisualToDirection = function(direction, moving, stopOnFirstFrame, noLoop, onAnimComplete, animSpeed)
@@ -213,7 +223,15 @@ TRAVISO.ObjectView.prototype.changeVisualToDirection = function(direction, movin
         {
             throw new Error(&quot;no &#x27;idle&#x27; visual defined as backup for object type &quot; + this.type);
         }
+        else
+        {
+            this.currentDirection = TRAVISO.directions.O;
+        }
 	}
+    else
+    {
+        this.currentDirection = direction;
+    }
 };
 /**
  * Changes the map-objects&#x27;s texture(s) according to the specified visual-id.
@@ -223,7 +241,7 @@ TRAVISO.ObjectView.prototype.changeVisualToDirection = function(direction, movin
  * @param vId {String} visual-id
  * @param [stopOnFirstFrame=false] {Boolean} if true stops on the first frame after changing the visuals
  * @param [noLoop=false] {Boolean} if true the movieclip animation will not loop after the first animation 
- * @param [onAnimComplete=null] {Function} Callback function to call if &#x27;noLoop&#x27; is true after the first run of the animation, uses the engine&#x27;s &#x27;callbackScope&#x27;
+ * @param [onAnimComplete=null] {Function} callback function to call if &#x27;noLoop&#x27; is true after the first run of the animation
  * @param [animSpeed=null] {Number} animation speed for the movieclips, stays the same if not defined
  */
 TRAVISO.ObjectView.prototype.changeVisual = function(vId, stopOnFirstFrame, noLoop, onAnimComplete, animSpeed)
@@ -233,6 +251,16 @@ TRAVISO.ObjectView.prototype.changeVisual = function(vId, stopOnFirstFrame, noLo
         // TRAVISO.trace(&quot;!!! No textures defined for vId: &quot; + vId);
         return false;
     }
+    
+    this.currentInteractionOffset = this.interactionOffsets[vId];
+    
+    if (this.container.textures === this.textures[vId] &amp;&amp; !noLoop)
+    {
+        this.container.loop = !noLoop;
+        if (TRAVISO.existy(animSpeed) &amp;&amp; animSpeed &gt; 0) { this.animSpeed = animSpeed; }
+        return true;
+    }
+    
     this.container.textures = this.textures[vId];
     
     if (!stopOnFirstFrame &amp;&amp; this.textures[vId].length &gt; 1)
@@ -241,7 +269,7 @@ TRAVISO.ObjectView.prototype.changeVisual = function(vId, stopOnFirstFrame, noLo
         if (noLoop &amp;&amp; onAnimComplete) 
         {
             var scope = this;
-            this.container.onComplete = function () { setTimeout(function () { onAnimComplete.call( scope.engine.config.callbackScope, scope); }, 100); };
+            this.container.onComplete = function () { setTimeout(function () { onAnimComplete( scope ); }, 100); };
         }
         if (TRAVISO.existy(animSpeed) &amp;&amp; animSpeed &gt; 0) { this.animSpeed = animSpeed; }
         this.container.gotoAndPlay(0);
@@ -250,6 +278,9 @@ TRAVISO.ObjectView.prototype.changeVisual = function(vId, stopOnFirstFrame, noLo
     {
         this.container.gotoAndStop(0);
     }
+    
+    if (this.engine.config.objectUpdateCallback) { this.engine.config.objectUpdateCallback( this ); }
+    
     return true;
 };
 
@@ -263,7 +294,6 @@ TRAVISO.ObjectView.prototype.destroy = function()
 	if (this.container)
 	{
 	    this.engine = null;
-	    this.size = null;
 	    this.textures = null;
 	    // this.removeChild(this.container);
 	    // this.container.textures = null;

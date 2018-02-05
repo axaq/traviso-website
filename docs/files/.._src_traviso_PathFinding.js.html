@@ -18,7 +18,7 @@
             <h1 class="blue-main-title">traviso.js</h1>
         </div>
         <div class="yui3-u-1-4 version project-version">
-            API Docs for: 0.0.2
+            API Docs for: 0.0.9
         </div>
     </div>
     <div id="bd" class="yui3-g">
@@ -136,6 +136,7 @@ TRAVISO.PathFinding = function(mapSizeC, mapSizeR, options)
     this.nodes = [];
     this.diagonal = !!options.diagonal;
     this.heuristic = this.diagonal ? this.heuristics.diagonal : this.heuristics.manhattan;
+    this.closest = !!options.closest;
     this.grid = [];
     for (c = 0; c &lt; mapSizeC; c++)
     {
@@ -319,7 +320,7 @@ TRAVISO.PathFinding.prototype.solve = function(originC, originR, destC, destR)
 {
 	var start = this.grid[originC][originR];
 	var end = this.grid[destC][destR];
-	var result = this.search(start, end, { heuristic: this.heuristic });
+	var result = this.search(start, end, { heuristic: this.heuristic, closest: this.closest });
 	return result &amp;&amp; result.length &gt; 0 ? result : null;
 };
 
@@ -663,6 +664,7 @@ TRAVISO.PathFinding.prototype.destroy = function()
     this.grid = null;
     this.nodes = null;
     this.dirtyNodes = null;
+    this.heuristic = null;
 };
 
     </pre>

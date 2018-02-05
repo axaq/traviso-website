@@ -7,7 +7,10 @@ categories: demo
 demo: "/examples/example5/"
 ---
 
+(Updated on Feb 03, 2018)
 ___
+
+> **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files and `callbackScope` setting are no longer in use.
 
 Traviso has built-in callback methods that you can define through the configuration object that you pass to a traviso engine instance.
 
@@ -19,26 +22,24 @@ As always we create a traviso engine to start with:
 
 ```js
 // engine-instance configuration object
-var instanceConfig =
-{
-    mapDataPath : "mapData.xml", // the path to the xml file that defines map data, required
+var instanceConfig = {
+    mapDataPath : "mapData.json", // the path to the json file that defines map data, required
     assetsToLoad : ["../assets/assets_map.json", "../assets/assets_characters.json"], // array of paths to the assets that are desired to be loaded by traviso, no need to use if assets are already loaded to PIXI cache, default null
     
-    callbackScope : this, // the scope to apply when calling callback functions, default null
-	engineInstanceReadyCallback : this.onEngineInstanceReady, // callback function that will be called once everything is loaded and engine instance is ready, needs "callbackScope" property, default null
-	tileSelectCallback : this.onTileSelect, // callback function that will be called when a tile is selected, needs "callbackScope" property, default null
-	objectSelectCallback : onObjectSelect, // callback function that will be called when a tile with an interactive map-object on it is selected, needs "callbackScope" property, default null
-	objectReachedDestinationCallback : this.onObjectReachedDestination, // callback function that will be called when any moving object reaches its destination, needs "callbackScope" property, default null
-	otherObjectsOnTheNextTileCallback : onOtherObjectsOnTheNextTile // callback function that will be called when any moving object is in move and there are other objects on the next tile, needs "callbackScope" property, default null
+	engineInstanceReadyCallback : onEngineInstanceReady, // callback function that will be called once everything is loaded and engine instance is ready, default null
+	tileSelectCallback : onTileSelect, // callback function that will be called when a tile is selected, default null
+	objectSelectCallback : onObjectSelect, // callback function that will be called when a tile with an interactive map-object on it is selected, default null
+	objectReachedDestinationCallback : onObjectReachedDestination, // callback function that will be called when any moving object reaches its destination, default null
+	otherObjectsOnTheNextTileCallback : onOtherObjectsOnTheNextTile // callback function that will be called when any moving object is in move and there are other objects on the next tile, default null
 };
 
 // create the engine
 var engine = TRAVISO.getEngineInstance(instanceConfig);
 ```
 
-Notice that when you decide to use any of this callback methods you also need to define a `callbackScope` so that the engine can make the call in the right scope without breaking your callchain. In other words, `callbackScope` is simply the object that contains your callback functions.
-
 > **NOTE:** We are telling the engine to load the necessary assets by defining them in the `assetsToLoad` property. Above we used json spritesheets to load all we need but you can also load the assets individually by defining them in the array the same way.
+
+> **NOTE:** Note that you should bind your callback methods if you want to scope them under a certain js object.
 
 
 
@@ -57,33 +58,45 @@ Secondly there is `tileSelectCallback` which is, as the name refers, being calle
 
 > **NOTE:** Keep in mind that if there is a controllable defined in the data file, when you click a tile, that controllable object will start moving towards that tile immediately.
 
-Next, we can add some interactivity logic to our application. Here we will be using the flag object which is defined in our XML data file as follows:
+Next, we can add some interactivity logic to our application. Here we will be using the flag object which is defined in our JSON data file as follows:
 
-```xml
-<object id="10" movable="1" interactive="1" s="1x1">
-    <v id="idle">
-        <f>o_flag_0.png</f>
-    </v>
-</object>
+```json
+"objects": {
+    "10": {
+        "movable": true,
+        "interactive": true,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "visuals": {
+            "idle": {
+                "frames": [
+                    { "path": "o_flag_0.png" }
+                ] 
+            }
+        }
+    }
+}
 ```
 
-Notice that the `interactive` attribute should be `1` so that we can catch it with the `objectSelectCallback` method.
+Notice that the `"interactive"` attribute should be `true` so that we can catch it with the `objectSelectCallback` method.
 
-Let's say, when flag is clicked/touched by the user, we want our controllable to move to the flag and do a flip animation. The custom flip animation is also defined in the XML data file:
+Let's say, when flag is clicked/touched by the user, we want our controllable to move to the flag and do a flip animation. The custom flip animation is also defined in the JSON data file:
 
-```xml
-<v id="flip">
-    <f>hero_stand_se_0001.png</f> 
-    <f>hero_stand_se_0001.png</f> 
-    <f>hero_stand_sw_0001.png</f> 
-    <f>hero_stand_sw_0001.png</f> 
-    <f>hero_stand_nw_0001.png</f> 
-    <f>hero_stand_nw_0001.png</f> 
-    <f>hero_stand_ne_0001.png</f>
-    <f>hero_stand_ne_0001.png</f>
-    <f>hero_stand_se_0001.png</f>
-    <f>hero_stand_se_0001.png</f>
-</v>
+```json
+"flip": {
+    "frames": [
+        { "path": "hero_stand_se_0001.png" },
+        { "path": "hero_stand_se_0001.png" },
+        { "path": "hero_stand_sw_0001.png" },
+        { "path": "hero_stand_sw_0001.png" },
+        { "path": "hero_stand_nw_0001.png" },
+        { "path": "hero_stand_nw_0001.png" },
+        { "path": "hero_stand_ne_0001.png" },
+        { "path": "hero_stand_ne_0001.png" },
+        { "path": "hero_stand_se_0001.png" },
+        { "path": "hero_stand_se_0001.png" }
+    ]
+}
 ```
 
 In order to achieve this we create a callback function and send our moving object to the location of the flag:
@@ -156,24 +169,24 @@ Finally, we will add a method to create little boxes and spread them up:
 function createAndStartBoxAnim()
 {
 	// create six seperate boxes to spread
-	var boxAnim = new PIXI.DisplayObjectContainer();
-	var t = PIXI.Texture.fromFrame("box.png");
+    var boxAnim = new PIXI.Container();
+    var t = PIXI.Texture.fromFrame("box.png");
     var box;
     var boxes = [];
     for (var i=0; i < 6; i++)
     {
-    	box = new PIXI.MovieClip([t]);
-    	box.anchor.x = box.anchor.y = 0.5;
-    	boxAnim.addChild(box);
-    	boxes[boxes.length] = box;
+        box = new PIXI.extras.AnimatedSprite([t]);
+        box.anchor.x = box.anchor.y = 0.5;
+        boxAnim.addChild(box);
+        boxes[boxes.length] = box;
     }
     
     // play a simple spread anim for the boxes
     var boxTargets = [[-75, -125], [-50, -100], [-25, -75], [25, -75], [50, -100], [75, -125]];
-	for (var i=0; i < boxes.length; i++)
+    for (var i=0; i < boxes.length; i++)
     {
-    	TweenLite.to( boxes[i].position, 0.5, { x: boxTargets[i][0], y: boxTargets[i][1], ease:"Back.easeOut" } );
-		TweenLite.to( boxes[i], 0.7, { alpha: 0 } );
+        TweenLite.to( boxes[i].position, 0.5, { x: boxTargets[i][0], y: boxTargets[i][1], ease:"Back.easeOut" } );
+        TweenLite.to( boxes[i], 0.7, { alpha: 0 } );
     }
     
     return boxAnim;

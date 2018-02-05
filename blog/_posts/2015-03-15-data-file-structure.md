@@ -6,8 +6,10 @@ summary: A detailed explanation of the data file's structure.
 categories: tutorial
 ---
 
-(Updated on Nov 26, 2015)
+(Updated on Feb 03, 2018)
 ___
+
+> **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
 
 Data file is a simple XML file which defines what goes where inside the engine.
 
@@ -15,32 +17,42 @@ Data file is a simple XML file which defines what goes where inside the engine.
 
 Here is an example:
 
-```xml
-<?xml version="1.0" encoding="utf-8" ?>
-<map_data>
-	<tiles>
-		<tile id="1" movable="1">grassTile.png</tile>
-	</tiles>
-	<objects>
-	    <object id="1" movable="0" interactive="0" s="1x1">
-			<v id="idle">
-				<f>boxes.png</f>
-			</v>
-		</object>
-	</objects>
-	<ground_map>
-		<row>1 ,1 ,1 ,1</row>
-		<row>1 ,0 ,0 ,1</row>
-		<row>1 ,0 ,0 ,1</row>
-		<row>1 ,1 ,1 ,1</row>
-	</ground_map>
-	<object_map>
-		<row>0 ,0 ,0 ,0</row>
-		<row>0 ,1 ,0 ,0</row>
-		<row>0 ,0 ,1 ,0</row>
-		<row>0 ,0 ,0 ,0</row>
-	</object_map>
-<map_data>
+```json
+{
+    "tiles": {
+        "1":  {
+            "movable": true,
+            "path": "grassTile.png"
+        }
+    },
+    "objects": {
+        "1": {
+            "movable": false,
+            "interactive": false,
+            "rowSpan": 1,
+            "columnSpan": 1,
+            "visuals": {
+                "idle": {
+                    "frames": [
+                        { "path": "boxes.png" }
+                    ] 
+                }
+            }
+        }
+    },
+    "groundMap": [
+        { "row": "1 ,1 ,1 ,1" },
+        { "row": "1 ,0 ,0 ,1" },
+        { "row": "1 ,0 ,0 ,1" },
+        { "row": "1 ,1 ,1 ,1" }
+    ],
+    "objectsMap": [
+        { "row": "0 ,0 ,0 ,0" },
+        { "row": "0 ,1 ,0 ,0" },
+        { "row": "0 ,0 ,1 ,0" },
+        { "row": "0 ,0 ,0 ,0" }
+    ]
+}
 ```
 
 So let's go step by step.
@@ -48,118 +60,135 @@ So let's go step by step.
 <br/>
 ### Tiles
 
-`<tiles>` tag defines the available tiles that you can use in your map.
+`"tiles"` section defines the available tiles that you can use in your map.
 
-```xml
-<tiles>
-	<tile id="1" movable="1">images/grassTile.png</tile>
-	<tile id="2" movable="0">images/waterTile.png</tile>
-</tiles>
+```json
+"tiles": {
+    "1":  { "movable": true, "path": "grassTile.png" },
+    "2":  { "movable": false, "path": "waterTile.png" }
+}
 ```
 
-A `<tile>` tag should include the following attributes:
+A tile item is keyed by its id. These ids will be used in the `"groundMap"` later in the data file to identify the location of the tile. DON'T use `"0"` as id/key since it represents empty tiles in the `"groundMap"`.
 
-* **`id:`** (Numbers except 0) This is the key value that you will use to define the type of the tile. These will be used in the `<ground_map>` tag. DON'T use 0 as id since it represents empty tiles in the `<ground_map>`.
+A tile should include the following attributes:
 
-* **`movable:`** (0/1) This defines weather other characters can move onto this type of tile or not.
-            
-A `<tile>` tag should also include the image path/name as the tag value.
+* **`movable:`** (true/false) This defines weather other characters can move onto this type of tile.
+
+* **`path:`** (String) Image name/id as it is accessed throughout a cached spritesheet or with a path externally.
 
 <br/>
 ### Objects
 
-Similarly `<objects>` tag defines the available objects that you can use in your map.
+Similarly `"objects"` section defines the available objects that you can use in your map.
 
-```xml
-<objects>
-    <object id="1" movable="0" interactive="0" s="1x1">
-		<v id="idle">
-			<f>boxes.png</f>
-		</v>
-	</object>
-</objects>
+```json
+"objects": {
+    "1": {
+        "movable": false,
+        "interactive": false,
+        "rowSpan": 1,
+        "columnSpan": 1,
+        "noTransparency": true,
+        "floor": false,
+        "visuals": {
+            "idle": {
+                "frames": [
+                    { "path": "boxes.png" }
+                ]
+            }
+        }
+    }
+}
 ```
 
-An `<object>` tag should include the following attributes:
+An object item is keyed by its id. These ids will be used in the `"objectsMap"` later in this file to identify location of the object. DON'T use `"0"` as id/key since it represents the case of no-objects in the `"objectsMap"`.
 
-* **`id:`** (Numbers except 0) This is the key value that you will use to define the type of the object. These will be used in the `<object_map>` tag. DON'T use 0 as id since it represents no-objects in the `<object_map>`.
+An object item should include the following attributes:
 
-* **`movable:`** (0/1) This defines weather other characters can move onto a tile that this objects sits on.
+* **`movable:`** (true/false) This defines weather other characters can move onto a tile that this object sits on.
 
-* **`interactive:`** (0/1) This specifies weather the user can select/interact with the object. The engine will use the callbacks to inform the developer once the object is selected by the user.
+* **`interactive:`** (true/false) This specifies weather the user can select/interact with the object. The engine will use the callbacks to inform the developer once the object is selected by the user.
 
-* **`s:`** This specifies the size of the object in the number of rows and colums (rows x colums).
+* **`rowSpan:`** (Integer 0<) This specifies the size of the object in terms of number of rows it allocates.
 
-* **`noTransparency:`** (0/1) This specifies if the engine will make the object transperent or not when the main controller is behind it.
+* **`columnSpan:`** (Integer 0<) This specifies the size of the object in terms of number of columns it allocates.
 
-* **`floor:`** (0/1) (0/1) This specifies if the object is a floor-object (like a rug) or not.
+* **`noTransparency:`** (true/false) This specifies if the engine will make the object transperent or not when the main controller is behind it.
 
-An `<object>` tag should also include AT LEAST one `<v>` tag with `id="idle"`.
+* **`floor:`** (true/false) This specifies if the object is a floor-object (like a rug) or not.
+
+* **`visuals:`** (Object) This is the container that holds all the visuals available for the map object. It should include AT LEAST one visual with the id/key `"idle"`.
             
-> **NOTE:** You can define as many visuals (single images or animation sequences) as you want using `<v>` tags.
+> **NOTE:** You can define as many visuals (single images or animation sequences) as you want inside the `"visuals"` section.
 
-Here is an animation defined for the idle state of an object. You can think of `<f>` tag as a frame for animation. If there is only one `<f>` tag then it is a still image instead of an animation.
+Here is an animation defined for the idle state of an object. You can think of each row inside the `"frames"` array as a frame for animation. If there is only one row then it is a still image instead of an animation.
 
-```xml
-<v id="idle">
-    <f>hero_stand_1.png</f>
-    <f>hero_stand_2.png</f>
-    <f>hero_stand_3.png</f>
-    <f>hero_stand_4.png</f>
-    <f>hero_stand_5.png</f>
-    <f>hero_stand_6.png</f>
-</v>
+```json
+"idle": {
+    "frames": [
+        { "path": "hero_stand_1.png" },
+        { "path": "hero_stand_2.png" },
+        { "path": "hero_stand_3.png" },
+        { "path": "hero_stand_4.png" },
+        { "path": "hero_stand_5.png" },
+        { "path": "hero_stand_6.png" }
+    ]
+}
 ```
 
 You can create the textures/animations for your object in two ways:
 
-* Either using child `<f>` tags to specify each frame texture if your image names are not in a numeric order like `walk1.png, walk2.png ...`
-  
-```xml
-<v id="move_ne">
-    <f>hero_move_ne_x.png</f>
-    <f>hero_move_ne_w.png</f>
-    <f>hero_move_ne_y.png</f>
-    <f>hero_move_ne_z.png</f>
-    <f>hero_move_ne_t.png</f>
-    <f>hero_move_ne_v.png</f>
-</v>
-```
-* Or in a single `<v>` tag by providing filename/path prefix and extension.
+* Either using `"frames"` property to specify each frame texture if your image names are not in a numeric order like `walk1.png, walk2.png ...`
 
-```xml  
-<v id="move_ne" path="hero_move_ne_" ext="png" number_of_frames="6" start_number="1" /> 
+```json
+"move_ne": {
+    "frames": [
+        { "path": "hero_move_ne_x.png" },
+        { "path": "hero_move_ne_w.png" },
+        { "path": "hero_move_ne_y.png" },
+        { "path": "hero_move_ne_z.png" },
+        { "path": "hero_move_ne_t.png" },
+        { "path": "hero_move_ne_v.png" }
+    ]
+}
+```
+
+* Or in a single visual by providing `"path"` (prefix), `"startIndex"`, `"numberOfFrames"` and `"extension"`.
+
+```json  
+"move_ne": { "path": "hero_move_ne_", "startIndex": 1, "numberOfFrames": 6, "extension": "png" }
 ```
 
 <br/>
-So, the following two `<v>` tags are interpreted as the same by the engine:
+So, the following two visulas are interpreted as the same by the engine:
  
-```xml
-<v id="flip">
-    <f>hero_flip_3.png</f>
-    <f>hero_flip_4.png</f>
-    <f>hero_flip_5.png</f>
-    <f>hero_flip_6.png</f>
-</v>
- 
-<v id="flip" path="hero_flip_" ext="png" number_of_frames="4" start_number="3" /> 
+```json
+"flip": {
+    "frames": [
+        { "path": "hero_flip_3.png" },
+        { "path": "hero_flip_4.png" },
+        { "path": "hero_flip_5.png" },
+        { "path": "hero_flip_6.png" }
+    ]
+}
+
+"flip": { "path": "hero_flip_", "startIndex": 3, "numberOfFrames": 4, "extension": "png" }
 ```
 
 Here the attributes go as follows:
 
-* **`id:`** Id of the texture or animation. You will use this to change object texture/animation any time.
-
 * **`path:`** Image name/id as it is accessed throughout a cached spritesheet or with a path externally.
 
-* **`ext:`** Image file extension. i.e. png, jpg
+* **`extension:`** Image file extension. i.e. png, jpg
 
-* **`number_of_frames:`** Number of frames in an animation. if it is not an animation but a single texture, set it to 1.
+* **`numberOfFrames:`** (Integer 0<) Number of frames in an animation. If it is not an animation but a single texture, set it to 1.
 
-* **`start_number:`** Starting number of the image name suffix. This is only used for animations where image names are in a numeric order like walk1.png, walk2.png, walk3.png, walk4.png ...
+* **`startIndex:`** (Integer) Starting number of the image name suffix. This is only used for animations where image names are in a numeric order like walk3.png, walk4.png ...
 
-* **`ipoc:`** Interaction-point column-offset for the visual.
+* **`ipoc:`** (Integer) Interaction-point column-offset for the visual.
 
-* **`ipor:`** Interaction-point row-offset for the visual.
+* **`ipor:`** (Integer) Interaction-point row-offset for the visual.
 
 If you want to create an interaction point for a visual you can set interaction-point-offset by defining 'ipor' and 'ipoc' as row and column. This means when the you use methods like 'moveControllableToObj' the engine will move the controllable to this interaction points instead of just the nearest neighbouring tile. For instance, you can have characters interacting and you can allow your controllable character to interact with other characters depending on which way they are looking.
                 
@@ -167,90 +196,88 @@ If you want to create an interaction point for a visual you can set interaction-
 
 > `idle_s, idle_sw, idle_w, idle_nw, idle_n, idle_ne, idle_e, idle_se, move_s, move_sw, move_w, move_nw, move_n, move_ne, move_e, move_se`
 	
-> **NOTE 2:** `<f>` tags of a `<v>` tag has priority over attributes defining animation sequences. So if you use both the engine will process only the `<f>` tags.
+> **NOTE 2:** `"frames"` of a visual has priority over attributes defining animation sequences. So if you use both the engine will process only the `"frames"` property.
 
-> **NOTE 3:** For an object, at minimum, one `<v>` tag with the `id="idle"` is required. This will also be used as the initial visual (single texture or animation sequence) that will be applied to your object until you change it in your own logic.
+> **NOTE 3:** For an object, at minimum, one visual with the id `"idle"` is required. This will also be used as the initial visual (single texture or animation sequence) that will be applied to your object until you change it in your own logic. 
 
 <br/>
 ### Ground Map
 
-`<ground_map>` tag defines ground/terrain layer of the map. `0` means no tile image AND non-walkable area.
+`"groundMap"` section defines ground/terrain layer of the map. `0` means no tile image AND non-walkable area.
 
-```xml
-<ground_map>
-    <row>1 ,1 ,1 ,1</row>
-    <row>1 ,0 ,0 ,1</row>
-    <row>1 ,0 ,0 ,1</row>
-    <row>1 ,1 ,1 ,1</row>
-</ground_map>
-<map_data>
+```json
+"groundMap": [
+    { "row": "1 ,1 ,1 ,1" },
+    { "row": "1 ,0 ,0 ,1" },
+    { "row": "1 ,0 ,0 ,1" },
+    { "row": "1 ,1 ,1 ,1" }
+]
 ```
 
-This setting will create a frame of tiles with `id="1"` around an empty area with no tiles which means your controllable objects cannot walk on this area.
+This setting will create a frame of tiles with type `1` around an empty area with no tiles which means your controllable objects cannot walk on this area.
 
-> **NOTE 1:** When used with `<single_ground_image>` tag, you don't necesserily need `<tiles>` tag. You can only include 0s and 1s to define which of the areas on the map are walkable. But you can also still put individual tile images on top of your global ground image by defining them in `<tiles>` tag.
+> **NOTE 1:** When used with `"singleGroundImage"`, you don't necesserily need "tiles" section. You can only include `0`s and `1`s to define which of the areas on the map are walkable. But you can also still put individual tile images on top of your global ground image by defining them in `"tiles"` section.
 
-> **NOTE 2:** If there is no `<single_ground_image>` defined then that means each tile has its own image which should be defined under `<tiles>` tag.
+> **NOTE 2:** If there is no `"singleGroundImage"` defined then that means each tile has its own image which should be defined under `"tiles"` section.
 
 <br/>
 ### Single Ground Image `optional`
 
-`<single_ground_image>` tag is an **optional** one. If you want to use a single ground/terrain image for your map instead of individual tile images then this property comes handy.
+`"singleGroundImage"` section is an **optional** one. If you want to use a single ground/terrain image for your map instead of individual tile images then this property comes handy.
 
-```xml
-<single_ground_image scale="2">
-    <path>assets/ground.jpg</path>
-</single_ground_image>
+```json
+"singleGroundImage": { "path": "assets/ground.jpg", "scale": 2 }
 ```
 
-When you define a `<path>` for your single-ground-image as shown above, then you can use `<ground_map>` tag just to define which areas are walkable and which are not on your map by using 0s and 1s.
+When you define a `"path"` for your single-ground-image as shown above, then you can use `"groundMap"` section just to define which areas are walkable and which are not on your map by using `0`s and `1`s.
 
 The image should be loaded before the engine starts or it should be passed to the engine inside the `assetsToLoad` property of your configuration object.
 
-> **NOTE:** If you are using a single-ground-image but also want individual tile images as well, then just go and define your tiles under `<tiles>` tag and use their ids in the `<ground_map>`. The engine will overlay individual tile images onto your single-ground-image. Just keep in mind that **no** tile can have `id="0"`.
+> **NOTE:** If you are using a single-ground-image but also want individual tile images as well, then just go and define your tiles under `"tiles"` section and use their ids in the `"groundMap"`. The engine will overlay individual tile images onto your single-ground-image. Just keep in mind that **no** tile can have key/id `"0"`.
 
-`<single_ground_image>` tag only have one attribute at the moment:
+`"singleGroundImage"` section only have two attributes at the moment:
+
+* **`path:`** Image name/id as it is accessed throughout a cached spritesheet or with a path externally.
 
 * **`scale:`** Scale amount to apply to the single-ground-image so that you can use smaller images and scale them up for extra big maps, default 1.
 
 <br/>
 ### Object Map
 
-`<object_map>` tag defines object layer of the map. `0` means no object for that location.
+`"objectsMap"` section defines object layer of the map. `0` means no object for that location.
 
-```xml
-<object_map>
-    <row>0 ,0 ,0 ,0</row>
-    <row>0 ,1 ,0 ,0</row>
-    <row>0 ,0 ,1 ,0</row>
-    <row>0 ,0 ,0 ,0</row>
-</object_map>
+```json
+"objectsMap": [
+    { "row": "0 ,0 ,0 ,0" },
+    { "row": "0 ,1 ,0 ,0" },
+    { "row": "0 ,0 ,1 ,0" },
+    { "row": "0 ,0 ,0 ,0" }
+]
 ```
 
-Just put the proper id of the objects that you have defined under `<objects>` tag in the location you desire to put the object.
+Just put the proper id of the objects that you have defined under `"objects"` section in the location you desire to put the object.
 
 <br/>
 ### Image for Tile Highlighting `optional`
 
-`<tile_highlight_image>` tag defines the image to be overlayed on the tile when highlighted.
+`"tileHighlightImage"` tag defines the image to be overlayed on the tile when highlighted.
 
-```xml
-<tile_highlight_image>tileHighlight.png</tile_highlight_image>
+```json
+"tileHighlightImage": { "path": "tileHighlight.png" }
 ``` 
 
-As always, either it should be loaded before the engine starts or it should be passed to the engine inside the `assetsToLoad` property of your configuration object. Use your tile size as a guide to create your highliting image. 
+As always, either it should be loaded before the engine starts or it should be passed to the engine inside the `assetsToLoad` property of your configuration object. Use your tile size as a guide to create your highliting image.
 
 <br/>
 ### Initial Controllable Location `optional`
 
+`"initialControllableLocation"` section defines the location of the controllable object on the map when it is first initiated.
 
-`<initial_controllable_location>` tag defines the location of the controllable object on the map when it is first initiated.
-
-```xml
-<initial_controllable_location c="5" r="10" />
+```json
+"initialControllableLocation": { "columnIndex": 5, "rowIndex": 10 }
 ```
 
-This uses `c` and `r` attributes to define row and column indexes.
+This uses `columnIndex` and `rowIndex` attributes to define row and column indexes.
 
 > **NOTE:** You don't need to include this tag in your data file if you want to define your controllable later on manually.
 

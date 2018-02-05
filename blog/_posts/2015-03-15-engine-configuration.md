@@ -6,15 +6,17 @@ summary: How to configure your traviso engine instance.
 categories: tutorial
 ---
 
-(Updated on Nov 26, 2015)
+(Updated on Feb 03, 2018)
 ___
+
+> **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
 
 When you create a traviso engine instance you need to define a configuration object for it.
 
 ```js
 var instanceConfig =
 {
-    mapDataPath : "mapData.xml",
+    mapDataPath : "mapData.json",
     assetsToLoad : ["grassTile.png", "waterTile.png", "house.png", "box.png"],
 };
 
@@ -23,7 +25,7 @@ var engine = TRAVISO.getEngineInstance(instanceConfig);
 
 <!--more-->
 
-`mapDataPath` is the only required component which specifies the path to the XML file that defines map data.
+`mapDataPath` is the only required component which specifies the path to the JSON file that defines map data.
 
 `assetsToLoad` is an array of paths to the assets that are desired to be loaded by traviso. No need to use this if your assets are already loaded to PIXI cache.
 
@@ -73,12 +75,11 @@ mapDraggable {Boolean} // enable dragging the map with touch-and-touchmove or mo
 backgroundColor {Number(Hexadecimal)} // background color, if defined the engine will create a solid colored background for the map, default null
 useMask {Boolean} // creates a mask using the position frame defined by 'initialPositionFrame' property or the 'posFrame' parameter that is passed to 'repositionContent' method, default false
 
-callbackScope {Object} // the scope to apply when calling callback functions, default null
-engineInstanceReadyCallback {Function} // callback function that will be called once everything is loaded and engine instance is ready, needs 'callbackScope' property, default null
-tileSelectCallback {Function} // callback function that will be called when a tile is selected, needs 'callbackScope' property, default null
-objectSelectCallback {Function} // callback function that will be called when a tile with an interactive map-object on it is selected, needs 'callbackScope' property, default null
-objectReachedDestinationCallback {Function} // callback function that will be called when any moving object reaches its destination, needs 'callbackScope' property, default null
-otherObjectsOnTheNextTileCallback {Function} // callback function that will be called when any moving object is in move and there are other objects on the next tile, needs 'callbackScope' property, default null
+engineInstanceReadyCallback {Function} // callback function that will be called once everything is loaded and engine instance is ready, default null
+tileSelectCallback {Function} // callback function that will be called when a tile is selected, default null
+objectSelectCallback {Function} // callback function that will be called when a tile with an interactive map-object on it is selected, default null
+objectReachedDestinationCallback {Function} // callback function that will be called when any moving object reaches its destination, default null
+otherObjectsOnTheNextTileCallback {Function} // callback function that will be called when any moving object is in move and there are other objects on the next tile, default null
 objectUpdateCallback {Function} // callback function that will be called everytime an objects direction or position changed, default null
 ```
 
