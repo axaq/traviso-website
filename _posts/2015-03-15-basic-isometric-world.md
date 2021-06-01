@@ -18,7 +18,7 @@ Creating an isometric world with Traviso is pretty straightforward. Here is what
 1. Visuals for tiles and objects.
 2. A JSON file for Traviso to know what goes where.
 
-> **NOTE:** Traviso is built on top of the **pixi.js** rendering engine. So if you haven't already check it out <a href="http://www.pixijs.com" target="_blank">here</a>.
+> **NOTE:** Traviso is built on top of the **pixi.js** rendering engine. So if you haven't already check it out <a href="https://www.pixijs.com" target="_blank">here</a>.
 
 <!--more-->
 
