@@ -20,7 +20,7 @@ markdown:    kramdown
 # redcarpet:
 #   extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
 highlighter: rouge
-url: http://www.travisojs.com
+url: https://www.travisojs.com
 excerpt_separator: <!--more-->
 permalink: /blog/:categories/:year/:month/:day/:title.html
 
