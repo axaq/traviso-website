@@ -11,9 +11,9 @@ demo: "/examples/example6/"
 
 ___
 
-> **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
+> **NOTE:** This document has been updated. XML files are no longer in use and instead we have json files for map data.
 
-With Traviso you can use a single ground image instead of using seperate tile images for each tile or you can mix the two.
+With Traviso you can use a single ground image instead of using separate tile images for each tile or you can mix the two.
 
 To begin with, you need to set your JSON data file correct. Optional `"singleGroundImage"` section should be set for this option.
 

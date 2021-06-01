@@ -11,7 +11,7 @@ demo: "/examples/example4/"
 
 ___
 
-> **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files are no longer in use and instead we have json files for map data.
+> **NOTE:** This document has been updated. XML files are no longer in use and instead we have json files for map data.
 
 Traviso has built-in camera methods that you can call externally to play around to get the best result in your own app logic.
 
@@ -19,7 +19,7 @@ At this point you can either read the tutorial below or go ahead and see the res
 
 <!--more-->
 
-Here is a list of public methods realted to camera controls that you can use with the engine:  
+Here is a list of public methods related to the camera controls that you can use with the engine:
 
 
 * `centralizeToCurrentExternalCenter( instantRelocate=false )` : External center is the central point of the frame defined by the user to be used as the visual size of the engine. This method centralizes the EngineView instance with respect to this external center-point.
@@ -39,7 +39,7 @@ You can reach a more detailed documentation about this methods <a href="/docs/" 
 
 Now, let's make a panel to control our camera.
 
-First, we initialise a traviso engine. (For basic isometric engine creation you can read [this]({% post_url 2015-03-15-basic-isometric-world %} "Basic isometric world") tutorial.) 
+First, we initialize a traviso engine. (For basic isometric engine creation you can read [this]({% post_url 2015-03-15-basic-isometric-world %} "Basic isometric world") tutorial.) 
 
 ```js
 ////// Here, we initialize the pixi application
@@ -212,15 +212,15 @@ You can check out the demo from <a href="/examples/example4/" target="_blank">he
 
 
 <br/>
-Additionally there are some handy properties related to camera controls that you can define in the confuguration object. Here is a list:
+Additionally there are some handy properties related to camera controls that you can define in the configuration object. Here is a list:
 
-* **minScale {Number} :** mimimum scale that the DisplayObjectContainer for the map can get, default 0.5
+* **minScale {Number} :** minimum scale that the DisplayObjectContainer for the map can get, default 0.5
 * **maxScale {Number} :** maximum scale that the DisplayObjectContainer for the map can get, default 1.5
 * **numberOfZoomLevels {Number} :** used to calculate zoom increment, default 5
 * **initialZoomLevel {Number} :** initial zoom level of the map, should be between -1 and 1, default 0
-* **instantCameraZoom {Number} :** specifies wheather to zoom instantly or with a tween animation, default false
+* **instantCameraZoom {Number} :** specifies whether to zoom instantly or with a tween animation, default false
 * **followCharacter {Boolean} :** defines if the camera will follow the current controllable or not, default true
-* **instantCameraRelocation {Boolean} :** specifies wheather the camera moves instantly or with a tween animation to the target location, default false
+* **instantCameraRelocation {Boolean} :** specifies whether the camera moves instantly or with a tween animation to the target location, default false
 * **mapDraggable {Boolean} :** enable dragging the map with touch-and-touchmove or mousedown-and-mousemove on the map, default true
 
 Hope you liked it. Let me know your thoughts either in the comments below or through twitter.

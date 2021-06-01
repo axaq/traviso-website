@@ -11,7 +11,7 @@ demo: "/examples/example5/"
 
 ___
 
-> **NOTE:** This document has been updated with the realese of <a href="https://github.com/axaq/traviso.js/releases" target="_blank">v1.0.0</a>. XML files and `callbackScope` setting are no longer in use.
+> **NOTE:** This document has been updated. XML files and `callbackScope` setting are no longer in use.
 
 Traviso has built-in callback methods that you can define through the configuration object that you pass to a traviso engine instance.
 
@@ -169,7 +169,7 @@ Finally, we will add a method to create little boxes and spread them up:
 ```js
 function createAndStartBoxAnim()
 {
-    // create six seperate boxes to spread
+    // create six separate boxes to spread
     var boxAnim = new PIXI.Container();
     var t = PIXI.Texture.fromFrame("box.png");
     var box;
@@ -196,7 +196,7 @@ function createAndStartBoxAnim()
 
 That's all for now. You can check out the demo from <a href="/examples/example5/" target="_blank">here</a>.
 
-Above examples demostrate just a way of using the callbacks but you can come up with different uses depending on your logic.
+Above examples demonstrate just a way of using the callbacks but you can come up with different uses depending on your logic.
 
 Hope you liked it. Let me know your thoughts either in the comments below or through twitter.
 
